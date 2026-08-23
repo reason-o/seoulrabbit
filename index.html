@@ -19,7 +19,7 @@
 <body class="bg-amber-50/40 min-h-screen text-stone-800 flex items-center justify-center p-4 font-sans antialiased">
 
   <!-- 메인 컨테이너 -->
-  <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100 overflow-hidden flex flex-col min-h-[640px] relative">
+  <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100 overflow-hidden flex flex-col min-h-[600px] relative">
     
     <!-- 상단 언어 선택 바 -->
     <nav class="bg-stone-50 border-b border-orange-50 px-4 py-2 flex items-center justify-center gap-1 text-xs">
@@ -64,7 +64,7 @@
     let currentSubNode = null;
     let history = [];
 
-    // UI 다국어 사전 (직관적 구어체)
+    // UI 다국어 사전
     const I18N = {
       ko: {
         headerTitle: "지금 어떤 느낌이 드시나요?",
@@ -123,56 +123,56 @@
       }
     };
 
-    // 1단계: 직관적인 상태/기분 카드
+    // 1단계: 직관적인 4대 상태 카드
     const STATUS_CATEGORIES = [
       {
         id: "tired",
         icon: "😴",
-        ko: { title: "너무 졸리고 피곤해요", desc: "눈이 번쩍 뜨이는 강력한 한 방이 필요해요" },
-        en: { title: "So sleepy and exhausted", desc: "Need an intense kick to wake me up right now" },
-        ja: { title: "とにかく眠くて疲れた", desc: "目がパッと冴える強烈な一杯がほしい" },
-        zh: { title: "太困了，特别累", desc: "需要瞬间精神一振的超强提神饮" },
-        fr: { title: "Très fatigué et envie de dormir", desc: "Besoin d'un coup de fouet immédiat" },
+        ko: { title: "너무 졸리고\n피곤해요", desc: "강력한 한 방 필요!" },
+        en: { title: "So sleepy &\nexhausted", desc: "Need an instant kick" },
+        ja: { title: "眠くて\n疲れた", desc: "目が冴える一杯" },
+        zh: { title: "太困了\n特别累", desc: "瞬间强效提神" },
+        fr: { title: "Fatigué &\népuisé", desc: "Coup de fouet" },
         directResult: "ginger_shot"
       },
       {
         id: "bloated",
         icon: "🤢",
-        ko: { title: "속이 더부룩하고 답답해요", desc: "소화가 잘 안 되거나 몸을 가볍게 비우고 싶어요" },
-        en: { title: "My stomach feels bloated / heavy", desc: "Need something easy on digestion and light" },
-        ja: { title: "お腹が張って重たい・もたれる", desc: "消化を助けて体をすっきり軽くしたい" },
-        zh: { title: "肚子胀，消化不太好", desc: "想喝杯舒服养胃、让身体变轻松的饮品" },
-        fr: { title: "L'estomac lourd et ballonné", desc: "Besoin de légèreté et de faciliter la digestion" },
+        ko: { title: "속이 더부룩하고\n답답해요", desc: "속 편한 가벼움" },
+        en: { title: "Stomach feels\nbloated / heavy", desc: "Easy digestion" },
+        ja: { title: "お腹が重い・\nもたれる", desc: "消化すっきりケア" },
+        zh: { title: "肚子胀\n消化不顺", desc: "舒缓养胃无负担" },
+        fr: { title: "Estomac lourd &\nballonné", desc: "Digestion douce" },
         nextQuestion: "q_belly_choice"
       },
       {
         id: "cold",
         icon: "🥶",
-        ko: { title: "몸이 으슬으슬 춥고 찌뿌둥해요", desc: "알싸한 생강으로 몸을 따뜻하게 덥히고 싶어요" },
-        en: { title: "Feeling chilly and sluggish", desc: "Want to warm up with the spicy kick of ginger" },
-        ja: { title: "体が冷えてゾクゾク・だるい", desc: "ピリッとした生姜でポカポカ温まりたい" },
-        zh: { title: "身上发冷，有点着凉", desc: "想用微辣生姜暖暖胃、热热身" },
-        fr: { title: "Frissons et coup de froid", desc: "Envie de me réchauffer avec du bon gingembre" },
+        ko: { title: "몸이 으슬으슬\n춥고 찌뿌둥해요", desc: "따뜻한 생강 훈기" },
+        en: { title: "Feeling chilly &\nsluggish", desc: "Warm ginger kick" },
+        ja: { title: "体が冷えて\nゾクゾクする", desc: "生姜でポカポカ" },
+        zh: { title: "身上发冷\n有点着凉", desc: "微辣生姜暖身" },
+        fr: { title: "Frissons &\ncoup de froid", desc: "Gingembre chaud" },
         nextQuestion: "q_ginger_citrus"
       },
       {
         id: "hungry_sweet",
         icon: "😋",
-        ko: { title: "출출해요 / 달콤한 당이 땡겨요", desc: "기분 좋아지는 달콤한 음료나 커피가 생각나요" },
-        en: { title: "Craving something sweet / hungry", desc: "Looking for a tasty dessert drink or coffee" },
-        ja: { title: "小腹がすいた / 甘いものが飲みたい", desc: "ご褒美スイーツや美味しい珈琲で癒やされたい" },
-        zh: { title: "肚子有点饿 / 想喝甜的", desc: "想喝一杯好喝的甜点饮品或咖啡提神" },
-        fr: { title: "Petite faim / Envie de douceur", desc: "Envie d'une boisson gourmande ou d'un café" },
+        ko: { title: "출출해요 / 달콤한\n당이 땡겨요", desc: "디저트 & 커피 힐링" },
+        en: { title: "Craving sweet /\nhungry", desc: "Tasty treats & coffee" },
+        ja: { title: "小腹がすいた /\n甘いものが飲みたい", desc: "ご褒美スイーツ＆珈琲" },
+        zh: { title: "肚子饿 /\n想喝甜的", desc: "治愈甜点与咖啡" },
+        fr: { title: "Petite faim /\nEnvie de douceur", desc: "Pause gourmande" },
         nextQuestion: "q_treat_coffee"
       }
     ];
 
-    // 2단계: 직관적인 세부 질문
+    // 2단계: 세부 질문 노드
     const SUB_QUESTIONS = {
       q_belly_choice: {
         step: 2,
         questions: {
-          ko: { q: "어떤 채소가 더 끌리시나요?", sub: "위 편한 양배추 vs 몸 가벼워지는 비트 vs 순수 당근", yesText: "양배추 (속 편한 CCA)", noText: "비트 (가벼운 ABC)" },
+          ko: { q: "어떤 채소가 더 끌리시나요?", sub: "위 편한 양배추 vs 몸 가벼워지는 비트", yesText: "양배추 (속 편한 CCA)", noText: "비트 (가벼운 ABC)" },
           en: { q: "Which vegetable do you feel like having?", sub: "Soothing cabbage vs Energizing beet", yesText: "Cabbage (Soothing CCA)", noText: "Beetroot (Light ABC)" },
           ja: { q: "どちらの野菜でリセットしたいですか？", sub: "胃に優しいキャベツ vs 体が軽くなるビーツ", yesText: "キャベツ (胃に優しい CCA)", noText: "ビーツ (軽やか ABC)" },
           zh: { q: "更想喝哪种蔬菜搭配？", sub: "养胃卷心菜 vs 轻体甜菜根", yesText: "卷心菜 (养胃 CCA)", noText: "甜菜根 (轻体 ABC)" },
@@ -243,7 +243,7 @@
       }
     };
 
-    // 11종 메뉴 데이터 (직관적 설명)
+    // 11종 메뉴 데이터
     const MENUS = {
       ginger_shot: {
         ko: { name: "서울진저샷", tag: "#잠깨는맛 #생강원액 #초강력활력", desc: "나른할 때 원샷! 눈이 번쩍 뜨이고 정신이 맑아지는 강력한 생강 샷이에요." },
@@ -414,23 +414,18 @@
         btnBack.classList.add("hidden");
       }
 
-      // 1. 홈 화면 (직관적 상태 선택)
+      // 1. 홈 화면 (2열 2행 2x2 그리드 배치)
       if (currentView === "home") {
         headerSub.classList.remove("hidden");
-        let html = `<div class="animate-fade-in flex flex-col gap-3">`;
+        let html = `<div class="animate-fade-in grid grid-cols-2 gap-3 h-full my-auto">`;
         
         STATUS_CATEGORIES.forEach(cat => {
           const item = cat[currentLang] || cat["ko"];
           html += `
-            <button onclick="selectStatus('${cat.id}')" class="w-full text-left p-4 rounded-2xl bg-orange-50/50 hover:bg-orange-100/70 border border-orange-100 active:scale-[0.99] transition-all flex items-center gap-3.5 group shadow-sm">
-              <span class="text-2xl p-2 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-transform">${cat.icon}</span>
-              <div class="flex-1 min-w-0">
-                <h2 class="text-sm font-bold text-stone-900 leading-snug">${item.title}</h2>
-                <p class="text-xs text-stone-500 mt-0.5 truncate">${item.desc}</p>
-              </div>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-orange-400 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-              </svg>
+            <button onclick="selectStatus('${cat.id}')" class="w-full h-full p-4 rounded-3xl bg-orange-50/50 hover:bg-orange-100/70 border border-orange-100 active:scale-[0.97] transition-all flex flex-col items-center justify-center text-center group shadow-sm min-h-[145px]">
+              <span class="text-3xl mb-2.5 p-2 bg-white rounded-2xl shadow-sm group-hover:scale-110 transition-transform">${cat.icon}</span>
+              <h2 class="text-sm font-extrabold text-stone-900 leading-snug whitespace-pre-line">${item.title}</h2>
+              <p class="text-[11px] text-orange-600/80 font-medium mt-1">${item.desc}</p>
             </button>
           `;
         });
