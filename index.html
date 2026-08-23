@@ -40,8 +40,8 @@
       </button>
 
       <span class="text-[11px] font-bold tracking-widest text-orange-600 uppercase bg-orange-100/70 px-2.5 py-0.5 rounded-full inline-block mb-1">Seoul Rabbit</span>
-      <h1 id="header-title" class="text-lg font-extrabold text-stone-900 tracking-tight">지금 어떤 느낌이 드시나요?</h1>
-      <p id="header-sub" class="text-xs text-stone-500 mt-0.5">가장 가까운 상태를 하나 골라보세요</p>
+      <h1 id="header-title" class="text-lg font-extrabold text-stone-900 tracking-tight">지금 나에게 딱 맞는 주스는?</h1>
+      <p id="header-sub" class="text-xs text-stone-500 mt-0.5">내 몸 상태에 어울리는 한 잔을 찾아드려요</p>
     </header>
 
     <!-- 동적 뷰 영역 -->
@@ -67,8 +67,8 @@
     // UI 다국어 사전
     const I18N = {
       ko: {
-        headerTitle: "지금 어떤 느낌이 드시나요?",
-        headerSub: "가장 가까운 상태를 하나 골라보세요",
+        headerTitle: "지금 나에게 딱 맞는 주스는?",
+        headerSub: "내 몸 상태에 어울리는 한 잔을 찾아드려요",
         backText: "이전으로 가기",
         footerText: "서울래빗 서촌주스랩",
         recommendBadge: "지금 딱 맞는 추천 음료",
@@ -78,8 +78,8 @@
         defaultNo: "NO (다른 게 좋아요)"
       },
       en: {
-        headerTitle: "How are you feeling right now?",
-        headerSub: "Pick the one that fits you best",
+        headerTitle: "Which juice fits you best right now?",
+        headerSub: "Find the perfect drink for your current body condition",
         backText: "BACK",
         footerText: "Seoul Rabbit Seochon Juice Lab",
         recommendBadge: "PERFECT FOR YOU",
@@ -89,8 +89,8 @@
         defaultNo: "NO"
       },
       ja: {
-        headerTitle: "今の気分・体調は？",
-        headerSub: "一番近いものをひとつ選んでください",
+        headerTitle: "今、自分にぴったりのジュースは？",
+        headerSub: "今の体調にぴったりの一杯を見つけましょう",
         backText: "戻る",
         footerText: "ソウルラビット 西村ジュースラボ",
         recommendBadge: "今あなたにぴったりの一杯",
@@ -100,8 +100,8 @@
         defaultNo: "NO (いいえ)"
       },
       zh: {
-        headerTitle: "现在感觉怎么样？",
-        headerSub: "请选择最符合你现在状态的一项",
+        headerTitle: "现在哪款果汁最适合你？",
+        headerSub: "为你找到最契合此刻身体状态的一杯",
         backText: "返回",
         footerText: "Seoul Rabbit 西村果汁实验所",
         recommendBadge: "为你专属推荐",
@@ -111,8 +111,8 @@
         defaultNo: "NO (换一个)"
       },
       fr: {
-        headerTitle: "Comment vous sentez-vous là maintenant ?",
-        headerSub: "Choisissez ce qui vous correspond le mieux",
+        headerTitle: "Quel jus est parfait pour vous là maintenant ?",
+        headerSub: "Trouvez la boisson idéale pour votre corps",
         backText: "RETOUR",
         footerText: "Seoul Rabbit Seochon Juice Lab",
         recommendBadge: "PARFAIT POUR VOUS",
@@ -123,7 +123,7 @@
       }
     };
 
-    // 1단계: 직관적인 4대 상태 카드
+    // 1단계: 직관적인 4대 상태 카드 (2x2 그리드)
     const STATUS_CATEGORIES = [
       {
         id: "tired",
@@ -414,7 +414,7 @@
         btnBack.classList.add("hidden");
       }
 
-      // 1. 홈 화면 (2열 2행 2x2 그리드 배치)
+      // 1. 홈 화면 (2x2 그리드)
       if (currentView === "home") {
         headerSub.classList.remove("hidden");
         let html = `<div class="animate-fade-in grid grid-cols-2 gap-3 h-full my-auto">`;
