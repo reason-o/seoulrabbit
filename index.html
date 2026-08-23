@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>서울래빗 - 메뉴 추천 가이드</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.25s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="bg-amber-50/40 min-h-screen text-stone-800 flex items-center justify-center p-4 font-sans antialiased">
+
+  <!-- 메인 컨테이너 -->
+  <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100 overflow-hidden flex flex-col min-h-[580px] relative">
+    
+    <!-- 상단 헤더 -->
+    <header class="p-6 pb-2 text-center relative border-b border-orange-50">
+      <button id="btn-back" class="hidden absolute left-5 top-6 text-stone-400 hover:text-stone-700 transition-colors p-1" aria-label="이전 질문으로 돌아가기">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <span class="text-xs font-bold tracking-widest text-orange-600 uppercase bg-orange-100/70 px-3 py-1 rounded-full inline-block mb-1">Seoul Rabbit</span>
+      <h1 class="text-xl font-extrabold text-stone-900 tracking-tight">오늘 마실 메뉴 찾기</h1>
+      
+      <!-- 진행률 바 -->
+      <div id="progress-container" class="w-full bg-stone-100 h-1.5 rounded-full mt-4 overflow-hidden">
+        <div id="progress-bar" class="bg-orange-500 h-full w-1/4 transition-all duration-300"></div>
+      </div>
+    </header>
+
+    <!-- 동적 뷰 영역 -->
+    <div id="view-container" class="flex-1 p-6 flex flex-col justify-between">
+      <!-- JS를 통해 질문 또는 결과 카드가 렌더링됩니다 -->
+    </div>
+
+    <!-- 하단 브랜드 표시 -->
+    <footer class="py-3 text-center bg-stone-50/50 border-t border-stone-100 text-xs text-stone-400">
+      서울래빗 서촌점 · 신선한 착즙 주스
+    </footer>
+  </main>
+
+  <script>
+    // 네이버 스마트주문 기본 URL (실제 매장 URL로 교체 가능)
+    const BASE_NAVER_ORDER_URL = "https://m.booking.naver.com/order/bizes/1140512/items/5866364?area=bnq";
+
+    // 11종 메뉴 데이터 정의
+    const MENUS = {
+      carrot_coffee: {
+        name: "당근커피",
+        desc: "에스프레소의 진한 풍미와 당근의 은은한 단맛이 어우러진 이색 시그니처",
+        tag: "#카페인충전 #시그니처 #이색조합",
+        orderUrl: BASE_NAVER_ORDER_URL
+      },
+      carrot_cake: {
+        name: "마시는당근케이크",
+        desc: "달콤하고 부드럽게 채워주는 든든한 디저트형 주스",
+        tag: "#달콤디저트 #부드러운맛 #당충전",
+        orderUrl: BASE_NAVER_ORDER_URL
+      },
+      ginger_shot: {
+        name: "서울진저샷",
+        desc: "피로와 나른함을 단숨에 깨워주는 고농축 생강 에너지 부스터",
+        tag: "#활력충전 #면역력 #고농축부스터",
+        orderUrl: BASE_NAVER_ORDER_URL
+      },
+      coco_carrot: {
+        name: "코코캐롯",
+        desc: "코코넛 밀크의 고소함과 당근이 만난 부드럽고 이국적인 블렌딩",
+        tag: "#크리미 #코코넛 #부드러운목넘김",
+        orderUrl: BASE_NAVER_ORDER_URL
+      },
+      carrot_colada: {
+        name: "캐롯콜라다",
+        desc: "열대 과일의 청량함과 코코넛 향이 더해진 산뜻한 트로피컬 무드",
+        tag: "#트로피컬 #상큼청량 #이색풍미",
+        orderUrl: BASE_NAVER_ORDER_URL
+      },
+      carrot_100: {
+        name: "100% 당근",
+        desc: "물, 설탕 한 방울 없이 오직 신선한 당근 본연의 맛을 담은 순수 착즙",
+        tag: "#클린식단 #순수착즙 #당근매니아",
+        orderUrl: BASE_NAVER_ORDER_URL
+      },
+      orange_carrot_ginger: {
+        name: "오렌지당근생강",
+        desc: "상큼한 오렌지 과즙과 알싸한 생강의 밸런스가 매력적인 리프레시 주스",
+        tag: "#시트러스 #상큼알싸 #기분전환",
+        orderUrl: BASE_NAVER_ORDER_URL
+      },
+      carrot_ginger: {
+        name: "당근생강",
+        desc: "당근의 달큰함 뒤에 찾아오는 깔끔하고 알싸한 생강의 매력",
+        tag: "#알싸한맛 #속편한 #시그니처클래식",
+        orderUrl: BASE_NAVER_ORDER_URL
+      },
+      cca_juice: {
+        name: "CCA주스",
+        desc: "당근(Carrot), 양배추(Cabbage), 사과(Apple)를 담아 속을 편안하게 해주는 건강 루틴",
+        tag: "#위편안 #모닝루틴 #식이섬유",
+        orderUrl: BASE_NAVER_ORDER_URL
+      },
+      abc_juice: {
+        name: "ABC주스",
+        desc: "사과(Apple), 비트(Beet), 당근(Carrot)의 황금 배합으로 채우는 데일리 활력",
+        tag: "#데일리활력 #클렌즈 #풍부한영양",
+        orderUrl: BASE_NAVER_ORDER_URL
+      },
+      carrot_apple: {
+        name: "당근사과",
+        desc: "호불호 없이 누구나 즐길 수 있는 달콤하고 싱그러운 최강 조합",
+        tag: "#달콤상큼 #대중적인맛 #베스트셀러",
+        orderUrl: BASE_NAVER_ORDER_URL
+      }
+    };
+
+    // 의사결정 트리 노드 설정
+    const TREE = {
+      q1: {
+        step: 1,
+        question: "카페인이나 달콤한 디저트 느낌의 음료를 찾으시나요?",
+        sub: "기분 전환용 디저트 음료 vs 깔끔한 건강 과채 주스",
+        yes: "q2_coffee",
+        no: "q2_shot"
+      },
+      // YES 브랜치: 카페인/디저트
+      q2_coffee: {
+        step: 2,
+        question: "오늘 카페인(커피) 수혈이 필요하신가요?",
+        sub: "에스프레소 샷이 들어간 음료를 고르시겠어요?",
+        yes: { result: "carrot_coffee" },
+        no: { result: "carrot_cake" }
+      },
+      // NO 브랜치: 주스 라인업
+      q2_shot: {
+        step: 2,
+        question: "피로를 깨워줄 강력한 한 방(고농축 샷)이 필요한가요?",
+        sub: "단숨에 마시는 에너지 부스터 샷",
+        yes: { result: "ginger_shot" },
+        no: "q3_style"
+      },
+      q3_style: {
+        step: 3,
+        question: "당근 본연의 맛이나 이색적인 트로피컬 조합을 원하시나요?",
+        sub: "순수 당근/코코넛 계열 vs 과채 블렌딩(과일·생강)",
+        yes: "q4_tropical",
+        no: "q4_fruit_blend"
+      },
+      // 트로피컬/순수당근 브랜치
+      q4_tropical: {
+        step: 4,
+        question: "코코넛이나 이색 블렌딩을 좋아하시나요?",
+        sub: "색다른 풍미 선호 vs 당근 100% 본연의 맛",
+        yes: "q5_creamy",
+        no: { result: "carrot_100" }
+      },
+      q5_creamy: {
+        step: 5,
+        question: "부드럽고 크리미한 목넘김을 원하시나요?",
+        sub: "밀키한 부드러움 vs 산뜻하고 트로피컬한 청량감",
+        yes: { result: "coco_carrot" },
+        no: { result: "carrot_colada" }
+      },
+      // 과채 블렌딩 브랜치
+      q4_fruit_blend: {
+        step: 4,
+        question: "생강 특유의 알싸하고 개운한 향을 좋아하시나요?",
+        sub: "생강 블렌딩 vs 사과 중심의 대중적인 단맛",
+        yes: "q5_ginger_citrus",
+        no: "q5_apple_balance"
+      },
+      q5_ginger_citrus: {
+        step: 5,
+        question: "상큼한 시트러스(오렌지) 향이 더해지면 좋겠나요?",
+        sub: "상큼알싸한 오렌지 추가 vs 진한 당근생강 클래식",
+        yes: { result: "orange_carrot_ginger" },
+        no: { result: "carrot_ginger" }
+      },
+      q5_apple_balance: {
+        step: 5,
+        question: "사과 베이스의 균형 잡힌 과채 블렌딩을 원하시나요?",
+        sub: "단일 당근사과 vs 기능성 채소(양배추/비트) 추가",
+        yes: "q6_cca_abc",
+        no: { result: "carrot_apple" }
+      },
+      q6_cca_abc: {
+        step: 6,
+        question: "어떤 건강 포인트에 더 집중하고 싶으신가요?",
+        sub: "위가 편안한 양배추(CCA) vs 혈색을 깨우는 비트(ABC)",
+        yesText: "양배추 (위 편한 CCA)",
+        noText: "비트 (활력 ABC)",
+        yes: { result: "cca_juice" },
+        no: { result: "abc_juice" }
+      }
+    };
+
+    // 상태 관리
+    let currentNodeKey = "q1";
+    let history = [];
+
+    const viewContainer = document.getElementById("view-container");
+    const btnBack = document.getElementById("btn-back");
+    const progressBar = document.getElementById("progress-bar");
+    const progressContainer = document.getElementById("progress-container");
+
+    // 화면 렌더링 함수
+    function render() {
+      const node = TREE[currentNodeKey];
+
+      // 이전 버튼 및 프로그레스 바 상태 업데이트
+      if (history.length > 0) {
+        btnBack.classList.remove("hidden");
+      } else {
+        btnBack.classList.add("hidden");
+      }
+
+      // 1. 질문 화면 렌더링
+      if (node && node.question) {
+        progressContainer.classList.remove("hidden");
+        const progressPercent = Math.min((node.step / 5) * 100, 100);
+        progressBar.style.width = `${progressPercent}%`;
+
+        const yesLabel = node.yesText || "YES (네, 좋아요!)";
+        const noLabel = node.noText || "NO (다른 게 좋아요)";
+
+        viewContainer.innerHTML = `
+          <div class="animate-fade-in flex flex-col justify-between h-full">
+            <div class="my-auto py-4 text-center">
+              <span class="text-orange-500 font-bold text-sm tracking-wider">QUESTION ${node.step}</span>
+              <h2 class="text-2xl font-bold text-stone-900 mt-2 mb-3 leading-snug break-keep">
+                ${node.question}
+              </h2>
+              <p class="text-sm text-stone-500 break-keep">
+                ${node.sub}
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-3.5 pt-4">
+              <button onclick="handleAnswer('yes')" class="w-full py-4 px-5 rounded-2xl bg-orange-500 hover:bg-orange-600 active:scale-[0.98] transition-all text-white font-bold text-lg shadow-lg shadow-orange-500/25 flex items-center justify-center">
+                ${yesLabel}
+              </button>
+              <button onclick="handleAnswer('no')" class="w-full py-4 px-5 rounded-2xl bg-stone-100 hover:bg-stone-200 active:scale-[0.98] transition-all text-stone-700 font-semibold text-lg flex items-center justify-center">
+                ${noLabel}
+              </button>
+            </div>
+          </div>
+        `;
+      } 
+      // 2. 최종 결과 화면 렌더링
+      else if (node && node.result) {
+        progressContainer.classList.add("hidden");
+        const menu = MENUS[node.result];
+
+        viewContainer.innerHTML = `
+          <div class="animate-fade-in flex flex-col justify-between h-full text-center">
+            <div class="my-auto py-2">
+              <span class="inline-block px-3 py-1 bg-orange-100 text-orange-700 text-xs font-extrabold rounded-full mb-3">
+                당신을 위한 맞춤 추천
+              </span>
+              <h2 class="text-3xl font-extrabold text-stone-900 tracking-tight mb-2">
+                ${menu.name}
+              </h2>
+              <p class="text-xs font-semibold text-orange-600 tracking-wide mb-4">
+                ${menu.tag}
+              </p>
+              <div class="bg-orange-50/70 p-5 rounded-2xl border border-orange-100 text-stone-700 text-sm leading-relaxed break-keep mb-2">
+                ${menu.desc}
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-3 pt-3">
+              <a href="${menu.orderUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-4 px-5 rounded-2xl bg-green-600 hover:bg-green-700 active:scale-[0.98] transition-all text-white font-bold text-lg shadow-lg shadow-green-600/20 flex items-center justify-center gap-2">
+                <span>네이버 주문으로 바로가기</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+              <button onclick="resetQuiz()" class="w-full py-3 text-stone-400 hover:text-stone-600 text-sm font-medium transition-colors">
+                처음부터 다시 찾기
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // 버튼 클릭 이벤트 핸들러
+    window.handleAnswer = function(choice) {
+      const node = TREE[currentNodeKey];
+      const nextTarget = node[choice];
+
+      history.push(currentNodeKey);
+
+      if (typeof nextTarget === "string") {
+        currentNodeKey = nextTarget;
+      } else if (nextTarget && nextTarget.result) {
+        currentNodeKey = `result_${nextTarget.result}`;
+        TREE[currentNodeKey] = nextTarget; // 동적 결과 노드 바인딩
+      }
+      render();
+    };
+
+    // 이전 질문으로 이동
+    btnBack.addEventListener("click", () => {
+      if (history.length > 0) {
+        currentNodeKey = history.pop();
+        render();
+      }
+    });
+
+    // 퀴즈 초기화
+    window.resetQuiz = function() {
+      history = [];
+      currentNodeKey = "q1";
+      render();
+    };
+
+    // 초기 실행
+    render();
+  </script>
+</body>
+</html>
