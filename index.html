@@ -117,11 +117,12 @@
       }
     };
 
-    // 1단계 테마 카드 4종
+    // 1단계 테마 카드 (아이콘 파일명 또는 이모지 모두 지원)
     const STATUS_CATEGORIES = [
       {
         id: "wake_up",
-        icon: "⚡",
+        icon: "icon-energy.png", // 업로드한 파일명에 맞게 변경 가능 (파일이 없으면 기본 ⚡ 출력)
+        fallbackEmoji: "⚡",
         ko: { title: "확 깨는 한 잔이\n필요해요", desc: "번쩍 뜨이는 활력과 에너지" },
         en: { title: "Need an instant\nwake-up call", desc: "Intense energy & freshness" },
         ja: { title: "シャキッと目が覚める\n一杯がほしい", desc: "強力な活力とエナジー" },
@@ -131,7 +132,8 @@
       },
       {
         id: "light_fresh",
-        icon: "🥬",
+        icon: "icon-fresh.png",
+        fallbackEmoji: "🥬",
         ko: { title: "가볍고 산뜻하게\n마시고 싶어요", desc: "부담 없이 편안하고 맑게" },
         en: { title: "Light & refreshing\nsip", desc: "Clean, breezy and natural" },
         ja: { title: "軽やかで爽快に\n飲みたい", desc: "負担なくすっきりと" },
@@ -141,7 +143,8 @@
       },
       {
         id: "healthy_juice",
-        icon: "🥕",
+        icon: "icon-healthy.png",
+        fallbackEmoji: "🥕",
         ko: { title: "건강한 주스를\n제대로 마시고 싶어요", desc: "자연 과채의 꽉 찬 영양" },
         en: { title: "Proper healthy\npressed juice", desc: "Rich vitality from raw nature" },
         ja: { title: "本格的な健康ジュースを\nしっかり味わいたい", desc: "素材まるごとの栄養" },
@@ -151,7 +154,8 @@
       },
       {
         id: "sweet_tasty",
-        icon: "🥥",
+        icon: "icon-sweet.png",
+        fallbackEmoji: "🥥",
         ko: { title: "달콤하고 맛있는 게\n당겨요", desc: "디저트 & 커피 힐링" },
         en: { title: "Craving something\nsweet & delicious", desc: "Indulgent treats & craft coffee" },
         ja: { title: "甘くて美味しいものが\n飲みたい", desc: "ご褒美スイーツ＆珈琲" },
@@ -313,7 +317,7 @@
         no: { result: "carrot_apple" }
       },
 
-      // 🥥 4. 달콤하고 맛있는 게 당겨요 (수정 완료!)
+      // 🥥 4. 달콤하고 맛있는 게 당겨요
       q_sweet_creamy: {
         step: 2,
         questions: {
@@ -326,7 +330,6 @@
         yes: "q_sweet_coconut_like",
         no: "q_sweet_coffee_like"
       },
-      // 크리미 YES -> 코코넛 vs 당근케이크
       q_sweet_coconut_like: {
         step: 3,
         questions: {
@@ -337,7 +340,7 @@
           fr: { q: "Aimez-vous le parfum exotique de la noix de coco ?", sub: "Mélange à la noix de coco vs Gâteau à la carotte" }
         },
         yes: "q_sweet_tropical_fruit",
-        no: { result: "carrot_cake" } // 코코넛 대신 달콤한 당근케이크!
+        no: { result: "carrot_cake" }
       },
       q_sweet_tropical_fruit: {
         step: 4,
@@ -351,7 +354,6 @@
         yes: { result: "carrot_colada" },
         no: { result: "coco_carrot" }
       },
-      // 크리미 NO -> 커피 vs 당근사과
       q_sweet_coffee_like: {
         step: 3,
         questions: {
@@ -366,7 +368,7 @@
       }
     };
 
-    // 11종 메뉴 데이터 (전체 네이버 스마트주문 다이렉트 URL 매핑)
+    // 11종 메뉴 데이터
     const MENUS = {
       ginger_shot: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/19808240?area=bnq",
@@ -428,7 +430,7 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18046068?area=bnq",
         ko: { name: "100% 당근", tag: "#물설탕0 #순수착즙 #달콤한원액", desc: "물이나 설탕 없이 오직 당근만 착즙했어요. 신선하고 달콤한 당근 본연의 풍부한 영양을 즐겨보세요." },
         en: { name: "100% Carrot", tag: "#ZeroAddedWater #PureRaw #SweetCarrot", desc: "Pure cold-pressed raw carrot juice with zero water or sugar. Naturally sweet!" },
-        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #本物のニンジン #自然な甘さ", desc: "水も砂糖도 ゼロ！新鮮なニンジンだけを搾った、驚くほど甘いジュース。" },
+        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #本物のニンジン #自然な甘さ", desc: "水も砂糖もゼロ！新鮮なニンジンだけを搾った、驚くほど甘いジュース。" },
         zh: { name: "100% 纯胡萝卜汁", tag: "#不加一滴水和糖 #纯天然原汁 #自然清甜", desc: "不加水也不加糖，只有纯粹胡萝卜原汁，甘甜可口超新鲜！" },
         fr: { name: "100% Carotte", tag: "#SansEauSansSucre #100Carotte #DouceurNaturelle", desc: "100% pur jus de carotte pressé, sans eau ni sucre. Naturellement doux !" }
       },
@@ -542,16 +544,22 @@
         btnBack.classList.add("hidden");
       }
 
-      // 1. 홈 화면 (2x2 그리드)
+      // 1. 홈 화면 (이미지 파일 + 이모지 둘 다 지원)
       if (currentView === "home") {
         headerSub.classList.remove("hidden");
         let html = `<div class="animate-fade-in grid grid-cols-2 gap-3 py-1">`;
         
         STATUS_CATEGORIES.forEach(cat => {
           const item = cat[currentLang] || cat["ko"];
+          const isImageFile = cat.icon.includes(".");
+
+          const iconMarkup = isImageFile
+            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-2\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-12 h-12 object-contain mb-1.5 drop-shadow-sm group-hover:scale-105 transition-transform" />`
+            : `<span class="text-3xl mb-2">${cat.icon}</span>`;
+
           html += `
             <button onclick="selectStatus('${cat.id}')" class="w-full p-4 rounded-2xl bg-orange-50/50 hover:bg-orange-100/70 border border-orange-100 active:scale-[0.97] transition-all flex flex-col items-center justify-center text-center group shadow-sm min-h-[140px]">
-              <span class="text-3xl mb-2">${cat.icon}</span>
+              ${iconMarkup}
               <h2 class="text-sm font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line">${item.title}</h2>
               <p class="text-[11px] text-orange-600 font-medium mt-1 break-keep">${item.desc}</p>
             </button>
