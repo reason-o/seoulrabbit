@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>서울래빗 서촌주스랩 - 메뉴 찾기</title>
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @keyframes fadeIn {
@@ -18,10 +17,8 @@
 </head>
 <body class="bg-[#FAF7F2] min-h-screen text-stone-800 flex items-center justify-center p-3 sm:p-4 font-sans antialiased">
 
-  <!-- 메인 카드 (단일 컨테이너) -->
   <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100/80 overflow-hidden flex flex-col min-h-[580px] relative">
     
-    <!-- 언어 선택 바 -->
     <nav class="bg-stone-50/80 border-b border-orange-50 px-3 py-2 flex items-center justify-center gap-1 text-xs">
       <button onclick="setLanguage('ko')" id="lang-ko" class="lang-btn px-2.5 py-1 rounded-full font-bold transition-all bg-orange-500 text-white">한국어</button>
       <button onclick="setLanguage('en')" id="lang-en" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">English</button>
@@ -30,7 +27,6 @@
       <button onclick="setLanguage('fr')" id="lang-fr" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">Français</button>
     </nav>
 
-    <!-- 상단 헤더 & 뒤로가기 -->
     <header class="p-5 pb-3 text-center relative border-b border-orange-50">
       <button id="btn-back" class="hidden absolute left-4 top-5 text-stone-600 hover:text-stone-900 transition-colors flex items-center gap-1 text-xs font-bold bg-stone-100 hover:bg-stone-200 px-2.5 py-1.5 rounded-full" aria-label="Back">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -44,10 +40,8 @@
       <p id="header-sub" class="text-xs text-stone-500 mt-1">원하는 느낌의 카드를 골라보세요</p>
     </header>
 
-    <!-- 동적 화면 렌더링 영역 -->
     <div id="view-container" class="flex-1 p-4 sm:p-5 flex flex-col justify-center"></div>
 
-    <!-- 하단 푸터 -->
     <footer id="footer-text" class="py-3 text-center bg-stone-50/50 border-t border-stone-100 text-xs text-stone-400 font-medium">
       서울래빗 서촌주스랩
     </footer>
@@ -119,6 +113,7 @@
       }
     };
 
+    // 1단계 테마 카드 4종
     const STATUS_CATEGORIES = [
       {
         id: "wake_up",
@@ -128,7 +123,7 @@
         ja: { title: "シャキッと目が覚める\n一杯がほしい", desc: "強力な活力とエナジー" },
         zh: { title: "需要一杯\n瞬间提神的饮品", desc: "唤醒状态的超强活力" },
         fr: { title: "Besoin d'un\ncoup de fouet", desc: "Énergie intense et vivifiante" },
-        nextQuestion: "q_wake_1"
+        nextQuestion: "q_wake_ginger_like"
       },
       {
         id: "light_fresh",
@@ -138,7 +133,7 @@
         ja: { title: "軽やかで爽快に\n飲みたい", desc: "負担なくすっきりと" },
         zh: { title: "想喝一杯\n轻盈清爽的饮品", desc: "自然纯净无负担" },
         fr: { title: "Envie de légèreté\net de fraîcheur", desc: "Sain, doux et désaltérant" },
-        nextQuestion: "q_light_1"
+        nextQuestion: "q_light_fruit_sour"
       },
       {
         id: "healthy_juice",
@@ -148,7 +143,7 @@
         ja: { title: "本格的な健康ジュースを\nしっかり味わいたい", desc: "素材まるごとの栄養" },
         zh: { title: "想认真喝一杯\n健康纯正果蔬汁", desc: "饱含天然果蔬营养" },
         fr: { title: "Un vrai jus sain\net nutritif", desc: "Toute la richesse de la nature" },
-        nextQuestion: "q_healthy_1"
+        nextQuestion: "q_healthy_veggie_presence"
       },
       {
         id: "sweet_tasty",
@@ -158,91 +153,116 @@
         ja: { title: "甘くて美味しいものが\n飲みたい", desc: "ご褒美スイーツ＆珈琲" },
         zh: { title: "想喝好喝又香甜的\n治愈饮品", desc: "美味甜点与特色咖啡" },
         fr: { title: "Envie d'une boisson\ngourmande et douce", desc: "Plaisir sucré et café signature" },
-        nextQuestion: "q_sweet_1"
+        nextQuestion: "q_sweet_creamy"
       }
     ];
 
+    // 2~4단계 질문 및 최종 메뉴 매핑
     const SUB_QUESTIONS = {
-      // 1. 확 깨는 한 잔 갈래
-      q_wake_1: {
+      // ⚡ 1. 확 깨는 한 잔이 필요해요
+      q_wake_ginger_like: {
         step: 2,
         questions: {
           ko: { q: "알싸한 생강 맛도 좋아하세요?", sub: "생강 특유의 알싸한 향 선호 여부" },
-          en: { q: "Do you enjoy the spicy warmth of ginger?", sub: "Ginger infused kick vs Non-ginger fresh options" },
+          en: { q: "Do you enjoy the spicy warmth of ginger?", sub: "Spicy ginger aroma preference" },
           ja: { q: "ピリッとした生姜の味はお好きですか？", sub: "生姜のピリリとした刺激がお好みですか？" },
-          zh: { q: "喜欢生姜特有的微辣风味吗？", sub: "微辣生姜风味 vs 无姜清爽风味" },
-          fr: { q: "Aimez-vous le goût épicé du gingembre ?", sub: "Note de gingembre vivifiante ou douceur fruitée" }
+          zh: { q: "喜欢生姜特有的微辣风味吗？", sub: "是否喜欢生姜独特的微辣香气" },
+          fr: { q: "Aimez-vous le goût épicé du gingembre ?", sub: "Préférence pour la touche vive du gingembre" }
         },
         yes: "q_wake_ginger_strong",
-        no: "q_wake_coffee"
+        no: "q_wake_coffee_aroma"
       },
       q_wake_ginger_strong: {
         step: 3,
         questions: {
-          ko: { q: "아주 강한 생강 맛도 괜찮아요?", sub: "원샷 고농축 샷 vs 부드러운 과즙 블렌딩" },
-          en: { q: "Are you ready for an ultra-intense ginger kick?", sub: "Concentrated shot vs Smooth juice blend" },
-          ja: { q: "とても強い生姜の刺激でも大丈夫ですか？", sub: "超濃厚ショット vs 飲みやすいブレンド" },
-          zh: { q: "能接受超浓郁强烈的生姜味吗？", sub: "高浓缩生姜原饮 vs 柔和果汁调配" },
-          fr: { q: "Un goût de gingembre très puissant vous convient-il ?", sub: "Shot concentré intense vs Jus fruité équilibré" }
+          ko: { q: "생강 맛이 강할수록 좋아요?", sub: "고농축 샷 vs 상큼한 과채 블렌딩" },
+          en: { q: "The stronger the ginger, the better?", sub: "Super concentrated shot vs Citrus blend" },
+          ja: { q: "生姜の味は強いほど良いですか？", sub: "超濃厚ショット vs 爽やかブレンド" },
+          zh: { q: "生姜味越浓烈越好吗？", sub: "超浓缩生力饮 vs 复合酸甜果蔬汁" },
+          fr: { q: "Plus le gingembre est fort, mieux c'est ?", sub: "Shot concentré vs Mélange fruité équilibré" }
         },
         yes: { result: "ginger_shot" },
-        no: "q_wake_orange"
+        no: "q_wake_orange_sour"
       },
-      q_wake_orange: {
+      q_wake_orange_sour: {
         step: 4,
         questions: {
-          ko: { q: "오렌지의 상큼함도 좋아하세요?", sub: "상큼한 시트러스 추가 vs 진한 당근생강 오리지널" },
-          en: { q: "Do you like a burst of citrusy fresh orange?", sub: "Zesty orange ginger vs Classic carrot ginger" },
-          ja: { q: "爽やかなオレンジの酸味もお好きですか？", sub: "フルーティーなオレンジ生姜 vs 王道のキャロット生姜" },
-          zh: { q: "也喜欢新鲜香橙的酸甜果香吗？", sub: "酸甜香橙生姜 vs 浓郁纯正经典生姜" },
-          fr: { q: "Aimez-vous la fraîcheur acidulée de l'orange ?", sub: "Orange-gingembre tonique vs Carotte-gingembre classique" }
+          ko: { q: "오렌지처럼 상큼한 맛도 좋아하세요?", sub: "시트러스 오렌지 추가 vs 진한 당근생강 클래식" },
+          en: { q: "Do you like a refreshing citrus flavor like orange?", sub: "Orange twist vs Classic carrot ginger" },
+          ja: { q: "オレンジのように爽やかな味もお好きですか？", sub: "オレンジ追加 vs 王道キャロット生姜" },
+          zh: { q: "喜欢像香橙一样酸甜清爽的口感吗？", sub: "加入鲜橙果香 vs 经典浓郁生姜" },
+          fr: { q: "Aimez-vous la fraîcheur acidulée de l'orange ?", sub: "Touche d'orange vs Carotte gingembre classique" }
         },
         yes: { result: "orange_carrot_ginger" },
         no: { result: "carrot_ginger" }
       },
-      q_wake_coffee: {
+      q_wake_coffee_aroma: {
         step: 3,
         questions: {
-          ko: { q: "커피 향은 좋아하세요?", sub: "에스프레소 카페인 충전 vs 달콤상큼한 당근사과" },
-          en: { q: "Do you enjoy the rich aroma of coffee?", sub: "Espresso carrot coffee vs Sweet crisp carrot apple" },
-          ja: { q: "コーヒーの香りはお好きですか？", sub: "名物キャロット珈琲 vs 定番のキャロットアップル" },
-          zh: { q: "喜欢浓郁的咖啡香气吗？", sub: "创意胡萝卜特调咖啡 vs 经典苹果胡萝卜汁" },
-          fr: { q: "Aimez-vous l'arôme du café ?", sub: "Carrot Coffee espresso vs Douceur carotte-pomme" }
+          ko: { q: "커피 향은 좋아하세요?", sub: "에스프레소 카페인 음료 vs 논카페인 주스" },
+          en: { q: "Do you like the aroma of coffee?", sub: "Espresso signature vs Non-caffeine juice" },
+          ja: { q: "コーヒーの香りはお好きですか？", sub: "エスプレッソ珈琲 vs ノンカフェインジュース" },
+          zh: { q: "喜欢浓郁的咖啡香气吗？", sub: "浓缩咖啡特调 vs 无咖啡因果蔬汁" },
+          fr: { q: "Aimez-vous l'arôme du café ?", sub: "Café espresso signature vs Jus sans caféine" }
         },
         yes: { result: "carrot_coffee" },
-        no: { result: "carrot_apple" }
+        no: "q_wake_citrus_juice"
+      },
+      q_wake_citrus_juice: {
+        step: 4,
+        questions: {
+          ko: { q: "오렌지처럼 상큼한 주스는 좋아하세요?", sub: "상큼한 과즙 블렌딩 vs 100% 순수 당근 착즙" },
+          en: { q: "Do you like a refreshing juice like orange?", sub: "Zesty citrus blend vs 100% pure raw carrot" },
+          ja: { q: "オレンジのように爽快なジュースはお好きですか？", sub: "爽やかブレンド vs 100%純粋ストレート" },
+          zh: { q: "喜欢像香橙一样清爽可口的果汁吗？", sub: "酸甜复合果汁 vs 100% 纯胡萝卜汁" },
+          fr: { q: "Aimez-vous les jus rafraîchissants type orange ?", sub: "Mélange tonique vs 100% Pur jus de carotte" }
+        },
+        yes: { result: "orange_carrot_ginger" },
+        no: { result: "carrot_100" }
       },
 
-      // 2. 가볍고 산뜻하게 갈래
-      q_light_1: {
+      // 🥬 2. 가볍고 산뜻하게 마시고 싶어요
+      q_light_fruit_sour: {
         step: 2,
         questions: {
-          ko: { q: "과일처럼 상큼한 맛이 좋아요?", sub: "과일의 상큼달콤함 vs 채소 본연의 깔끔함" },
-          en: { q: "Do you prefer a fruity, crisp and sweet taste?", sub: "Fruity vibrant notes vs Earthy raw greens" },
-          ja: { q: "フルーツのような爽やかで甘酸っぱい味が良いですか？", sub: "フルーティーな爽快感 vs 野菜本来のクリーンな味" },
-          zh: { q: "更偏爱像水果一样酸甜清爽的口感吗？", sub: "水果酸甜风味 vs 纯粹蔬菜清香" },
-          fr: { q: "Préférez-vous un goût fruité, doux et acidulé ?", sub: "Fraîcheur fruitée vs Pureté des légumes" }
+          ko: { q: "과일의 상큼함이 있는 게 좋아요?", sub: "과일의 상큼달콤함 vs 채소 중심의 깔끔한 맛" },
+          en: { q: "Do you prefer a fruity, crisp and refreshing taste?", sub: "Fruity sweet & sour vs Clean veggie flavor" },
+          ja: { q: "果実の爽やかな酸味がある方が良いですか？", sub: "フルーティーな甘酸っぱさ vs 野菜本来のすっきり感" },
+          zh: { q: "喜欢带有水果自然酸甜的口感吗？", sub: "水果酸甜风味 vs 纯粹清爽蔬菜风味" },
+          fr: { q: "Préférez-vous la fraîcheur acidulée des fruits ?", sub: "Fruits acidulés vs Goût pur des légumes" }
         },
-        yes: "q_light_beet",
-        no: "q_light_greens"
+        yes: "q_light_ginger_fine",
+        no: "q_light_veggie_taste"
       },
-      q_light_beet: {
+      q_light_ginger_fine: {
         step: 3,
         questions: {
-          ko: { q: "비트가 들어가도 좋아요?", sub: "붉은 비트의 활력 배합 vs 익숙한 당근사과" },
-          en: { q: "Are you happy with nutrient-rich beetroot in it?", sub: "ABC (Apple, Beet, Carrot) vs Simple Carrot Apple" },
-          ja: { q: "ビーツが入っていても大丈夫ですか？", sub: "栄養満点のABCジュース vs 定番キャロットアップル" },
+          ko: { q: "상큼함에 생강의 알싸함도 괜찮아요?", sub: "오렌지당근생강 vs 사과/비트 과채 조합" },
+          en: { q: "Is a hint of spicy ginger with the citrus okay for you?", sub: "Orange Carrot Ginger vs Apple/Beet blends" },
+          ja: { q: "爽やかさに生姜のピリッとした辛味も大丈夫ですか？", sub: "オレンジキャロット生姜 vs リンゴ/ビーツブレンド" },
+          zh: { q: "在酸甜中带有一点生姜的微辣也可以吗？", sub: "香橙胡萝卜生姜汁 vs 苹果/甜菜根配方" },
+          fr: { q: "Une pointe de gingembre avec la fraîcheur vous convient ?", sub: "Orange Carotte Gingembre vs Pomme / Betterave" }
+        },
+        yes: { result: "orange_carrot_ginger" },
+        no: "q_light_beet_like"
+      },
+      q_light_beet_like: {
+        step: 4,
+        questions: {
+          ko: { q: "비트가 들어가도 좋아요?", sub: "사과·비트·당근(ABC) vs 달콤상큼 당근사과" },
+          en: { q: "Are you happy with nutrient-rich beetroot in it?", sub: "ABC (Apple, Beet, Carrot) vs Sweet Carrot Apple" },
+          ja: { q: "ビーツが入っていても大丈夫ですか？", sub: "ABCジュース vs 定番キャロットアップル" },
           zh: { q: "加入红润养颜的甜菜根可以吗？", sub: "ABC果蔬汁 (含甜菜根) vs 经典苹果胡萝卜" },
           fr: { q: "La betterave vous convient-elle ?", sub: "Jus ABC (avec betterave) vs Simple Carotte-Pomme" }
         },
         yes: { result: "abc_juice" },
         no: { result: "carrot_apple" }
       },
-      q_light_greens: {
+      q_light_veggie_taste: {
         step: 3,
         questions: {
-          ko: { q: "채소 맛이 조금 느껴져도 괜찮아요?", sub: "양배추·당근 복합 채소 vs 순수 당근 100%" },
-          en: { q: "Is a light taste of fresh veggies okay for you?", sub: "Soothing cabbage blend (CCA) vs Pure raw carrot 100%" },
+          ko: { q: "채소 맛이 조금 느껴져도 괜찮아요?", sub: "양배추 배합(CCA) vs 100% 순수 당근 착즙" },
+          en: { q: "Is a light taste of fresh veggies okay for you?", sub: "Soothing Cabbage (CCA) vs 100% Pure Raw Carrot" },
           ja: { q: "野菜の風味が少し感じられても大丈夫ですか？", sub: "胃に優しいキャベツ(CCA) vs ニンジン100%ストレート" },
           zh: { q: "能接受稍带一点清爽蔬菜风味吗？", sub: "养胃卷心菜复合(CCA) vs 100% 纯胡萝卜汁" },
           fr: { q: "Une touche de légumes frais vous convient-elle ?", sub: "Mélange au chou (CCA) vs 100% Pur jus de carotte" }
@@ -251,8 +271,8 @@
         no: { result: "carrot_100" }
       },
 
-      // 3. 건강한 주스 제대로 갈래
-      q_healthy_1: {
+      // 🥕 3. 건강한 주스를 제대로 마시고 싶어요
+      q_healthy_veggie_presence: {
         step: 2,
         questions: {
           ko: { q: "채소의 존재감이 조금 있어도 괜찮아요?", sub: "과채 기능성 블렌딩 vs 부드럽고 친숙한 조합" },
@@ -261,10 +281,10 @@
           zh: { q: "蔬菜的存在感稍微明显一点也可以吗？", sub: "功能性果蔬纯调配 vs 顺滑亲切口感" },
           fr: { q: "Une vraie présence de légumes vous convient-elle ?", sub: "Jus fonctionnel bienfaisant vs Mélange doux et soyeux" }
         },
-        yes: "q_healthy_beet",
-        no: "q_healthy_coconut"
+        yes: "q_healthy_beet_sour",
+        no: "q_healthy_coco_smooth"
       },
-      q_healthy_beet: {
+      q_healthy_beet_sour: {
         step: 3,
         questions: {
           ko: { q: "비트가 들어간 산뜻한 맛이 좋아요?", sub: "비트의 맑은 활력(ABC) vs 양배추의 속 편함(CCA)" },
@@ -276,7 +296,7 @@
         yes: { result: "abc_juice" },
         no: { result: "cca_juice" }
       },
-      q_healthy_coconut: {
+      q_healthy_coco_smooth: {
         step: 3,
         questions: {
           ko: { q: "코코넛밀크의 부드러운 맛은 좋아하세요?", sub: "고소하고 부드러운 코코넛 vs 달콤상큼한 사과" },
@@ -289,8 +309,8 @@
         no: { result: "carrot_apple" }
       },
 
-      // 4. 달콤하고 맛있는 것 갈래
-      q_sweet_1: {
+      // 🥥 4. 달콤하고 맛있는 게 당겨요
+      q_sweet_creamy: {
         step: 2,
         questions: {
           ko: { q: "부드럽고 크리미한 맛이 좋아요?", sub: "크리미하고 든든한 디저트 vs 향긋한 커피/스무디" },
@@ -299,10 +319,10 @@
           zh: { q: "喜欢柔滑醇厚、奶香满满的口感吗？", sub: "丝滑热带风味 vs 咖啡/蛋糕甜品" },
           fr: { q: "Préférez-vous une texture douce et crémeuse ?", sub: "Douceur tropicale onctueuse vs Pause café & dessert" }
         },
-        yes: "q_sweet_tropical",
-        no: "q_sweet_coffee"
+        yes: "q_sweet_tropical_fruit",
+        no: "q_sweet_coffee_aroma"
       },
-      q_sweet_tropical: {
+      q_sweet_tropical_fruit: {
         step: 3,
         questions: {
           ko: { q: "열대과일의 달콤한 맛도 좋아하세요?", sub: "상큼청량한 캐롯콜라다 vs 고소하고 부드러운 코코캐롯" },
@@ -314,7 +334,7 @@
         yes: { result: "carrot_colada" },
         no: { result: "coco_carrot" }
       },
-      q_sweet_coffee: {
+      q_sweet_coffee_aroma: {
         step: 3,
         questions: {
           ko: { q: "커피 향이 들어가도 좋아요?", sub: "에스프레소 당근커피 vs 리얼 당근케이크 맛 스무디" },
@@ -328,6 +348,7 @@
       }
     };
 
+    // 11종 메뉴 데이터
     const MENUS = {
       ginger_shot: {
         ko: { name: "서울진저샷", tag: "#에너지충전 #초강력활력 #리프레시", desc: "나른할 때 원샷! 눈이 번쩍 뜨이고 정신이 맑아지는 강력한 생강 에너지 샷이에요." },
