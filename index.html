@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>서울래빗 서촌주스랩 - 메뉴 찾기</title>
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @keyframes fadeIn {
@@ -18,10 +17,8 @@
 </head>
 <body class="bg-amber-50/40 min-h-screen text-stone-800 flex items-center justify-center p-4 font-sans antialiased">
 
-  <!-- 메인 컨테이너 -->
   <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100 overflow-hidden flex flex-col min-h-[600px] relative">
     
-    <!-- 상단 언어 선택 바 -->
     <nav class="bg-stone-50 border-b border-orange-50 px-4 py-2 flex items-center justify-center gap-1 text-xs">
       <button onclick="setLanguage('ko')" id="lang-ko" class="lang-btn px-2.5 py-1 rounded-full font-bold transition-all bg-orange-500 text-white shadow-sm">한국어</button>
       <button onclick="setLanguage('en')" id="lang-en" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">English</button>
@@ -30,7 +27,6 @@
       <button onclick="setLanguage('fr')" id="lang-fr" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">Français</button>
     </nav>
 
-    <!-- 상단 헤더 & 뒤로가기 -->
     <header class="p-5 pb-2 text-center relative border-b border-orange-50">
       <button id="btn-back" class="hidden absolute left-4 top-5 text-stone-500 hover:text-stone-800 transition-colors flex items-center gap-1 text-xs font-bold bg-stone-100 hover:bg-stone-200 px-2.5 py-1.5 rounded-full" aria-label="Back">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -40,16 +36,13 @@
       </button>
 
       <span class="text-[11px] font-bold tracking-widest text-orange-600 uppercase bg-orange-100/70 px-2.5 py-0.5 rounded-full inline-block mb-1">Seoul Rabbit</span>
-      <h1 id="header-title" class="text-lg font-extrabold text-stone-900 tracking-tight">지금 나에게 딱 맞는 주스는?</h1>
-      <p id="header-sub" class="text-xs text-stone-500 mt-0.5">내 몸 상태에 어울리는 한 잔을 찾아드려요</p>
+      <h1 id="header-title" class="text-lg font-extrabold text-stone-900 tracking-tight">지금 어떤 한 잔이 당기나요?</h1>
+      <p id="header-sub" class="text-xs text-stone-500 mt-0.5">원하는 느낌의 카드를 골라보세요</p>
     </header>
 
-    <!-- 동적 뷰 영역 -->
     <div id="view-container" class="flex-1 p-5 flex flex-col justify-between">
-      <!-- JS로 화면 렌더링 -->
-    </div>
+      </div>
 
-    <!-- 하단 푸터 -->
     <footer id="footer-text" class="py-3 text-center bg-stone-50/50 border-t border-stone-100 text-xs text-stone-500 font-medium">
       서울래빗 서촌주스랩
     </footer>
@@ -67,19 +60,19 @@
     // UI 다국어 사전
     const I18N = {
       ko: {
-        headerTitle: "지금 나에게 딱 맞는 주스는?",
-        headerSub: "내 몸 상태에 어울리는 한 잔을 찾아드려요",
+        headerTitle: "지금 어떤 한 잔이 당기나요?",
+        headerSub: "원하는 느낌의 카드를 골라보세요",
         backText: "이전으로 가기",
         footerText: "서울래빗 서촌주스랩",
-        recommendBadge: "지금 딱 맞는 추천 음료",
+        recommendBadge: "지금 딱 맞는 추천 메뉴",
         orderBtn: "네이버 주문으로 바로가기",
         restartBtn: "처음부터 다시 찾기",
-        defaultYes: "YES (네, 좋아요)",
+        defaultYes: "YES (좋아요 / 맞아요)",
         defaultNo: "NO (다른 게 좋아요)"
       },
       en: {
-        headerTitle: "Which juice fits you best right now?",
-        headerSub: "Find the perfect drink for your day",
+        headerTitle: "What kind of drink do you crave right now?",
+        headerSub: "Pick the mood you are looking for",
         backText: "BACK",
         footerText: "Seoul Rabbit Seochon Juice Lab",
         recommendBadge: "PERFECT FOR YOU",
@@ -89,33 +82,33 @@
         defaultNo: "NO"
       },
       ja: {
-        headerTitle: "今、自分にぴったりのジュースは？",
-        headerSub: "今日の気分にぴったりの一杯を見つけましょう",
+        headerTitle: "今、どんな一杯が飲みたい気分？",
+        headerSub: "今の気分にぴったりのカードを選んでください",
         backText: "戻る",
         footerText: "ソウルラビット 西村ジュースラボ",
-        recommendBadge: "今あなたにぴったりの一杯",
+        recommendBadge: "あなたへのおすすめ",
         orderBtn: "Naverで注文する",
         restartBtn: "最初からやり直す",
         defaultYes: "YES (はい)",
         defaultNo: "NO (いいえ)"
       },
       zh: {
-        headerTitle: "现在哪款果汁最适合你？",
-        headerSub: "为你找到最契合此刻心情与状态的一杯",
+        headerTitle: "此刻你想喝一杯怎样的饮品？",
+        headerSub: "请选择你现在最想要的体验",
         backText: "返回",
         footerText: "Seoul Rabbit 西村果汁实验所",
-        recommendBadge: "为你专属推荐",
+        recommendBadge: "为你推荐",
         orderBtn: "前往 Naver 点餐",
         restartBtn: "重新选择",
         defaultYes: "YES (是的)",
         defaultNo: "NO (换一个)"
       },
       fr: {
-        headerTitle: "Quel jus est parfait pour vous là maintenant ?",
-        headerSub: "Trouvez la boisson idéale pour votre corps",
+        headerTitle: "De quelle boisson avez-vous envie là maintenant ?",
+        headerSub: "Choisissez la sensation qui vous inspire",
         backText: "RETOUR",
         footerText: "Seoul Rabbit Seochon Juice Lab",
-        recommendBadge: "PARFAIT POUR VOUS",
+        recommendBadge: "RECOMMANDÉ POUR VOUS",
         orderBtn: "Commander sur Naver",
         restartBtn: "Recommencer",
         defaultYes: "OUI",
@@ -123,217 +116,295 @@
       }
     };
 
-    // 1단계: 4대 에너지 카드 (2x2 그리드)
+    // 1단계: 4대 핵심 테마 카드 (2x2 그리드)
     const STATUS_CATEGORIES = [
       {
-        id: "energy",
+        id: "wake_up",
         icon: "⚡",
-        ko: { title: "짜릿한 에너지\n충전하기", desc: "번쩍 깨어나는 활력" },
-        en: { title: "Instant Energy\nBoost", desc: "Wake up your body" },
-        ja: { title: "エナジーフル\nチャージ！", desc: "目が冴える強力な一杯" },
-        zh: { title: "瞬间注入\n满格元气", desc: "瞬间唤醒身体活力" },
-        fr: { title: "Plein d'énergie\nInstantané", desc: "Coup de fouet vivifiant" },
-        directResult: "ginger_shot"
+        ko: { title: "확 깨는 한 잔이\n필요해요", desc: "번쩍 뜨이는 활력과 에너지" },
+        en: { title: "Need an instant\nwake-up call", desc: "Intense energy & freshness" },
+        ja: { title: "シャキッと目が覚める\n一杯がほしい", desc: "強力な活力とエナジー" },
+        zh: { title: "需要一杯\n瞬间提神的饮品", desc: "唤醒状态的超强活力" },
+        fr: { title: "Besoin d'un\ncoup de fouet", desc: "Énergie intense et vivifiante" },
+        nextQuestion: "q_wake_1"
       },
       {
-        id: "light_clean",
-        icon: "🌿",
-        ko: { title: "가볍고 편안한\n속 만들기", desc: "산뜻하고 편안한 비움" },
-        en: { title: "Light & Easy\nComfort", desc: "Feel light & refreshed" },
-        ja: { title: "軽やかで\nすっきりリセット", desc: "お腹に優しいケア" },
-        zh: { title: "轻盈身心\n舒缓养护", desc: "无负担的轻松感" },
-        fr: { title: "Légèreté &\nConfort Doux", desc: "Digestion sereine" },
-        nextQuestion: "q_belly_choice"
+        id: "light_fresh",
+        icon: "🥬",
+        ko: { title: "가볍고 산뜻하게\n마시고 싶어요", desc: "부담 없이 편안하고 맑게" },
+        en: { title: "Light & refreshing\nsip", desc: "Clean, breezy and natural" },
+        ja: { title: "軽やかで爽快に\n飲みたい", desc: "負担なくすっきりと" },
+        zh: { title: "想喝一杯\n轻盈清爽的饮品", desc: "自然纯净无负担" },
+        fr: { title: "Envie de légèreté\net de fraîcheur", desc: "Sain, doux et désaltérant" },
+        nextQuestion: "q_light_1"
       },
       {
-        id: "warm_cozy",
-        icon: "☕",
-        ko: { title: "따뜻하고 든든한\n온기 충전", desc: "몸을 따뜻하게 데워줄 때" },
-        en: { title: "Warm & Cozy\nNourishment", desc: "Warm up your body" },
-        ja: { title: "ポカポカ温まる\n温もりチャージ", desc: "体をじんわり温める" },
-        zh: { title: "温润暖身\n惬意滋养", desc: "温热暖胃的惬意之选" },
-        fr: { title: "Chaleur Douce &\nRéconfort", desc: "Se réchauffer en douceur" },
-        nextQuestion: "q_warm_choice"
+        id: "healthy_juice",
+        icon: "🥕",
+        ko: { title: "건강한 주스를\n제대로 마시고 싶어요", desc: "자연 과채의 꽉 찬 영양" },
+        en: { title: "Proper healthy\npressed juice", desc: "Rich vitality from raw nature" },
+        ja: { title: "本格的な健康ジュースを\nしっかり味わいたい", desc: "素材まるごとの栄養" },
+        zh: { title: "想认真喝一杯\n健康纯正果蔬汁", desc: "饱含天然果蔬营养" },
+        fr: { title: "Un vrai jus sain\net nutritif", desc: "Toute la richesse de la nature" },
+        nextQuestion: "q_healthy_1"
       },
       {
-        id: "sweet_reward",
-        icon: "✨",
-        ko: { title: "달콤한 힐링 &\n기분 전환", desc: "달콤한 디저트와 커피" },
-        en: { title: "Sweet Treat &\nCoffee Chill", desc: "Desserts & craft coffee" },
-        ja: { title: "甘い癒やし＆\nご褒美タイム", desc: "スイーツ＆名物珈琲" },
-        zh: { title: "甜蜜治愈\n享受美味", desc: "治愈甜点与浓香咖啡" },
-        fr: { title: "Pause Douceur &\nGourmandise", desc: "Dessert & bon café" },
-        nextQuestion: "q_treat_coffee"
+        id: "sweet_tasty",
+        icon: "🥥",
+        ko: { title: "달콤하고 맛있는 게\n당겨요", desc: "디저트 & 커피 힐링" },
+        en: { title: "Craving something\nsweet & delicious", desc: "Indulgent treats & craft coffee" },
+        ja: { title: "甘くて美味しいものが\n飲みたい", desc: "ご褒美スイーツ＆珈琲" },
+        zh: { title: "想喝好喝又香甜的\n治愈饮品", desc: "美味甜点与特色咖啡" },
+        fr: { title: "Envie d'une boisson\ngourmande et douce", desc: "Plaisir sucré et café signature" },
+        nextQuestion: "q_sweet_1"
       }
     ];
 
-    // 2단계: 세부 질문 노드
+    // 2~3단계 의사결정 트리 (주신 로직 100% 반영)
     const SUB_QUESTIONS = {
-      q_belly_choice: {
+      // ⚡ [확 깨는 한 잔] 갈래
+      q_wake_1: {
         step: 2,
         questions: {
-          ko: { q: "어떤 채소의 영양을 더하고 싶으신가요?", sub: "속을 편안하게 해주는 양배추 vs 몸을 가볍게 채워주는 비트", yesText: "양배추 (속 편한 CCA)", noText: "비트 (가벼운 ABC)" },
-          en: { q: "Which vegetable balance do you want?", sub: "Soothing cabbage vs Energizing beetroot", yesText: "Cabbage (Soothing CCA)", noText: "Beetroot (Light ABC)" },
-          ja: { q: "どちらの野菜でリセットしたいですか？", sub: "胃に優しいキャベツ vs 体が軽くなるビーツ", yesText: "キャベツ (胃に優しい CCA)", noText: "ビーツ (軽やか ABC)" },
-          zh: { q: "更想补充哪种蔬菜营养？", sub: "养胃卷心菜 vs 轻体甜菜根", yesText: "卷心菜 (养胃 CCA)", noText: "甜菜根 (轻体 ABC)" },
-          fr: { q: "Quel bienfait naturel préférez-vous ?", sub: "Chou pour l'estomac vs Betterave pour la légèreté", yesText: "Chou (Confort CCA)", noText: "Betterave (Légèreté ABC)" }
+          ko: { q: "알싸한 생강 맛도 좋아하세요?", sub: "생강 특유의 알싸한 향 선호 여부" },
+          en: { q: "Do you enjoy the spicy warmth of ginger?", sub: "Ginger infused kick vs Non-ginger fresh options" },
+          ja: { q: "ピリッとした生姜の味はお好きですか？", sub: "生姜のピリリとした刺激がお好みですか？" },
+          zh: { q: "喜欢生姜特有的微辣风味吗？", sub: "微辣生姜风味 vs 无姜清爽风味" },
+          fr: { q: "Aimez-vous le goût épicé du gingembre ?", sub: "Note de gingembre vivifiante ou douceur fruitée" }
         },
-        yes: { result: "cca_juice" },
-        no: { result: "abc_juice" }
+        yes: "q_wake_ginger_strong",
+        no: "q_wake_coffee"
       },
-      // 3번 온기 선택 시 세부 브랜치
-      q_warm_choice: {
-        step: 2,
-        questions: {
-          ko: { q: "어떤 스타일의 따뜻함을 원하시나요?", sub: "당근 본연의 맛 그대로 vs 은은하고 알싸한 풍미", yesText: "순수 당근 100% (따뜻하게 즐기기)", noText: "은은하고 깊은 블렌딩 풍미" },
-          en: { q: "What kind of warm comfort do you prefer?", sub: "100% pure warm carrot vs Gently spiced warming blend", yesText: "100% Pure Warm Carrot", noText: "Gently Spiced Blend" },
-          ja: { q: "どんな温もりをお求めですか？", sub: "ニンジン本来の甘みそのまま vs じんわり深いブレンド", yesText: "100% 純粋ホットニンジン", noText: "じんわりブレンド" },
-          zh: { q: "更想要哪种温润口感？", sub: "纯粹胡萝卜原味 vs 醇厚深层的风味调配", yesText: "100% 纯胡萝卜汁 (温热)", noText: "醇厚微辛特调" },
-          fr: { q: "Quelle douceur chaude préférez-vous ?", sub: "100% pur jus de carotte chaud vs Mélange aux épices douces", yesText: "100% Pur Jus Chaud", noText: "Mélange Épicé Réconfortant" }
-        },
-        yes: { result: "carrot_100" },
-        no: "q_warm_citrus"
-      },
-      q_warm_citrus: {
+      q_wake_ginger_strong: {
         step: 3,
         questions: {
-          ko: { q: "상큼한 오렌지 향이 어우러지면 좋겠나요?", sub: "상큼하고 산뜻한 온기 vs 깊고 깔끔한 클래식 온기", yesText: "상큼한 오렌지당근생강", noText: "깊고 진한 당근생강" },
-          en: { q: "Would you like a touch of fresh orange?", sub: "Bright citrus warmth vs Deep classic warmth", yesText: "Orange Carrot Ginger", noText: "Classic Carrot Ginger" },
-          ja: { q: "爽快なオレンジの香りを加えますか？", sub: "爽やかフルーティーな温もり vs 深みのあるクラシック", yesText: "オレンジキャロット生姜", noText: "キャロットジンジャー" },
-          zh: { q: "想要融入清甜的香橙果香吗？", sub: "果香酸甜温润 vs 经典浓郁温润", yesText: "香橙胡萝卜生姜汁", noText: "胡萝卜生姜汁" },
-          fr: { q: "Souhaitez-vous une note d'orange acidulée ?", sub: "Douceur fruitée d'orange vs Classique profond", yesText: "Orange Carotte Gingembre", noText: "Carotte Gingembre" }
+          ko: { q: "아주 강한 생강 맛도 괜찮아요?", sub: "원샷 고농축 샷 vs 부드러운 과즙 블렌딩" },
+          en: { q: "Are you ready for an ultra-intense ginger kick?", sub: "Concentrated shot vs Smooth juice blend" },
+          ja: { q: "とても強い生姜の刺激でも大丈夫ですか？", sub: "超濃厚ショット vs 飲みやすいブレンド" },
+          zh: { q: "能接受超浓郁强烈的生姜味吗？", sub: "高浓缩生姜原饮 vs 柔和果汁调配" },
+          fr: { q: "Un goût de gingembre très puissant vous convient-il ?", sub: "Shot concentré intense vs Jus fruité équilibré" }
+        },
+        yes: { result: "ginger_shot" },
+        no: "q_wake_orange"
+      },
+      q_wake_orange: {
+        step: 4,
+        questions: {
+          ko: { q: "오렌지의 상큼함도 좋아하세요?", sub: "상큼한 시트러스 추가 vs 진한 당근생강 오리지널" },
+          en: { q: "Do you like a burst of citrusy fresh orange?", sub: "Zesty orange ginger vs Classic carrot ginger" },
+          ja: { q: "爽やかなオレンジの酸味もお好きですか？", sub: "フルーティーなオレンジ生姜 vs 王道のキャロット生姜" },
+          zh: { q: "也喜欢新鲜香橙的酸甜果香吗？", sub: "酸甜香橙生姜 vs 浓郁纯正经典生姜" },
+          fr: { q: "Aimez-vous la fraîcheur acidulée de l'orange ?", sub: "Orange-gingembre tonique vs Carotte-gingembre classique" }
         },
         yes: { result: "orange_carrot_ginger" },
         no: { result: "carrot_ginger" }
       },
-      q_treat_coffee: {
-        step: 2,
-        questions: {
-          ko: { q: "향긋한 에스프레소(커피)가 땡기시나요?", sub: "당근커피 시그니처 vs 달콤한 논커피 디저트 주스", yesText: "YES (커피 향 가득!)", noText: "NO (달콤한 디저트 주스)" },
-          en: { q: "Are you in the mood for coffee?", sub: "Espresso signature vs Sweet non-coffee dessert drink", yesText: "YES (Need coffee!)", noText: "NO (Sweet / Juice)" },
-          ja: { q: "香ばしい珈琲（エスプレッソ）はいかがですか？", sub: "名物キャロット珈琲 vs 甘いデザートジュース", yesText: "YES (珈琲が飲みたい！)", noText: "NO (甘いドリンク)" },
-          zh: { q: "想来一杯香浓的特调咖啡吗？", sub: "浓缩咖啡招牌特调 vs 甜蜜无咖啡因饮品", yesText: "YES (想喝咖啡！)", noText: "NO (甜蜜果汁/特调)" },
-          fr: { q: "Avez-vous envie d'une touche d'espresso ?", sub: "Signature café carotte vs Boisson gourmande sans caféine", yesText: "OUI (Envie de café !)", noText: "NON (Gourmand / Jus)" }
-        },
-        yes: { result: "carrot_coffee" },
-        no: "q_sweet_type"
-      },
-      q_sweet_type: {
+      q_wake_coffee: {
         step: 3,
         questions: {
-          ko: { q: "어떤 식감과 무드로 채우고 싶으신가요?", sub: "부드럽고 든든한 디저트 vs 상큼하고 시원한 과일 맛", yesText: "부드럽고 든든한 맛", noText: "상큼하고 시원한 맛" },
-          en: { q: "What texture and taste do you crave?", sub: "Smooth & rich dessert vs Crisp & fruity refresh", yesText: "Smooth & Rich", noText: "Crisp & Fruity" },
-          ja: { q: "どんな味わいで満たされたいですか？", sub: "濃厚でまろやかな満足感 vs すっきり爽快な果実", yesText: "濃厚まろやか・満足感", noText: "すっきりフルーティー" },
-          zh: { q: "更想品尝哪种风味体验？", sub: "醇厚丝滑超满足 vs 清爽可口果味", yesText: "醇厚丝滑超满足", noText: "清爽可口果味" },
-          fr: { q: "Quelle texture préférez-vous ?", sub: "Onctueux et gourmand vs Frais et fruité", yesText: "Onctueux & Gourmand", noText: "Frais & Fruité" }
+          ko: { q: "커피 향은 좋아하세요?", sub: "에스프레소 카페인 충전 vs 달콤상큼한 당근사과" },
+          en: { q: "Do you enjoy the rich aroma of coffee?", sub: "Espresso carrot coffee vs Sweet crisp carrot apple" },
+          ja: { q: "コーヒーの香りはお好きですか？", sub: "名物キャロット珈琲 vs 定番のキャロットアップル" },
+          zh: { q: "喜欢浓郁的咖啡香气吗？", sub: "创意胡萝卜特调咖啡 vs 经典苹果胡萝卜汁" },
+          fr: { q: "Aimez-vous l'arôme du café ?", sub: "Carrot Coffee espresso vs Douceur carotte-pomme" }
         },
-        yes: "q_cake_or_coco",
-        no: "q_colada_or_apple"
+        yes: { result: "carrot_coffee" },
+        no: { result: "carrot_apple" }
       },
-      q_cake_or_coco: {
-        step: 4,
+
+      // 🥬 [가볍고 산뜻하게] 갈래
+      q_light_1: {
+        step: 2,
         questions: {
-          ko: { q: "달콤한 케이크 맛 vs 고소한 코코넛 맛?", sub: "진짜 케이크 같은 스무디 vs 부드러운 코코넛 밀크", yesText: "마시는당근케이크", noText: "코코캐롯 (코코넛)" },
-          en: { q: "Carrot cake flavor vs Smooth coconut milk?", sub: "Liquid carrot cake dessert vs Silky coconut drink", yesText: "Drinking Carrot Cake", noText: "Coco Carrot" },
-          ja: { q: "ケーキ風味 vs まろやかココナッツ？", sub: "飲むケーキ感覚 vs 贅沢ココナッツ", yesText: "飲むキャロットケーキ", noText: "ココキャロット" },
-          zh: { q: "蛋糕风味 vs 香浓椰奶风味？", sub: "像喝蛋糕一样的奶昔 vs 柔滑异国椰香", yesText: "可以喝的胡萝卜蛋糕", noText: "椰香胡萝卜" },
-          fr: { q: "Goût gâteau gourmand vs Lait de coco doux ?", sub: "Smoothie façon gâteau vs Douceur de coco", yesText: "Drinking Carrot Cake", noText: "Coco Carrot" }
+          ko: { q: "과일처럼 상큼한 맛이 좋아요?", sub: "과일의 상큼달콤함 vs 채소 본연의 깔끔함" },
+          en: { q: "Do you prefer a fruity, crisp and sweet taste?", sub: "Fruity vibrant notes vs Earthy raw greens" },
+          ja: { q: "フルーツのような爽やかで甘酸っぱい味が良いですか？", sub: "フルーティーな爽快感 vs 野菜本来のクリーンな味" },
+          zh: { q: "更偏爱像水果一样酸甜清爽的口感吗？", sub: "水果酸甜风味 vs 纯粹蔬菜清香" },
+          fr: { q: "Préférez-vous un goût fruité, doux et acidulé ?", sub: "Fraîcheur fruitée vs Pureté des légumes" }
         },
-        yes: { result: "carrot_cake" },
-        no: { result: "coco_carrot" }
+        yes: "q_light_beet",
+        no: "q_light_greens"
       },
-      q_colada_or_apple: {
-        step: 4,
+      q_light_beet: {
+        step: 3,
         questions: {
-          ko: { q: "이색적인 열대과일 향 vs 달콤하고 친숙한 사과 맛?", sub: "휴양지 느낌 캐롯콜라다 vs 실패 없는 당근사과", yesText: "캐롯콜라다 (열대과일)", noText: "당근사과 (달콤상큼)" },
-          en: { q: "Tropical island vibe vs Classic sweet apple?", sub: "Exotic tropical colada vs Everyone's favorite carrot apple", yesText: "Carrot Colada", noText: "Carrot Apple" },
-          ja: { q: "南国トロピカル vs 甘酸っぱい定番リンゴ？", sub: "リゾート気分のコラーダ vs 一番人気のキャロットアップル", yesText: "キャロットコラーダ", noText: "キャロットアップル" },
-          zh: { q: "热带椰香水果风味 vs 经典清甜苹果味？", sub: "度假风情可乐达 vs 必喝招牌苹果胡萝卜", yesText: "胡萝卜可乐达", noText: "苹果胡萝卜" },
-          fr: { q: "Parfum des îles vs La douceur de la pomme ?", sub: "Ambiance vacances colada vs L'incontournable carotte-pomme", yesText: "Carrot Colada", noText: "Carotte Pomme" }
+          ko: { q: "비트가 들어가도 좋아요?", sub: "붉은 비트의 활력 배합 vs 익숙한 당근사과" },
+          en: { q: "Are you happy with nutrient-rich beetroot in it?", sub: "ABC (Apple, Beet, Carrot) vs Simple Carrot Apple" },
+          ja: { q: "ビーツが入っていても大丈夫ですか？", sub: "栄養満点のABCジュース vs 定番キャロットアップル" },
+          zh: { q: "加入红润养颜的甜菜根可以吗？", sub: "ABC果蔬汁 (含甜菜根) vs 经典苹果胡萝卜" },
+          fr: { q: "La betterave vous convient-elle ?", sub: "Jus ABC (avec betterave) vs Simple Carotte-Pomme" }
+        },
+        yes: { result: "abc_juice" },
+        no: { result: "carrot_apple" }
+      },
+      q_light_greens: {
+        step: 3,
+        questions: {
+          ko: { q: "채소 맛이 조금 느껴져도 괜찮아요?", sub: "양배추·당근 복합 채소 vs 순수 당근 100%" },
+          en: { q: "Is a light taste of fresh veggies okay for you?", sub: "Soothing cabbage blend (CCA) vs Pure raw carrot 100%" },
+          ja: { q: "野菜の風味が少し感じられても大丈夫ですか？", sub: "胃に優しいキャベツ(CCA) vs ニンジン100%ストレート" },
+          zh: { q: "能接受稍带一点清爽蔬菜风味吗？", sub: "养胃卷心菜复合(CCA) vs 100% 纯胡萝卜汁" },
+          fr: { q: "Une touche de légumes frais vous convient-elle ?", sub: "Mélange au chou (CCA) vs 100% Pur jus de carotte" }
+        },
+        yes: { result: "cca_juice" },
+        no: { result: "carrot_100" }
+      },
+
+      // 🥕 [건강한 주스 제대로] 갈래
+      q_healthy_1: {
+        step: 2,
+        questions: {
+          ko: { q: "채소의 존재감이 조금 있어도 괜찮아요?", sub: "과채 기능성 블렌딩 vs 부드럽고 친숙한 조합" },
+          en: { q: "Do you mind the presence of earthy healthy greens?", sub: "Functional root/green blend vs Smooth approachable blend" },
+          ja: { q: "野菜の素材感がしっかり感じられても大丈夫ですか？", sub: "本格的な機能性ジュース vs まろやかで飲みやすいブレンド" },
+          zh: { q: "蔬菜的存在感稍微明显一点也可以吗？", sub: "功能性果蔬纯调配 vs 顺滑亲切口感" },
+          fr: { q: "Une vraie présence de légumes vous convient-elle ?", sub: "Jus fonctionnel bienfaisant vs Mélange doux et soyeux" }
+        },
+        yes: "q_healthy_beet",
+        no: "q_healthy_coconut"
+      },
+      q_healthy_beet: {
+        step: 3,
+        questions: {
+          ko: { q: "비트가 들어간 산뜻한 맛이 좋아요?", sub: "비트의 맑은 활력(ABC) vs 양배추의 속 편함(CCA)" },
+          en: { q: "Do you prefer an energizing beetroot balance?", sub: "Vibrant Beetroot (ABC) vs Soothing Cabbage (CCA)" },
+          ja: { q: "ビーツが入った爽やかな味が良いですか？", sub: "巡りを整えるビーツ(ABC) vs お腹に優しいキャベツ(CCA)" },
+          zh: { q: "更想要搭配甜菜根的清爽口感吗？", sub: "气色满满甜菜根(ABC) vs 舒缓肠胃卷心菜(CCA)" },
+          fr: { q: "Préférez-vous la note fraîche de la betterave ?", sub: "Betterave vivifiante (ABC) vs Chou apaisant (CCA)" }
+        },
+        yes: { result: "abc_juice" },
+        no: { result: "cca_juice" }
+      },
+      q_healthy_coconut: {
+        step: 3,
+        questions: {
+          ko: { q: "코코넛밀크의 부드러운 맛은 좋아하세요?", sub: "고소하고 부드러운 코코넛 vs 달콤상큼한 사과" },
+          en: { q: "Do you like the smooth, silky taste of coconut milk?", sub: "Nutty Coco Carrot vs Classic Carrot Apple" },
+          ja: { q: "ココナッツミルクのまろやかな味はお好きですか？", sub: "コクのあるココキャロット vs 甘酸っぱいキャロットアップル" },
+          zh: { q: "喜欢椰奶醇厚柔滑的口感吗？", sub: "椰香胡萝卜特调 vs 经典苹果胡萝卜" },
+          fr: { q: "Aimez-vous la douceur onctueuse du lait de coco ?", sub: "Coco Carrot velouté vs Carotte-Pomme fruité" }
+        },
+        yes: { result: "coco_carrot" },
+        no: { result: "carrot_apple" }
+      },
+
+      // 🥥 [달콤하고 맛있는 게 당겨요] 갈래
+      q_sweet_1: {
+        step: 2,
+        questions: {
+          ko: { q: "부드럽고 크리미한 맛이 좋아요?", sub: "크리미하고 든든한 디저트 vs 향긋한 커피/스무디" },
+          en: { q: "Do you prefer a smooth, creamy and rich texture?", sub: "Creamy tropical vibes vs Coffee signature" },
+          ja: { q: "濃厚でクリーミーな口当たりがお好みですか？", sub: "リッチなデザート感 vs 芳醇な珈琲＆スイーツ" },
+          zh: { q: "喜欢柔滑醇厚、奶香满满的口感吗？", sub: "丝滑热带风味 vs 咖啡/蛋糕甜品" },
+          fr: { q: "Préférez-vous une texture douce et crémeuse ?", sub: "Douceur tropicale onctueuse vs Pause café & dessert" }
+        },
+        yes: "q_sweet_tropical",
+        no: "q_sweet_coffee"
+      },
+      q_sweet_tropical: {
+        step: 3,
+        questions: {
+          ko: { q: "열대과일의 달콤한 맛도 좋아하세요?", sub: "상큼청량한 캐롯콜라다 vs 고소하고 부드러운 코코캐롯" },
+          en: { q: "Do you also enjoy sweet tropical fruit flavors?", sub: "Tropical Carrot Colada vs Creamy Coco Carrot" },
+          ja: { q: "南国フルーツの甘酸っぱい香りもお好きですか？", sub: "爽快キャロットコラーダ vs まろやかココキャロット" },
+          zh: { q: "也喜欢热带水果酸甜可口的风味吗？", sub: "清爽热带胡萝卜可乐达 vs 丝滑椰香胡萝卜" },
+          fr: { q: "Aimez-vous le parfum des fruits tropicaux ?", sub: "Carrot Colada des îles vs Coco Carrot crémeux" }
         },
         yes: { result: "carrot_colada" },
-        no: { result: "carrot_apple" }
+        no: { result: "coco_carrot" }
+      },
+      q_sweet_coffee: {
+        step: 3,
+        questions: {
+          ko: { q: "커피 향이 들어가도 좋아요?", sub: "에스프레소 당근커피 vs 리얼 당근케이크 맛 스무디" },
+          en: { q: "Would you like a touch of rich espresso?", sub: "Craft Carrot Coffee vs Liquid Carrot Cake smoothie" },
+          ja: { q: "珈琲のほろ苦い香りが入っても良いですか？", sub: "名物キャロット珈琲 vs 飲むキャロットケーキ" },
+          zh: { q: "加入香浓的意式咖啡可以吗？", sub: "特调胡萝卜咖啡 vs 可以喝的胡萝卜蛋糕奶昔" },
+          fr: { q: "Aimeriez-vous une note de café espresso ?", sub: "Carrot Coffee signature vs Smoothie façon Carrot Cake" }
+        },
+        yes: { result: "carrot_coffee" },
+        no: { result: "carrot_cake" }
       }
     };
 
     // 11종 메뉴 데이터
     const MENUS = {
       ginger_shot: {
-        ko: { name: "서울진저샷", tag: "#에너지충전 #초강력활력 #리프레시", desc: "나른할 때 원샷! 눈이 번쩍 뜨이고 정신이 맑아지는 강력한 에너지 샷이에요." },
+        ko: { name: "서울진저샷", tag: "#에너지충전 #초강력활력 #리프레시", desc: "나른할 때 원샷! 눈이 번쩍 뜨이고 정신이 맑아지는 강력한 생강 에너지 샷이에요." },
         en: { name: "Seoul Ginger Shot", tag: "#EnergyBoost #RawVitality #Focus", desc: "Take a shot to instantly energize your day and awaken your senses!" },
         ja: { name: "ソウルジンジャーショット", tag: "#元気チャージ #超強力 #目覚まし", desc: "ひと口でシャキッと！活力とパワーがみなぎる超濃厚ショットです。" },
         zh: { name: "首尔生姜生力饮", tag: "#一秒醒脑 #强效元气 #清醒提神", desc: "困倦时一口饮尽！瞬间清醒、驱散疲劳的高浓度能量饮。" },
         fr: { name: "Seoul Ginger Shot", tag: "#CoupDeFouet #ÉnergiePure #Tonus", desc: "À boire d'un trait pour réveiller votre esprit et faire le plein d'énergie !" }
       },
-      cca_juice: {
-        ko: { name: "CCA주스", tag: "#속편한주스 #양배추당근사과 #가벼운루틴", desc: "양배추, 당근, 사과의 신선함으로 편안하고 가벼운 하루를 선물합니다." },
-        en: { name: "CCA Juice", tag: "#EasyOnStomach #CabbageCarrotApple #Digest", desc: "Blended with fresh cabbage, carrot, and apple to keep your body light and comfy." },
-        ja: { name: "CCAジュース", tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やか", desc: "キャベツ・ニンジン・リンゴ入りで、軽やかで心地よい一日をサポート。" },
-        zh: { name: "CCA 舒胃果蔬汁", tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #肠胃轻松", desc: "新鲜卷心菜、胡萝卜、苹果搭配，喝完身体特别轻盈舒服。" },
-        fr: { name: "Jus CCA", tag: "#EstomacLéger #ChouCarottePomme #DigestionFacile", desc: "Chou, carotte et pomme pour apaiser et faire du bien à votre corps naturellement." }
-      },
-      abc_juice: {
-        ko: { name: "ABC주스", tag: "#몸이가벼워지는 #사과비트당근 #생기충전", desc: "사과, 비트, 당근의 꿀조합! 몸에 기분 좋은 생기와 활력을 불어넣어 줍니다." },
-        en: { name: "ABC Juice", tag: "#FeelLight #AppleBeetCarrot #DailyGlow", desc: "Apple, beet, and carrot golden blend to bring natural vitality and glow to your day." },
-        ja: { name: "ABCジュース", tag: "#体が軽くなる #リンゴビーツニンジン #元気チャージ", desc: "リンゴ・ビーツ・ニンジンの黄金比！内側から輝くような活力を届けます。" },
-        zh: { name: "ABC 活力果蔬汁", tag: "#身体变轻盈 #苹果甜菜根胡萝卜 #气色红润", desc: "苹果、甜菜根、胡萝卜经典配比，让身心重获轻盈，活力满满。" },
-        fr: { name: "Jus ABC", tag: "#CorpsLéger #PommeBetteraveCarotte #Vitalité", desc: "L'accord parfait pomme-betterave-carotte pour retrouver tonus et légèreté." }
-      },
-      carrot_100: {
-        ko: { name: "100% 당근", tag: "#물설탕0 #따뜻하게도가능 #순수착즙", desc: "물이나 설탕 없이 오직 당근만 착즙했어요. 시원하게도, 따뜻한 온기로도 달콤하게 즐길 수 있습니다." },
-        en: { name: "100% Carrot", tag: "#ZeroAddedWater #PureRaw #WarmOrCold", desc: "Pure cold-pressed raw carrot juice with zero water or sugar. Enjoy it fresh or warm!" },
-        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #ホットもおすすめ #自然な甘さ", desc: "水も砂糖もゼロ！新鮮なニンジンそのものの甘み。冷たくても温めても美味しく楽しめます。" },
-        zh: { name: "100% 纯胡萝卜汁", tag: "#不加一滴水和糖 #冷热皆宜 #自然清甜", desc: "不加水也不加糖，纯粹胡萝卜原汁。无论是冷饮还是温热享用都无比甘甜！" },
-        fr: { name: "100% Carotte", tag: "#SansEauSansSucre #ChaudOuFrais #DouceurPure", desc: "100% pur jus de carotte pressé, sans eau ni sucre. Délicieux frais ou doucement réchauffé !" }
-      },
       orange_carrot_ginger: {
-        ko: { name: "오렌지당근생강", tag: "#상큼한온기 #오렌지과즙 #기분전환", desc: "상큼한 오렌지와 기분 좋은 온기가 어우러져 마시자마자 몸과 마음이 산뜻해져요." },
+        ko: { name: "오렌지당근생강", tag: "#상큼알싸 #오렌지과즙 #기분전환", desc: "상큼한 오렌지 뒤에 은은한 생강 맛이 싹 돌아서 마시자마자 기분이 산뜻해져요." },
         en: { name: "Orange Carrot Ginger", tag: "#CitrusWarmth #FreshOrange #Refreshing", desc: "Zesty fresh orange with a warming twist for a bright, comforting lift." },
         ja: { name: "オレンジキャロット生姜", tag: "#爽やかな温もり #生搾りオレンジ #リフレッシュ", desc: "爽やかなオレンジと心地よい温もりが広がり、気分がパッと晴れやかに。" },
         zh: { name: "香橙胡萝卜生姜汁", tag: "#酸甜暖胃 #鲜橙果香 #温润清爽", desc: "鲜橙的酸甜与温润的辛香完美融合，一口下去清爽又暖身。" },
         fr: { name: "Orange Carotte Gingembre", tag: "#AgrumeChaleureux #OrangeFraîche #Peps", desc: "L'orange acidulée rencontre une douce chaleur réconfortante pour un vrai coup de frais." }
       },
       carrot_ginger: {
-        ko: { name: "당근생강", tag: "#따뜻한온기 #깊은풍미 #속이풀리는", desc: "달달한 당근에 은은하게 퍼지는 깊은 온기! 몸을 기분 좋게 덥혀주는 든든한 조합이에요." },
+        ko: { name: "당근생강", tag: "#따뜻한맛 #알싸한국룰 #속이풀리는", desc: "달달한 당근에 은은하게 퍼지는 알싸한 온기! 몸을 기분 좋게 덥혀주는 든든한 조합이에요." },
         en: { name: "Carrot Ginger", tag: "#CozyWarmth #ClassicBlend #Comforting", desc: "Sweet carrot with a deeply comforting warm note. Perfect for soothing your body." },
         ja: { name: "キャロットジンジャー", tag: "#ポカポカ温もり #深みのある味 #体が喜ぶ", desc: "甘いニンジンにじんわり広がる心地よい温もり。体を優しく包み込みます。" },
         zh: { name: "胡萝卜生姜汁", tag: "#温润滋养 #经典醇香 #暖胃首选", desc: "甘甜胡萝卜搭配深层温润的香气，温润舒爽，滋养身心。" },
         fr: { name: "Carotte Gingembre", tag: "#ChaleurApaisante #ÉpicéDoux #Réconfort", desc: "La douceur de la carotte avec une note chaude et profonde pour un pur moment de réconfort." }
       },
       carrot_coffee: {
-        ko: { name: "당근커피", tag: "#카페인충전 #시그니처커피 #은은한단맛", desc: "진한 에스프레소에 당근의 달큰함이 더해진 서울래빗만의 특별한 커피예요." },
+        ko: { name: "당근커피", tag: "#카페인충전 #시그니처커피 #은은한단맛", desc: "진한 에스프레소에 당근의 달큰함이 더해진 서울래빗만의 특별한 시그니처 커피예요." },
         en: { name: "Carrot Coffee", tag: "#CaffeineBoost #SignatureCoffee #Unique", desc: "Bold espresso blended with subtle carrot sweetness. Our famous creation!" },
         ja: { name: "キャロットコーヒー", tag: "#カフェイン補給 #名物珈琲 #クセになる", desc: "深みのあるエスプレッソにニンジンの甘みが溶け込んだ名物コーヒー。" },
         zh: { name: "胡萝卜咖啡", tag: "#咖啡因充能 #招牌创意特调 #回甘独特", desc: "浓郁意式浓缩融入胡萝卜甘甜，首尔兔子独家招牌特调咖啡。" },
         fr: { name: "Carrot Coffee", tag: "#CaféOriginal #EspressoDoux #Signature", desc: "L'intensité du café relevée d'une touche de carotte. Notre création phare !" }
       },
-      carrot_cake: {
-        ko: { name: "마시는당근케이크", tag: "#달콤디저트 #케이크맛 #달달한행복", desc: "진짜 당근 케이크를 마시는 듯 달콤하고 부드러운 행복을 주는 디저트 주스예요." },
-        en: { name: "Drinking Carrot Cake", tag: "#SweetDessert #TastesLikeCake #Indulgence", desc: "Like drinking liquid carrot cake! Rich, sweet, and pure happiness." },
-        ja: { name: "飲むキャロットケーキ", tag: "#飲むスイーツ #ケーキそのもの #幸せな甘さ", desc: "まるでキャロットケーキを飲んでいるような甘く贅沢なご褒美デザート。" },
-        zh: { name: "可以喝的胡萝卜蛋糕", tag: "#甜品奶昔 #蛋糕口感 #甜蜜享受", desc: "宛如把香甜的胡萝卜蛋糕融入口中，甜蜜满满的治愈系特饮。" },
-        fr: { name: "Drinking Carrot Cake", tag: "#DessertGourmand #GoûtGâteau #Onctueux", desc: "Un gâteau à la carotte à boire ! Doux, gourmand et réconfortant." }
+      carrot_apple: {
+        ko: { name: "당근사과", tag: "#달콤상큼 #실패없는맛 #인기1위", desc: "사과의 달콤함과 당근이 만난 누구나 다 좋아하는 꿀조합 베스트셀러 주스예요." },
+        en: { name: "Carrot Apple", tag: "#SweetCrisp #NeverFails #MostPopular", desc: "Crisp sweet apples meet fresh carrots. The crowd-favorite classic!" },
+        ja: { name: "キャロットアップル", tag: "#甘酸っぱくて美味しい #大人気 #定番の味", desc: "リンゴの爽やかな甘みとニンジンが出会った、絶対に失敗しない一番人気！" },
+        zh: { name: "苹果胡萝卜汁", tag: "#酸甜爽口 #百喝不腻 #人气第一", desc: "清甜苹果搭配鲜嫩胡萝卜，酸甜适口，谁喝都会喜欢的经典第一名！" },
+        fr: { name: "Carotte Pomme", tag: "#DouxEtFrais #Incontournable #TopVente", desc: "La douceur de la pomme mariée à la carotte. Le grand classique adoré de tous !" }
+      },
+      abc_juice: {
+        ko: { name: "ABC주스", tag: "#몸이가벼워지는 #사과비트당근 #생기충전", desc: "사과(Apple), 비트(Beet), 당근(Carrot)의 꿀조합! 몸에 기분 좋은 생기와 활력을 선물합니다." },
+        en: { name: "ABC Juice", tag: "#FeelLight #AppleBeetCarrot #DailyGlow", desc: "Apple, beet, and carrot golden blend to bring natural vitality and glow to your day." },
+        ja: { name: "ABCジュース", tag: "#体が軽くなる #リンゴビーツニンジン #元気チャージ", desc: "リンゴ・ビーツ・ニンジンの黄金比！内側から輝くような活力を届けます。" },
+        zh: { name: "ABC 活力果蔬汁", tag: "#身体变轻盈 #苹果甜菜根胡萝卜 #气色红润", desc: "苹果、甜菜根、胡萝卜经典配比，让身心重获轻盈，活力满满。" },
+        fr: { name: "Jus ABC", tag: "#CorpsLéger #PommeBetteraveCarotte #Vitalité", desc: "L'accord parfait pomme-betterave-carotte pour retrouver tonus et légèreté." }
+      },
+      cca_juice: {
+        ko: { name: "CCA주스", tag: "#속편한주스 #양배추당근사과 #가벼운루틴", desc: "당근(Carrot), 양배추(Cabbage), 사과(Apple)의 신선함으로 편안하고 가벼운 하루를 완성합니다." },
+        en: { name: "CCA Juice", tag: "#EasyOnStomach #CabbageCarrotApple #Digest", desc: "Blended with fresh cabbage, carrot, and apple to keep your body light and comfy." },
+        ja: { name: "CCAジュース", tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やか", desc: "キャベツ・ニンジン・リンゴ入りで、軽やかで心地よい一日をサポート。" },
+        zh: { name: "CCA 舒胃果蔬汁", tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #肠胃轻松", desc: "新鲜卷心菜、胡萝卜、苹果搭配，喝完身体特别轻盈舒服。" },
+        fr: { name: "Jus CCA", tag: "#EstomacLéger #ChouCarottePomme #DigestionFacile", desc: "Chou, carotte et pomme pour apaiser et faire du bien à votre corps naturellement." }
+      },
+      carrot_100: {
+        ko: { name: "100% 당근", tag: "#물설탕0 #순수착즙 #달콤한원액", desc: "물이나 설탕 없이 오직 당근만 착즙했어요. 신선하고 달콤한 당근 본연의 풍부한 영양을 즐겨보세요." },
+        en: { name: "100% Carrot", tag: "#ZeroAddedWater #PureRaw #SweetCarrot", desc: "Pure cold-pressed raw carrot juice with zero water or sugar. Naturally sweet!" },
+        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #本物のニンジン #自然な甘さ", desc: "水も砂糖もゼロ！新鮮なニンジンだけを搾った、驚くほど甘いジュース。" },
+        zh: { name: "100% 纯胡萝卜汁", tag: "#不加一滴水和糖 #纯天然原汁 #自然清甜", desc: "不加水也不加糖，只有纯粹胡萝卜原汁，甘甜可口超新鲜！" },
+        fr: { name: "100% Carotte", tag: "#SansEauSansSucre #100Carotte #DouceurNaturelle", desc: "100% pur jus de carotte pressé, sans eau ni sucre. Naturellement doux !" }
       },
       coco_carrot: {
-        ko: { name: "코코캐롯", tag: "#코코넛밀크 #부드러운맛 #고소달달", desc: "고소한 코코넛 밀크가 들어가서 라떼처럼 부드럽고 달콤하게 꿀떡 넘어가요." },
+        ko: { name: "코코캐롯", tag: "#코코넛밀크 #부드러운맛 #고소달달", desc: "고소한 코코넛 밀크가 들어가서 라떼처럼 부드럽고 달콤하게 넘어가는 이색 블렌딩 주스예요." },
         en: { name: "Coco Carrot", tag: "#CoconutMilk #SilkySmooth #Creamy", desc: "Silky coconut milk meets sweet carrot for a rich, smooth tropical sip." },
         ja: { name: "ココキャロット", tag: "#ココナッツミルク #まろやか #クリーミー", desc: "クリーミーなココナッツミルクとニンジンの贅沢で優しい甘み。" },
         zh: { name: "椰香胡萝卜", tag: "#浓郁椰奶 #丝滑顺口 #奶香清甜", desc: "浓郁椰奶搭配清甜胡萝卜，口感像拿铁一样丝滑好喝。" },
         fr: { name: "Coco Carrot", tag: "#LaitDeCoco #TextureSoyeuse #Douceur", desc: "L'onctuosité du lait de coco avec la carotte douce, tout en rondeur." }
       },
       carrot_colada: {
-        ko: { name: "캐롯콜라다", tag: "#휴양지맛 #열대과일 #상큼청량", desc: "코코넛 향과 새콤달콤한 과일 향이 가득해서 마시자마자 기분 좋아지는 맛!" },
+        ko: { name: "캐롯콜라다", tag: "#휴양지맛 #열대과일 #상큼청량", desc: "코코넛 향과 새콤달콤한 열대 과일 향이 어우러져 마시자마자 기분 좋아지는 트로피컬 주스예요." },
         en: { name: "Carrot Colada", tag: "#IslandVibe #TropicalFruits #Crisp", desc: "Packed with coconut and tropical fruit aromas. Tastes like a vacation in a cup!" },
         ja: { name: "キャロットコラーダ", tag: "#南国リゾート #トロピカル #爽快フルーツ", desc: "ココナッツと南国フルーツの香りが弾ける、爽やかでご機嫌な一杯！" },
         zh: { name: "胡萝卜可乐达", tag: "#海岛度假风 #热带果香 #清爽解渴", desc: "椰香与热带果味交织，酸甜清爽，喝一口仿佛漫步在海岛！" },
         fr: { name: "Carrot Colada", tag: "#GoûtVacances #FruitsTropicaux #Frais", desc: "Un parfum de coco et de fruits tropicaux. Comme un air de vacances !" }
       },
-      carrot_apple: {
-        ko: { name: "당근사과", tag: "#달콤상큼 #실패없는맛 #인기1위", desc: "사과의 달콤함과 당근이 만난 누구나 다 좋아하는 꿀조합 주스예요." },
-        en: { name: "Carrot Apple", tag: "#SweetCrisp #NeverFails #MostPopular", desc: "Crisp sweet apples meet fresh carrots. The crowd-favorite classic!" },
-        ja: { name: "キャロットアップル", tag: "#甘酸っぱくて美味しい #大人気 #定番の味", desc: "リンゴの爽やかな甘みとニンジンが出会った、絶対に失敗しない一番人気！" },
-        zh: { name: "苹果胡萝卜汁", tag: "#酸甜爽口 #百喝不腻 #人气第一", desc: "清甜苹果搭配鲜嫩胡萝卜，酸甜适口，谁喝都会喜欢的经典第一名！" },
-        fr: { name: "Carotte Pomme", tag: "#DouxEtFrais #Incontournable #TopVente", desc: "La douceur de la pomme mariée à la carotte. Le grand classique adoré de tous !" }
+      carrot_cake: {
+        ko: { name: "마시는 당근케이크", tag: "#달콤디저트 #케이크맛 #달달한행복", desc: "진짜 당근 케이크를 마시는 듯 달콤하고 부드러운 행복을 주는 프리미엄 디저트 주스예요." },
+        en: { name: "Drinking Carrot Cake", tag: "#SweetDessert #TastesLikeCake #Indulgence", desc: "Like drinking liquid carrot cake! Rich, sweet, and pure happiness." },
+        ja: { name: "飲むキャロットケーキ", tag: "#飲むスイーツ #ケーキそのもの #幸せな甘さ", desc: "まるでキャロットケーキを飲んでいるような甘く贅沢なご褒美デザート。" },
+        zh: { name: "可以喝的胡萝卜蛋糕", tag: "#甜品奶昔 #蛋糕口感 #甜蜜享受", desc: "宛如把香甜的胡萝卜蛋糕融入口中，甜蜜满满的治愈系特饮。" },
+        fr: { name: "Drinking Carrot Cake", tag: "#DessertGourmand #GoûtGâteau #Onctueux", desc: "Un gâteau à la carotte à boire ! Doux, gourmand et réconfortant." }
       }
     };
 
@@ -365,7 +436,7 @@
       render();
     };
 
-    // 1단계 상태 선택
+    // 1단계 테마 선택
     window.selectStatus = function(categoryId) {
       const cat = STATUS_CATEGORIES.find(c => c.id === categoryId);
       if (!cat) return;
@@ -382,7 +453,464 @@
       render();
     };
 
-    // 2단계/3단계 질문 답변
+    // 2~4단계 질문 답변
+    window.handleAnswer = function(choice) {
+      const node = SUB_QUESTIONSa<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>서울래빗 서촌주스랩 - 메뉴 찾기</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.25s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="bg-amber-50/40 min-h-screen text-stone-800 flex items-center justify-center p-4 font-sans antialiased">
+
+  <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100 overflow-hidden flex flex-col min-h-[600px] relative">
+    
+    <nav class="bg-stone-50 border-b border-orange-50 px-4 py-2 flex items-center justify-center gap-1 text-xs">
+      <button onclick="setLanguage('ko')" id="lang-ko" class="lang-btn px-2.5 py-1 rounded-full font-bold transition-all bg-orange-500 text-white shadow-sm">한국어</button>
+      <button onclick="setLanguage('en')" id="lang-en" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">English</button>
+      <button onclick="setLanguage('ja')" id="lang-ja" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">日本語</button>
+      <button onclick="setLanguage('zh')" id="lang-zh" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">中文</button>
+      <button onclick="setLanguage('fr')" id="lang-fr" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">Français</button>
+    </nav>
+
+    <header class="p-5 pb-2 text-center relative border-b border-orange-50">
+      <button id="btn-back" class="hidden absolute left-4 top-5 text-stone-500 hover:text-stone-800 transition-colors flex items-center gap-1 text-xs font-bold bg-stone-100 hover:bg-stone-200 px-2.5 py-1.5 rounded-full" aria-label="Back">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span id="back-text">이전으로 가기</span>
+      </button>
+
+      <span class="text-[11px] font-bold tracking-widest text-orange-600 uppercase bg-orange-100/70 px-2.5 py-0.5 rounded-full inline-block mb-1">Seoul Rabbit</span>
+      <h1 id="header-title" class="text-lg font-extrabold text-stone-900 tracking-tight">지금 어떤 한 잔이 당기나요?</h1>
+      <p id="header-sub" class="text-xs text-stone-500 mt-0.5">원하는 느낌의 카드를 골라보세요</p>
+    </header>
+
+    <div id="view-container" class="flex-1 p-5 flex flex-col justify-between">
+      </div>
+
+    <footer id="footer-text" class="py-3 text-center bg-stone-50/50 border-t border-stone-100 text-xs text-stone-500 font-medium">
+      서울래빗 서촌주스랩
+    </footer>
+  </main>
+
+  <script>
+    // 네이버 스마트주문 연결 링크
+    const NAVER_ORDER_URL = "https://m.booking.naver.com/order/bizes/1140512/items/5866364?area=bnq";
+
+    let currentLang = "ko";
+    let currentView = "home"; // 'home', 'question', 'result'
+    let currentSubNode = null;
+    let history = [];
+
+    // UI 다국어 사전
+    const I18N = {
+      ko: {
+        headerTitle: "지금 어떤 한 잔이 당기나요?",
+        headerSub: "원하는 느낌의 카드를 골라보세요",
+        backText: "이전으로 가기",
+        footerText: "서울래빗 서촌주스랩",
+        recommendBadge: "지금 딱 맞는 추천 메뉴",
+        orderBtn: "네이버 주문으로 바로가기",
+        restartBtn: "처음부터 다시 찾기",
+        defaultYes: "YES (좋아요 / 맞아요)",
+        defaultNo: "NO (다른 게 좋아요)"
+      },
+      en: {
+        headerTitle: "What kind of drink do you crave right now?",
+        headerSub: "Pick the mood you are looking for",
+        backText: "BACK",
+        footerText: "Seoul Rabbit Seochon Juice Lab",
+        recommendBadge: "PERFECT FOR YOU",
+        orderBtn: "Order on Naver",
+        restartBtn: "Start Over",
+        defaultYes: "YES",
+        defaultNo: "NO"
+      },
+      ja: {
+        headerTitle: "今、どんな一杯が飲みたい気分？",
+        headerSub: "今の気分にぴったりのカードを選んでください",
+        backText: "戻る",
+        footerText: "ソウルラビット 西村ジュースラボ",
+        recommendBadge: "あなたへのおすすめ",
+        orderBtn: "Naverで注文する",
+        restartBtn: "最初からやり直す",
+        defaultYes: "YES (はい)",
+        defaultNo: "NO (いいえ)"
+      },
+      zh: {
+        headerTitle: "此刻你想喝一杯怎样的饮品？",
+        headerSub: "请选择你现在最想要的体验",
+        backText: "返回",
+        footerText: "Seoul Rabbit 西村果汁实验所",
+        recommendBadge: "为你推荐",
+        orderBtn: "前往 Naver 点餐",
+        restartBtn: "重新选择",
+        defaultYes: "YES (是的)",
+        defaultNo: "NO (换一个)"
+      },
+      fr: {
+        headerTitle: "De quelle boisson avez-vous envie là maintenant ?",
+        headerSub: "Choisissez la sensation qui vous inspire",
+        backText: "RETOUR",
+        footerText: "Seoul Rabbit Seochon Juice Lab",
+        recommendBadge: "RECOMMANDÉ POUR VOUS",
+        orderBtn: "Commander sur Naver",
+        restartBtn: "Recommencer",
+        defaultYes: "OUI",
+        defaultNo: "NON"
+      }
+    };
+
+    // 1단계: 4대 핵심 테마 카드 (2x2 그리드)
+    const STATUS_CATEGORIES = [
+      {
+        id: "wake_up",
+        icon: "⚡",
+        ko: { title: "확 깨는 한 잔이\n필요해요", desc: "번쩍 뜨이는 활력과 에너지" },
+        en: { title: "Need an instant\nwake-up call", desc: "Intense energy & freshness" },
+        ja: { title: "シャキッと目が覚める\n一杯がほしい", desc: "強力な活力とエナジー" },
+        zh: { title: "需要一杯\n瞬间提神的饮品", desc: "唤醒状态的超强活力" },
+        fr: { title: "Besoin d'un\ncoup de fouet", desc: "Énergie intense et vivifiante" },
+        nextQuestion: "q_wake_1"
+      },
+      {
+        id: "light_fresh",
+        icon: "🥬",
+        ko: { title: "가볍고 산뜻하게\n마시고 싶어요", desc: "부담 없이 편안하고 맑게" },
+        en: { title: "Light & refreshing\nsip", desc: "Clean, breezy and natural" },
+        ja: { title: "軽やかで爽快に\n飲みたい", desc: "負担なくすっきりと" },
+        zh: { title: "想喝一杯\n轻盈清爽的饮品", desc: "自然纯净无负担" },
+        fr: { title: "Envie de légèreté\net de fraîcheur", desc: "Sain, doux et désaltérant" },
+        nextQuestion: "q_light_1"
+      },
+      {
+        id: "healthy_juice",
+        icon: "🥕",
+        ko: { title: "건강한 주스를\n제대로 마시고 싶어요", desc: "자연 과채의 꽉 찬 영양" },
+        en: { title: "Proper healthy\npressed juice", desc: "Rich vitality from raw nature" },
+        ja: { title: "本格的な健康ジュースを\nしっかり味わいたい", desc: "素材まるごとの栄養" },
+        zh: { title: "想认真喝一杯\n健康纯正果蔬汁", desc: "饱含天然果蔬营养" },
+        fr: { title: "Un vrai jus sain\net nutritif", desc: "Toute la richesse de la nature" },
+        nextQuestion: "q_healthy_1"
+      },
+      {
+        id: "sweet_tasty",
+        icon: "🥥",
+        ko: { title: "달콤하고 맛있는 게\n당겨요", desc: "디저트 & 커피 힐링" },
+        en: { title: "Craving something\nsweet & delicious", desc: "Indulgent treats & craft coffee" },
+        ja: { title: "甘くて美味しいものが\n飲みたい", desc: "ご褒美スイーツ＆珈琲" },
+        zh: { title: "想喝好喝又香甜的\n治愈饮品", desc: "美味甜点与特色咖啡" },
+        fr: { title: "Envie d'une boisson\ngourmande et douce", desc: "Plaisir sucré et café signature" },
+        nextQuestion: "q_sweet_1"
+      }
+    ];
+
+    // 2~3단계 의사결정 트리 (주신 로직 100% 반영)
+    const SUB_QUESTIONS = {
+      // ⚡ [확 깨는 한 잔] 갈래
+      q_wake_1: {
+        step: 2,
+        questions: {
+          ko: { q: "알싸한 생강 맛도 좋아하세요?", sub: "생강 특유의 알싸한 향 선호 여부" },
+          en: { q: "Do you enjoy the spicy warmth of ginger?", sub: "Ginger infused kick vs Non-ginger fresh options" },
+          ja: { q: "ピリッとした生姜の味はお好きですか？", sub: "生姜のピリリとした刺激がお好みですか？" },
+          zh: { q: "喜欢生姜特有的微辣风味吗？", sub: "微辣生姜风味 vs 无姜清爽风味" },
+          fr: { q: "Aimez-vous le goût épicé du gingembre ?", sub: "Note de gingembre vivifiante ou douceur fruitée" }
+        },
+        yes: "q_wake_ginger_strong",
+        no: "q_wake_coffee"
+      },
+      q_wake_ginger_strong: {
+        step: 3,
+        questions: {
+          ko: { q: "아주 강한 생강 맛도 괜찮아요?", sub: "원샷 고농축 샷 vs 부드러운 과즙 블렌딩" },
+          en: { q: "Are you ready for an ultra-intense ginger kick?", sub: "Concentrated shot vs Smooth juice blend" },
+          ja: { q: "とても強い生姜の刺激でも大丈夫ですか？", sub: "超濃厚ショット vs 飲みやすいブレンド" },
+          zh: { q: "能接受超浓郁强烈的生姜味吗？", sub: "高浓缩生姜原饮 vs 柔和果汁调配" },
+          fr: { q: "Un goût de gingembre très puissant vous convient-il ?", sub: "Shot concentré intense vs Jus fruité équilibré" }
+        },
+        yes: { result: "ginger_shot" },
+        no: "q_wake_orange"
+      },
+      q_wake_orange: {
+        step: 4,
+        questions: {
+          ko: { q: "오렌지의 상큼함도 좋아하세요?", sub: "상큼한 시트러스 추가 vs 진한 당근생강 오리지널" },
+          en: { q: "Do you like a burst of citrusy fresh orange?", sub: "Zesty orange ginger vs Classic carrot ginger" },
+          ja: { q: "爽やかなオレンジの酸味もお好きですか？", sub: "フルーティーなオレンジ生姜 vs 王道のキャロット生姜" },
+          zh: { q: "也喜欢新鲜香橙的酸甜果香吗？", sub: "酸甜香橙生姜 vs 浓郁纯正经典生姜" },
+          fr: { q: "Aimez-vous la fraîcheur acidulée de l'orange ?", sub: "Orange-gingembre tonique vs Carotte-gingembre classique" }
+        },
+        yes: { result: "orange_carrot_ginger" },
+        no: { result: "carrot_ginger" }
+      },
+      q_wake_coffee: {
+        step: 3,
+        questions: {
+          ko: { q: "커피 향은 좋아하세요?", sub: "에스프레소 카페인 충전 vs 달콤상큼한 당근사과" },
+          en: { q: "Do you enjoy the rich aroma of coffee?", sub: "Espresso carrot coffee vs Sweet crisp carrot apple" },
+          ja: { q: "コーヒーの香りはお好きですか？", sub: "名物キャロット珈琲 vs 定番のキャロットアップル" },
+          zh: { q: "喜欢浓郁的咖啡香气吗？", sub: "创意胡萝卜特调咖啡 vs 经典苹果胡萝卜汁" },
+          fr: { q: "Aimez-vous l'arôme du café ?", sub: "Carrot Coffee espresso vs Douceur carotte-pomme" }
+        },
+        yes: { result: "carrot_coffee" },
+        no: { result: "carrot_apple" }
+      },
+
+      // 🥬 [가볍고 산뜻하게] 갈래
+      q_light_1: {
+        step: 2,
+        questions: {
+          ko: { q: "과일처럼 상큼한 맛이 좋아요?", sub: "과일의 상큼달콤함 vs 채소 본연의 깔끔함" },
+          en: { q: "Do you prefer a fruity, crisp and sweet taste?", sub: "Fruity vibrant notes vs Earthy raw greens" },
+          ja: { q: "フルーツのような爽やかで甘酸っぱい味が良いですか？", sub: "フルーティーな爽快感 vs 野菜本来のクリーンな味" },
+          zh: { q: "更偏爱像水果一样酸甜清爽的口感吗？", sub: "水果酸甜风味 vs 纯粹蔬菜清香" },
+          fr: { q: "Préférez-vous un goût fruité, doux et acidulé ?", sub: "Fraîcheur fruitée vs Pureté des légumes" }
+        },
+        yes: "q_light_beet",
+        no: "q_light_greens"
+      },
+      q_light_beet: {
+        step: 3,
+        questions: {
+          ko: { q: "비트가 들어가도 좋아요?", sub: "붉은 비트의 활력 배합 vs 익숙한 당근사과" },
+          en: { q: "Are you happy with nutrient-rich beetroot in it?", sub: "ABC (Apple, Beet, Carrot) vs Simple Carrot Apple" },
+          ja: { q: "ビーツが入っていても大丈夫ですか？", sub: "栄養満点のABCジュース vs 定番キャロットアップル" },
+          zh: { q: "加入红润养颜的甜菜根可以吗？", sub: "ABC果蔬汁 (含甜菜根) vs 经典苹果胡萝卜" },
+          fr: { q: "La betterave vous convient-elle ?", sub: "Jus ABC (avec betterave) vs Simple Carotte-Pomme" }
+        },
+        yes: { result: "abc_juice" },
+        no: { result: "carrot_apple" }
+      },
+      q_light_greens: {
+        step: 3,
+        questions: {
+          ko: { q: "채소 맛이 조금 느껴져도 괜찮아요?", sub: "양배추·당근 복합 채소 vs 순수 당근 100%" },
+          en: { q: "Is a light taste of fresh veggies okay for you?", sub: "Soothing cabbage blend (CCA) vs Pure raw carrot 100%" },
+          ja: { q: "野菜の風味が少し感じられても大丈夫ですか？", sub: "胃に優しいキャベツ(CCA) vs ニンジン100%ストレート" },
+          zh: { q: "能接受稍带一点清爽蔬菜风味吗？", sub: "养胃卷心菜复合(CCA) vs 100% 纯胡萝卜汁" },
+          fr: { q: "Une touche de légumes frais vous convient-elle ?", sub: "Mélange au chou (CCA) vs 100% Pur jus de carotte" }
+        },
+        yes: { result: "cca_juice" },
+        no: { result: "carrot_100" }
+      },
+
+      // 🥕 [건강한 주스 제대로] 갈래
+      q_healthy_1: {
+        step: 2,
+        questions: {
+          ko: { q: "채소의 존재감이 조금 있어도 괜찮아요?", sub: "과채 기능성 블렌딩 vs 부드럽고 친숙한 조합" },
+          en: { q: "Do you mind the presence of earthy healthy greens?", sub: "Functional root/green blend vs Smooth approachable blend" },
+          ja: { q: "野菜の素材感がしっかり感じられても大丈夫ですか？", sub: "本格的な機能性ジュース vs まろやかで飲みやすいブレンド" },
+          zh: { q: "蔬菜的存在感稍微明显一点也可以吗？", sub: "功能性果蔬纯调配 vs 顺滑亲切口感" },
+          fr: { q: "Une vraie présence de légumes vous convient-elle ?", sub: "Jus fonctionnel bienfaisant vs Mélange doux et soyeux" }
+        },
+        yes: "q_healthy_beet",
+        no: "q_healthy_coconut"
+      },
+      q_healthy_beet: {
+        step: 3,
+        questions: {
+          ko: { q: "비트가 들어간 산뜻한 맛이 좋아요?", sub: "비트의 맑은 활력(ABC) vs 양배추의 속 편함(CCA)" },
+          en: { q: "Do you prefer an energizing beetroot balance?", sub: "Vibrant Beetroot (ABC) vs Soothing Cabbage (CCA)" },
+          ja: { q: "ビーツが入った爽やかな味が良いですか？", sub: "巡りを整えるビーツ(ABC) vs お腹に優しいキャベツ(CCA)" },
+          zh: { q: "更想要搭配甜菜根的清爽口感吗？", sub: "气色满满甜菜根(ABC) vs 舒缓肠胃卷心菜(CCA)" },
+          fr: { q: "Préférez-vous la note fraîche de la betterave ?", sub: "Betterave vivifiante (ABC) vs Chou apaisant (CCA)" }
+        },
+        yes: { result: "abc_juice" },
+        no: { result: "cca_juice" }
+      },
+      q_healthy_coconut: {
+        step: 3,
+        questions: {
+          ko: { q: "코코넛밀크의 부드러운 맛은 좋아하세요?", sub: "고소하고 부드러운 코코넛 vs 달콤상큼한 사과" },
+          en: { q: "Do you like the smooth, silky taste of coconut milk?", sub: "Nutty Coco Carrot vs Classic Carrot Apple" },
+          ja: { q: "ココナッツミルクのまろやかな味はお好きですか？", sub: "コクのあるココキャロット vs 甘酸っぱいキャロットアップル" },
+          zh: { q: "喜欢椰奶醇厚柔滑的口感吗？", sub: "椰香胡萝卜特调 vs 经典苹果胡萝卜" },
+          fr: { q: "Aimez-vous la douceur onctueuse du lait de coco ?", sub: "Coco Carrot velouté vs Carotte-Pomme fruité" }
+        },
+        yes: { result: "coco_carrot" },
+        no: { result: "carrot_apple" }
+      },
+
+      // 🥥 [달콤하고 맛있는 게 당겨요] 갈래
+      q_sweet_1: {
+        step: 2,
+        questions: {
+          ko: { q: "부드럽고 크리미한 맛이 좋아요?", sub: "크리미하고 든든한 디저트 vs 향긋한 커피/스무디" },
+          en: { q: "Do you prefer a smooth, creamy and rich texture?", sub: "Creamy tropical vibes vs Coffee signature" },
+          ja: { q: "濃厚でクリーミーな口当たりがお好みですか？", sub: "リッチなデザート感 vs 芳醇な珈琲＆スイーツ" },
+          zh: { q: "喜欢柔滑醇厚、奶香满满的口感吗？", sub: "丝滑热带风味 vs 咖啡/蛋糕甜品" },
+          fr: { q: "Préférez-vous une texture douce et crémeuse ?", sub: "Douceur tropicale onctueuse vs Pause café & dessert" }
+        },
+        yes: "q_sweet_tropical",
+        no: "q_sweet_coffee"
+      },
+      q_sweet_tropical: {
+        step: 3,
+        questions: {
+          ko: { q: "열대과일의 달콤한 맛도 좋아하세요?", sub: "상큼청량한 캐롯콜라다 vs 고소하고 부드러운 코코캐롯" },
+          en: { q: "Do you also enjoy sweet tropical fruit flavors?", sub: "Tropical Carrot Colada vs Creamy Coco Carrot" },
+          ja: { q: "南国フルーツの甘酸っぱい香りもお好きですか？", sub: "爽快キャロットコラーダ vs まろやかココキャロット" },
+          zh: { q: "也喜欢热带水果酸甜可口的风味吗？", sub: "清爽热带胡萝卜可乐达 vs 丝滑椰香胡萝卜" },
+          fr: { q: "Aimez-vous le parfum des fruits tropicaux ?", sub: "Carrot Colada des îles vs Coco Carrot crémeux" }
+        },
+        yes: { result: "carrot_colada" },
+        no: { result: "coco_carrot" }
+      },
+      q_sweet_coffee: {
+        step: 3,
+        questions: {
+          ko: { q: "커피 향이 들어가도 좋아요?", sub: "에스프레소 당근커피 vs 리얼 당근케이크 맛 스무디" },
+          en: { q: "Would you like a touch of rich espresso?", sub: "Craft Carrot Coffee vs Liquid Carrot Cake smoothie" },
+          ja: { q: "珈琲のほろ苦い香りが入っても良いですか？", sub: "名物キャロット珈琲 vs 飲むキャロットケーキ" },
+          zh: { q: "加入香浓的意式咖啡可以吗？", sub: "特调胡萝卜咖啡 vs 可以喝的胡萝卜蛋糕奶昔" },
+          fr: { q: "Aimeriez-vous une note de café espresso ?", sub: "Carrot Coffee signature vs Smoothie façon Carrot Cake" }
+        },
+        yes: { result: "carrot_coffee" },
+        no: { result: "carrot_cake" }
+      }
+    };
+
+    // 11종 메뉴 데이터
+    const MENUS = {
+      ginger_shot: {
+        ko: { name: "서울진저샷", tag: "#에너지충전 #초강력활력 #리프레시", desc: "나른할 때 원샷! 눈이 번쩍 뜨이고 정신이 맑아지는 강력한 생강 에너지 샷이에요." },
+        en: { name: "Seoul Ginger Shot", tag: "#EnergyBoost #RawVitality #Focus", desc: "Take a shot to instantly energize your day and awaken your senses!" },
+        ja: { name: "ソウルジンジャーショット", tag: "#元気チャージ #超強力 #目覚まし", desc: "ひと口でシャキッと！活力とパワーがみなぎる超濃厚ショットです。" },
+        zh: { name: "首尔生姜生力饮", tag: "#一秒醒脑 #强效元气 #清醒提神", desc: "困倦时一口饮尽！瞬间清醒、驱散疲劳的高浓度能量饮。" },
+        fr: { name: "Seoul Ginger Shot", tag: "#CoupDeFouet #ÉnergiePure #Tonus", desc: "À boire d'un trait pour réveiller votre esprit et faire le plein d'énergie !" }
+      },
+      orange_carrot_ginger: {
+        ko: { name: "오렌지당근생강", tag: "#상큼알싸 #오렌지과즙 #기분전환", desc: "상큼한 오렌지 뒤에 은은한 생강 맛이 싹 돌아서 마시자마자 기분이 산뜻해져요." },
+        en: { name: "Orange Carrot Ginger", tag: "#CitrusWarmth #FreshOrange #Refreshing", desc: "Zesty fresh orange with a warming twist for a bright, comforting lift." },
+        ja: { name: "オレンジキャロット生姜", tag: "#爽やかな温もり #生搾りオレンジ #リフレッシュ", desc: "爽やかなオレンジと心地よい温もりが広がり、気分がパッと晴れやかに。" },
+        zh: { name: "香橙胡萝卜生姜汁", tag: "#酸甜暖胃 #鲜橙果香 #温润清爽", desc: "鲜橙的酸甜与温润的辛香完美融合，一口下去清爽又暖身。" },
+        fr: { name: "Orange Carotte Gingembre", tag: "#AgrumeChaleureux #OrangeFraîche #Peps", desc: "L'orange acidulée rencontre une douce chaleur réconfortante pour un vrai coup de frais." }
+      },
+      carrot_ginger: {
+        ko: { name: "당근생강", tag: "#따뜻한맛 #알싸한국룰 #속이풀리는", desc: "달달한 당근에 은은하게 퍼지는 알싸한 온기! 몸을 기분 좋게 덥혀주는 든든한 조합이에요." },
+        en: { name: "Carrot Ginger", tag: "#CozyWarmth #ClassicBlend #Comforting", desc: "Sweet carrot with a deeply comforting warm note. Perfect for soothing your body." },
+        ja: { name: "キャロットジンジャー", tag: "#ポカポカ温もり #深みのある味 #体が喜ぶ", desc: "甘いニンジンにじんわり広がる心地よい温もり。体を優しく包み込みます。" },
+        zh: { name: "胡萝卜生姜汁", tag: "#温润滋养 #经典醇香 #暖胃首选", desc: "甘甜胡萝卜搭配深层温润的香气，温润舒爽，滋养身心。" },
+        fr: { name: "Carotte Gingembre", tag: "#ChaleurApaisante #ÉpicéDoux #Réconfort", desc: "La douceur de la carotte avec une note chaude et profonde pour un pur moment de réconfort." }
+      },
+      carrot_coffee: {
+        ko: { name: "당근커피", tag: "#카페인충전 #시그니처커피 #은은한단맛", desc: "진한 에스프레소에 당근의 달큰함이 더해진 서울래빗만의 특별한 시그니처 커피예요." },
+        en: { name: "Carrot Coffee", tag: "#CaffeineBoost #SignatureCoffee #Unique", desc: "Bold espresso blended with subtle carrot sweetness. Our famous creation!" },
+        ja: { name: "キャロットコーヒー", tag: "#カフェイン補給 #名物珈琲 #クセになる", desc: "深みのあるエスプレッソにニンジンの甘みが溶け込んだ名物コーヒー。" },
+        zh: { name: "胡萝卜咖啡", tag: "#咖啡因充能 #招牌创意特调 #回甘独特", desc: "浓郁意式浓缩融入胡萝卜甘甜，首尔兔子独家招牌特调咖啡。" },
+        fr: { name: "Carrot Coffee", tag: "#CaféOriginal #EspressoDoux #Signature", desc: "L'intensité du café relevée d'une touche de carotte. Notre création phare !" }
+      },
+      carrot_apple: {
+        ko: { name: "당근사과", tag: "#달콤상큼 #실패없는맛 #인기1위", desc: "사과의 달콤함과 당근이 만난 누구나 다 좋아하는 꿀조합 베스트셀러 주스예요." },
+        en: { name: "Carrot Apple", tag: "#SweetCrisp #NeverFails #MostPopular", desc: "Crisp sweet apples meet fresh carrots. The crowd-favorite classic!" },
+        ja: { name: "キャロットアップル", tag: "#甘酸っぱくて美味しい #大人気 #定番の味", desc: "リンゴの爽やかな甘みとニンジンが出会った、絶対に失敗しない一番人気！" },
+        zh: { name: "苹果胡萝卜汁", tag: "#酸甜爽口 #百喝不腻 #人气第一", desc: "清甜苹果搭配鲜嫩胡萝卜，酸甜适口，谁喝都会喜欢的经典第一名！" },
+        fr: { name: "Carotte Pomme", tag: "#DouxEtFrais #Incontournable #TopVente", desc: "La douceur de la pomme mariée à la carotte. Le grand classique adoré de tous !" }
+      },
+      abc_juice: {
+        ko: { name: "ABC주스", tag: "#몸이가벼워지는 #사과비트당근 #생기충전", desc: "사과(Apple), 비트(Beet), 당근(Carrot)의 꿀조합! 몸에 기분 좋은 생기와 활력을 선물합니다." },
+        en: { name: "ABC Juice", tag: "#FeelLight #AppleBeetCarrot #DailyGlow", desc: "Apple, beet, and carrot golden blend to bring natural vitality and glow to your day." },
+        ja: { name: "ABCジュース", tag: "#体が軽くなる #リンゴビーツニンジン #元気チャージ", desc: "リンゴ・ビーツ・ニンジンの黄金比！内側から輝くような活力を届けます。" },
+        zh: { name: "ABC 活力果蔬汁", tag: "#身体变轻盈 #苹果甜菜根胡萝卜 #气色红润", desc: "苹果、甜菜根、胡萝卜经典配比，让身心重获轻盈，活力满满。" },
+        fr: { name: "Jus ABC", tag: "#CorpsLéger #PommeBetteraveCarotte #Vitalité", desc: "L'accord parfait pomme-betterave-carotte pour retrouver tonus et légèreté." }
+      },
+      cca_juice: {
+        ko: { name: "CCA주스", tag: "#속편한주스 #양배추당근사과 #가벼운루틴", desc: "당근(Carrot), 양배추(Cabbage), 사과(Apple)의 신선함으로 편안하고 가벼운 하루를 완성합니다." },
+        en: { name: "CCA Juice", tag: "#EasyOnStomach #CabbageCarrotApple #Digest", desc: "Blended with fresh cabbage, carrot, and apple to keep your body light and comfy." },
+        ja: { name: "CCAジュース", tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やか", desc: "キャベツ・ニンジン・リンゴ入りで、軽やかで心地よい一日をサポート。" },
+        zh: { name: "CCA 舒胃果蔬汁", tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #肠胃轻松", desc: "新鲜卷心菜、胡萝卜、苹果搭配，喝完身体特别轻盈舒服。" },
+        fr: { name: "Jus CCA", tag: "#EstomacLéger #ChouCarottePomme #DigestionFacile", desc: "Chou, carotte et pomme pour apaiser et faire du bien à votre corps naturellement." }
+      },
+      carrot_100: {
+        ko: { name: "100% 당근", tag: "#물설탕0 #순수착즙 #달콤한원액", desc: "물이나 설탕 없이 오직 당근만 착즙했어요. 신선하고 달콤한 당근 본연의 풍부한 영양을 즐겨보세요." },
+        en: { name: "100% Carrot", tag: "#ZeroAddedWater #PureRaw #SweetCarrot", desc: "Pure cold-pressed raw carrot juice with zero water or sugar. Naturally sweet!" },
+        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #本物のニンジン #自然な甘さ", desc: "水も砂糖もゼロ！新鮮なニンジンだけを搾った、驚くほど甘いジュース。" },
+        zh: { name: "100% 纯胡萝卜汁", tag: "#不加一滴水和糖 #纯天然原汁 #自然清甜", desc: "不加水也不加糖，只有纯粹胡萝卜原汁，甘甜可口超新鲜！" },
+        fr: { name: "100% Carotte", tag: "#SansEauSansSucre #100Carotte #DouceurNaturelle", desc: "100% pur jus de carotte pressé, sans eau ni sucre. Naturellement doux !" }
+      },
+      coco_carrot: {
+        ko: { name: "코코캐롯", tag: "#코코넛밀크 #부드러운맛 #고소달달", desc: "고소한 코코넛 밀크가 들어가서 라떼처럼 부드럽고 달콤하게 넘어가는 이색 블렌딩 주스예요." },
+        en: { name: "Coco Carrot", tag: "#CoconutMilk #SilkySmooth #Creamy", desc: "Silky coconut milk meets sweet carrot for a rich, smooth tropical sip." },
+        ja: { name: "ココキャロット", tag: "#ココナッツミルク #まろやか #クリーミー", desc: "クリーミーなココナッツミルクとニンジンの贅沢で優しい甘み。" },
+        zh: { name: "椰香胡萝卜", tag: "#浓郁椰奶 #丝滑顺口 #奶香清甜", desc: "浓郁椰奶搭配清甜胡萝卜，口感像拿铁一样丝滑好喝。" },
+        fr: { name: "Coco Carrot", tag: "#LaitDeCoco #TextureSoyeuse #Douceur", desc: "L'onctuosité du lait de coco avec la carotte douce, tout en rondeur." }
+      },
+      carrot_colada: {
+        ko: { name: "캐롯콜라다", tag: "#휴양지맛 #열대과일 #상큼청량", desc: "코코넛 향과 새콤달콤한 열대 과일 향이 어우러져 마시자마자 기분 좋아지는 트로피컬 주스예요." },
+        en: { name: "Carrot Colada", tag: "#IslandVibe #TropicalFruits #Crisp", desc: "Packed with coconut and tropical fruit aromas. Tastes like a vacation in a cup!" },
+        ja: { name: "キャロットコラーダ", tag: "#南国リゾート #トロピカル #爽快フルーツ", desc: "ココナッツと南国フルーツの香りが弾ける、爽やかでご機嫌な一杯！" },
+        zh: { name: "胡萝卜可乐达", tag: "#海岛度假风 #热带果香 #清爽解渴", desc: "椰香与热带果味交织，酸甜清爽，喝一口仿佛漫步在海岛！" },
+        fr: { name: "Carrot Colada", tag: "#GoûtVacances #FruitsTropicaux #Frais", desc: "Un parfum de coco et de fruits tropicaux. Comme un air de vacances !" }
+      },
+      carrot_cake: {
+        ko: { name: "마시는 당근케이크", tag: "#달콤디저트 #케이크맛 #달달한행복", desc: "진짜 당근 케이크를 마시는 듯 달콤하고 부드러운 행복을 주는 프리미엄 디저트 주스예요." },
+        en: { name: "Drinking Carrot Cake", tag: "#SweetDessert #TastesLikeCake #Indulgence", desc: "Like drinking liquid carrot cake! Rich, sweet, and pure happiness." },
+        ja: { name: "飲むキャロットケーキ", tag: "#飲むスイーツ #ケーキそのもの #幸せな甘さ", desc: "まるでキャロットケーキを飲んでいるような甘く贅沢なご褒美デザート。" },
+        zh: { name: "可以喝的胡萝卜蛋糕", tag: "#甜品奶昔 #蛋糕口感 #甜蜜享受", desc: "宛如把香甜的胡萝卜蛋糕融入口中，甜蜜满满的治愈系特饮。" },
+        fr: { name: "Drinking Carrot Cake", tag: "#DessertGourmand #GoûtGâteau #Onctueux", desc: "Un gâteau à la carotte à boire ! Doux, gourmand et réconfortant." }
+      }
+    };
+
+    const viewContainer = document.getElementById("view-container");
+    const btnBack = document.getElementById("btn-back");
+    const backText = document.getElementById("back-text");
+    const headerTitle = document.getElementById("header-title");
+    const headerSub = document.getElementById("header-sub");
+    const footerText = document.getElementById("footer-text");
+
+    // 언어 설정
+    window.setLanguage = function(lang) {
+      currentLang = lang;
+
+      document.querySelectorAll(".lang-btn").forEach(btn => {
+        btn.className = "lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200";
+      });
+      const activeBtn = document.getElementById(`lang-${lang}`);
+      if (activeBtn) {
+        activeBtn.className = "lang-btn px-2.5 py-1 rounded-full font-bold transition-all bg-orange-500 text-white shadow-sm";
+      }
+
+      const i18n = I18N[currentLang];
+      headerTitle.innerText = i18n.headerTitle;
+      headerSub.innerText = i18n.headerSub;
+      backText.innerText = i18n.backText;
+      footerText.innerText = i18n.footerText;
+
+      render();
+    };
+
+    // 1단계 테마 선택
+    window.selectStatus = function(categoryId) {
+      const cat = STATUS_CATEGORIES.find(c => c.id === categoryId);
+      if (!cat) return;
+
+      history.push({ view: "home" });
+
+      if (cat.directResult) {
+        currentView = "result";
+        currentSubNode = cat.directResult;
+      } else if (cat.nextQuestion) {
+        currentView = "question";
+        currentSubNode = cat.nextQuestion;
+      }
+      render();
+    };
+
+    // 2~4단계 질문 답변
     window.handleAnswer = function(choice) {
       const node = SUB_QUESTIONS[currentSubNode];
       const nextTarget = node[choice];
@@ -458,7 +986,7 @@
         viewContainer.innerHTML = `
           <div class="animate-fade-in flex flex-col justify-between h-full py-2">
             <div class="my-auto text-center py-4">
-              <span class="text-orange-500 font-bold text-xs tracking-wider uppercase bg-orange-100/80 px-2.5 py-1 rounded-full">CHECK</span>
+              <span class="text-orange-500 font-bold text-xs tracking-wider uppercase bg-orange-100/80 px-2.5 py-1 rounded-full">STEP ${node.step}</span>
               <h2 class="text-xl font-bold text-stone-900 mt-3 mb-2 leading-snug break-keep">
                 ${qData.q}
               </h2>
