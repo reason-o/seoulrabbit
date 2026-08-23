@@ -281,7 +281,7 @@
         questions: {
           ko: { q: "채소의 존재감이 조금 있어도 괜찮아요?", sub: "과채 기능성 블렌딩 vs 부드럽고 친숙한 조합" },
           en: { q: "Do you mind the presence of earthy healthy greens?", sub: "Functional root/green blend vs Smooth approachable blend" },
-          ja: { q: "野菜の素材感がしっかり感じられて도大丈夫ですか？", sub: "本格的な機能性ジュース vs まろやかで飲みやすいブレンド" },
+          ja: { q: "野菜の素材感がしっかり感じられても大丈夫ですか？", sub: "本格的な機能性ジュース vs まろやかで飲みやすいブレンド" },
           zh: { q: "蔬菜的存在感稍微明显一点也可以吗？", sub: "功能性果蔬纯调配 vs 顺滑亲切口感" },
           fr: { q: "Une vraie présence de légumes vous convient-elle ?", sub: "Jus fonctionnel bienfaisant vs Mélange doux et soyeux" }
         },
@@ -313,46 +313,60 @@
         no: { result: "carrot_apple" }
       },
 
-      // 🥥 4. 달콤하고 맛있는 게 당겨요
+      // 🥥 4. 달콤하고 맛있는 게 당겨요 (수정 완료!)
       q_sweet_creamy: {
         step: 2,
         questions: {
-          ko: { q: "부드럽고 크리미한 맛이 좋아요?", sub: "크리미하고 든든한 디저트 vs 향긋한 커피/스무디" },
-          en: { q: "Do you prefer a smooth, creamy and rich texture?", sub: "Creamy tropical vibes vs Coffee signature" },
-          ja: { q: "濃厚でクリーミーな口当たりがお好みですか？", sub: "リッチなデザート感 vs 芳醇な珈琲＆スイーツ" },
-          zh: { q: "喜欢柔滑醇厚、奶香满满的口感吗？", sub: "丝滑热带风味 vs 咖啡/蛋糕甜品" },
-          fr: { q: "Préférez-vous une texture douce et crémeuse ?", sub: "Douceur tropicale onctueuse vs Pause café & dessert" }
+          ko: { q: "부드럽고 크리미한 맛이 좋아요?", sub: "크리미 디저트/스무디 vs 향긋한 커피/과일 주스" },
+          en: { q: "Do you prefer a smooth, creamy and rich texture?", sub: "Creamy desserts & smoothies vs Coffee & fruity drinks" },
+          ja: { q: "濃厚でクリーミーな口当たりがお好みですか？", sub: "リッチなデザート/スムージー vs 珈琲/フルーツジュース" },
+          zh: { q: "喜欢柔滑醇厚、奶香满满的口感吗？", sub: "丝滑甜点/奶昔 vs 浓香咖啡/果汁" },
+          fr: { q: "Préférez-vous une texture douce et crémeuse ?", sub: "Dessert onctueux & smoothie vs Café & jus fruité" }
         },
-        yes: "q_sweet_tropical_fruit",
-        no: "q_sweet_coffee_aroma"
+        yes: "q_sweet_coconut_like",
+        no: "q_sweet_coffee_like"
       },
-      q_sweet_tropical_fruit: {
+      // 크리미 YES -> 코코넛 vs 당근케이크
+      q_sweet_coconut_like: {
         step: 3,
         questions: {
-          ko: { q: "열대과일의 달콤한 맛도 좋아하세요?", sub: "상큼청량한 캐롯콜라다 vs 고소하고 부드러운 코코캐롯" },
-          en: { q: "Do you also enjoy sweet tropical fruit flavors?", sub: "Tropical Carrot Colada vs Creamy Coco Carrot" },
-          ja: { q: "南国フルーツの甘酸っぱい香りもお好きですか？", sub: "爽快キャロットコラーダ vs まろやかココキャロット" },
-          zh: { q: "也喜欢热带水果酸甜可口的风味吗？", sub: "清爽热带胡萝卜可乐达 vs 丝滑椰香胡萝卜" },
-          fr: { q: "Aimez-vous le parfum des fruits tropicaux ?", sub: "Carrot Colada des îles vs Coco Carrot crémeux" }
+          ko: { q: "코코넛의 이국적인 향을 좋아하세요?", sub: "코코넛 블렌딩 vs 달콤한 디저트 케이크" },
+          en: { q: "Do you enjoy the exotic aroma of coconut?", sub: "Coconut blend vs Sweet carrot cake dessert" },
+          ja: { q: "ココナッツのエキゾチックな香りはお好きですか？", sub: "ココナッツブレンド vs 飲むキャロットケーキ" },
+          zh: { q: "喜欢椰香独特的异国风味吗？", sub: "椰香特调系列 vs 香甜胡萝卜蛋糕" },
+          fr: { q: "Aimez-vous le parfum exotique de la noix de coco ?", sub: "Mélange à la noix de coco vs Gâteau à la carotte" }
+        },
+        yes: "q_sweet_tropical_fruit",
+        no: { result: "carrot_cake" } // 코코넛 대신 달콤한 당근케이크!
+      },
+      q_sweet_tropical_fruit: {
+        step: 4,
+        questions: {
+          ko: { q: "열대과일의 상큼달콤함도 더해질까요?", sub: "상큼청량한 캐롯콜라다 vs 부드럽고 고소한 코코캐롯" },
+          en: { q: "Would you like tropical fruit freshness added to it?", sub: "Tropical Carrot Colada vs Smooth Coco Carrot" },
+          ja: { q: "南国フルーツの甘酸っぱさもプラスしますか？", sub: "爽快キャロットコラーダ vs まろやかココキャロット" },
+          zh: { q: "想要加入热带水果的酸甜果香吗？", sub: "清爽热带胡萝卜可乐达 vs 丝滑椰香胡萝卜" },
+          fr: { q: "Voulez-vous ajouter la fraîcheur des fruits tropicaux ?", sub: "Carrot Colada des îles vs Coco Carrot crémeux" }
         },
         yes: { result: "carrot_colada" },
         no: { result: "coco_carrot" }
       },
-      q_sweet_coffee_aroma: {
+      // 크리미 NO -> 커피 vs 당근사과
+      q_sweet_coffee_like: {
         step: 3,
         questions: {
-          ko: { q: "커피 향이 들어가도 좋아요?", sub: "에스프레소 당근커피 vs 리얼 당근케이크 맛 스무디" },
-          en: { q: "Would you like a touch of rich espresso?", sub: "Craft Carrot Coffee vs Liquid Carrot Cake smoothie" },
-          ja: { q: "珈琲のほろ苦い香りが入っても良いですか？", sub: "名物キャロット珈琲 vs 飲むキャロットケーキ" },
-          zh: { q: "加入香浓的意式咖啡可以吗？", sub: "特调胡萝卜咖啡 vs 可以喝的胡萝卜蛋糕奶昔" },
-          fr: { q: "Aimeriez-vous une note de café espresso ?", sub: "Carrot Coffee signature vs Smoothie façon Carrot Cake" }
+          ko: { q: "향긋한 커피(에스프레소)가 땡기시나요?", sub: "에스프레소 당근커피 vs 달콤상큼한 당근사과" },
+          en: { q: "Are you in the mood for espresso coffee?", sub: "Craft Carrot Coffee vs Sweet crisp Carrot Apple" },
+          ja: { q: "香ばしい珈琲（エスプレッソ）はいかがですか？", sub: "名物キャロット珈琲 vs 定番キャロットアップル" },
+          zh: { q: "想来一杯香浓的特调咖啡吗？", sub: "特调胡萝卜咖啡 vs 经典苹果胡萝卜" },
+          fr: { q: "Avez-vous envie d'une touche d'espresso ?", sub: "Carrot Coffee signature vs Douceur Carotte-Pomme" }
         },
         yes: { result: "carrot_coffee" },
-        no: { result: "carrot_cake" }
+        no: { result: "carrot_apple" }
       }
     };
 
-    // 11종 메뉴 데이터 (전체 네이버 스마트주문 다이렉트 URL 매핑 완료)
+    // 11종 메뉴 데이터 (전체 네이버 스마트주문 다이렉트 URL 매핑)
     const MENUS = {
       ginger_shot: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/19808240?area=bnq",
