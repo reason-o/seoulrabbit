@@ -39,13 +39,20 @@
         <span id="back-text">이전</span>
       </button>
 
-      <span class="text-[11px] font-bold tracking-widest text-orange-600 uppercase bg-orange-100/70 px-2.5 py-0.5 rounded-full inline-block mb-1.5">Seoul Rabbit</span>
-      <h1 id="header-title" class="text-lg font-extrabold text-stone-900 tracking-tight leading-tight">지금 어떤 한 잔이 당기나요?</h1>
-      <p id="header-sub" class="text-xs text-stone-500 mt-1">원하는 느낌의 카드를 골라보세요</p>
+      <!-- 상단 로고 이미지 (logo.png 없으면 텍스트 뱃지로 안전하게 fallback) -->
+      <div class="flex justify-center items-center mb-2">
+        <img src="logo.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-[11px] font-bold tracking-widest text-orange-600 uppercase bg-orange-100/70 px-2.5 py-0.5 rounded-full inline-block\'>Seoul Rabbit</span>';" class="h-8 max-w-[160px] object-contain" />
+      </div>
+
+      <!-- 로고와 메인 텍스트 사이 구분선 -->
+      <div class="w-12 h-[1.5px] bg-orange-200/80 mx-auto mb-2.5 rounded-full"></div>
+
+      <!-- 메인 질문 -->
+      <h1 id="header-title" class="text-lg font-extrabold text-stone-900 tracking-tight leading-tight">지금 어떤 한 잔이 필요하세요?</h1>
     </header>
 
     <!-- 동적 화면 렌더링 영역 -->
-    <div id="view-container" class="flex-1 p-4 sm:p-5 flex flex-col justify-center"></div>
+    <div id="view-container" class="flex-1 p-3.5 sm:p-4 flex flex-col justify-center"></div>
 
     <!-- 하단 푸터 -->
     <footer id="footer-text" class="py-3 text-center bg-stone-50/50 border-t border-stone-100 text-xs text-stone-400 font-medium">
@@ -61,8 +68,7 @@
 
     const I18N = {
       ko: {
-        headerTitle: "지금 어떤 한 잔이 당기나요?",
-        headerSub: "원하는 느낌의 카드를 골라보세요",
+        headerTitle: "지금 어떤 한 잔이 필요하세요?",
         backText: "이전",
         footerText: "서울래빗 서촌주스랩",
         recommendBadge: "지금 딱 맞는 추천 메뉴",
@@ -72,8 +78,7 @@
         defaultNo: "NO (다른 게 좋아요)"
       },
       en: {
-        headerTitle: "What are you craving today?",
-        headerSub: "Choose a mood that fits you best",
+        headerTitle: "What kind of drink do you need right now?",
         backText: "Back",
         footerText: "Seoul Rabbit Seochon Juice Lab",
         recommendBadge: "RECOMMENDED FOR YOU",
@@ -83,8 +88,7 @@
         defaultNo: "NO"
       },
       ja: {
-        headerTitle: "今、どんな一杯が飲みたい気分？",
-        headerSub: "今の気分にぴったりのカードを選んでください",
+        headerTitle: "今、どんな一杯が必要ですか？",
         backText: "戻る",
         footerText: "ソウルラビット 西村ジュースラボ",
         recommendBadge: "あなたへのおすすめ",
@@ -94,8 +98,7 @@
         defaultNo: "NO (いいえ)"
       },
       zh: {
-        headerTitle: "此刻你想喝一杯怎样的饮品？",
-        headerSub: "请选择你现在最想要的体验",
+        headerTitle: "此刻你需要一杯怎样的饮品？",
         backText: "返回",
         footerText: "Seoul Rabbit 西村果汁实验所",
         recommendBadge: "为你推荐",
@@ -105,8 +108,7 @@
         defaultNo: "NO (换一个)"
       },
       fr: {
-        headerTitle: "De quoi avez-vous envie maintenant ?",
-        headerSub: "Choisissez la sensation qui vous inspire",
+        headerTitle: "De quelle boisson avez-vous besoin maintenant ?",
         backText: "Retour",
         footerText: "Seoul Rabbit Seochon Juice Lab",
         recommendBadge: "RECOMMANDÉ POUR VOUS",
@@ -117,57 +119,57 @@
       }
     };
 
-    // 1단계 테마 카드 (아이콘 파일명 또는 이모지 모두 지원)
+    // 1단계 테마 카드 4종 (간결한 제목 & 부제목 제거 & 큰 아이콘)
     const STATUS_CATEGORIES = [
       {
         id: "wake_up",
-        icon: "icon-energy.png", // 업로드한 파일명에 맞게 변경 가능 (파일이 없으면 기본 ⚡ 출력)
+        icon: "icon-energy.png",
         fallbackEmoji: "⚡",
-        ko: { title: "확 깨는 한 잔이\n필요해요", desc: "번쩍 뜨이는 활력과 에너지" },
-        en: { title: "Need an instant\nwake-up call", desc: "Intense energy & freshness" },
-        ja: { title: "シャキッと目が覚める\n一杯がほしい", desc: "強力な活力とエナジー" },
-        zh: { title: "需要一杯\n瞬间提神的饮品", desc: "唤醒状态的超强活力" },
-        fr: { title: "Besoin d'un\ncoup de fouet", desc: "Énergie intense et vivifiante" },
+        ko: { title: "확 깨는 한 잔" },
+        en: { title: "Instant Wake-up" },
+        ja: { title: "シャキッと目覚まし" },
+        zh: { title: "瞬间提神" },
+        fr: { title: "Coup de Fouet" },
         nextQuestion: "q_wake_ginger_like"
       },
       {
         id: "light_fresh",
         icon: "icon-fresh.png",
         fallbackEmoji: "🥬",
-        ko: { title: "가볍고 산뜻하게\n마시고 싶어요", desc: "부담 없이 편안하고 맑게" },
-        en: { title: "Light & refreshing\nsip", desc: "Clean, breezy and natural" },
-        ja: { title: "軽やかで爽快に\n飲みたい", desc: "負担なくすっきりと" },
-        zh: { title: "想喝一杯\n轻盈清爽的饮品", desc: "自然纯净无负担" },
-        fr: { title: "Envie de légèreté\net de fraîcheur", desc: "Sain, doux et désaltérant" },
+        ko: { title: "산뜻한 한 잔" },
+        en: { title: "Light & Refreshing" },
+        ja: { title: "軽やかで爽快" },
+        zh: { title: "轻盈清爽" },
+        fr: { title: "Frais & Léger" },
         nextQuestion: "q_light_fruit_sour"
       },
       {
         id: "healthy_juice",
         icon: "icon-healthy.png",
         fallbackEmoji: "🥕",
-        ko: { title: "건강한 주스를\n제대로 마시고 싶어요", desc: "자연 과채의 꽉 찬 영양" },
-        en: { title: "Proper healthy\npressed juice", desc: "Rich vitality from raw nature" },
-        ja: { title: "本格的な健康ジュースを\nしっかり味わいたい", desc: "素材まるごとの栄養" },
-        zh: { title: "想认真喝一杯\n健康纯正果蔬汁", desc: "饱含天然果蔬营养" },
-        fr: { title: "Un vrai jus sain\net nutritif", desc: "Toute la richesse de la nature" },
+        ko: { title: "건강한 한 잔" },
+        en: { title: "Proper Healthy" },
+        ja: { title: "本格健康ジュース" },
+        zh: { title: "健康纯正" },
+        fr: { title: "Santé & Vitalité" },
         nextQuestion: "q_healthy_veggie_presence"
       },
       {
         id: "sweet_tasty",
         icon: "icon-sweet.png",
         fallbackEmoji: "🥥",
-        ko: { title: "달콤하고 맛있는 게\n당겨요", desc: "디저트 & 커피 힐링" },
-        en: { title: "Craving something\nsweet & delicious", desc: "Indulgent treats & craft coffee" },
-        ja: { title: "甘くて美味しいものが\n飲みたい", desc: "ご褒美スイーツ＆珈琲" },
-        zh: { title: "想喝好喝又香甜的\n治愈饮品", desc: "美味甜点与特色咖啡" },
-        fr: { title: "Envie d'une boisson\ngourmande et douce", desc: "Plaisir sucré et café signature" },
+        ko: { title: "달콤한 한 잔" },
+        en: { title: "Sweet & Tasty" },
+        ja: { title: "甘い癒やし" },
+        zh: { title: "香甜美味" },
+        fr: { title: "Douceur Sucrée" },
         nextQuestion: "q_sweet_creamy"
       }
     ];
 
-    // 2~4단계 질문 및 최종 메뉴 매핑
+    // 2~4단계 질문 트리
     const SUB_QUESTIONS = {
-      // ⚡ 1. 확 깨는 한 잔이 필요해요
+      // ⚡ 1. 확 깨는 한 잔
       q_wake_ginger_like: {
         step: 2,
         questions: {
@@ -229,7 +231,7 @@
         no: { result: "carrot_100" }
       },
 
-      // 🥬 2. 가볍고 산뜻하게 마시고 싶어요
+      // 🥬 2. 산뜻한 한 잔
       q_light_fruit_sour: {
         step: 2,
         questions: {
@@ -279,7 +281,7 @@
         no: { result: "carrot_100" }
       },
 
-      // 🥕 3. 건강한 주스를 제대로 마시고 싶어요
+      // 🥕 3. 건강한 한 잔
       q_healthy_veggie_presence: {
         step: 2,
         questions: {
@@ -317,7 +319,7 @@
         no: { result: "carrot_apple" }
       },
 
-      // 🥥 4. 달콤하고 맛있는 게 당겨요
+      // 🥥 4. 달콤한 한 잔
       q_sweet_creamy: {
         step: 2,
         questions: {
@@ -368,7 +370,7 @@
       }
     };
 
-    // 11종 메뉴 데이터
+    // 11종 메뉴 데이터 & 다이렉트 주문 링크
     const MENUS = {
       ginger_shot: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/19808240?area=bnq",
@@ -464,7 +466,6 @@
     const btnBack = document.getElementById("btn-back");
     const backText = document.getElementById("back-text");
     const headerTitle = document.getElementById("header-title");
-    const headerSub = document.getElementById("header-sub");
     const footerText = document.getElementById("footer-text");
 
     window.setLanguage = function(lang) {
@@ -480,7 +481,6 @@
 
       const i18n = I18N[currentLang];
       headerTitle.innerText = i18n.headerTitle;
-      headerSub.innerText = i18n.headerSub;
       backText.innerText = i18n.backText;
       footerText.innerText = i18n.footerText;
 
@@ -544,9 +544,8 @@
         btnBack.classList.add("hidden");
       }
 
-      // 1. 홈 화면 (이미지 파일 + 이모지 둘 다 지원)
+      // 1. 홈 화면 (아이콘 확대, 공백 축소, 간결한 타이틀)
       if (currentView === "home") {
-        headerSub.classList.remove("hidden");
         let html = `<div class="animate-fade-in grid grid-cols-2 gap-3 py-1">`;
         
         STATUS_CATEGORIES.forEach(cat => {
@@ -554,14 +553,13 @@
           const isImageFile = cat.icon.includes(".");
 
           const iconMarkup = isImageFile
-            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-2\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-12 h-12 object-contain mb-1.5 drop-shadow-sm group-hover:scale-105 transition-transform" />`
-            : `<span class="text-3xl mb-2">${cat.icon}</span>`;
+            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-4xl mb-2\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-16 h-16 object-contain mb-2 drop-shadow-sm group-hover:scale-105 transition-transform" />`
+            : `<span class="text-4xl mb-2">${cat.icon}</span>`;
 
           html += `
-            <button onclick="selectStatus('${cat.id}')" class="w-full p-4 rounded-2xl bg-orange-50/50 hover:bg-orange-100/70 border border-orange-100 active:scale-[0.97] transition-all flex flex-col items-center justify-center text-center group shadow-sm min-h-[140px]">
+            <button onclick="selectStatus('${cat.id}')" class="w-full p-4 rounded-2xl bg-orange-50/50 hover:bg-orange-100/70 border border-orange-100 active:scale-[0.97] transition-all flex flex-col items-center justify-center text-center group shadow-sm min-h-[145px]">
               ${iconMarkup}
-              <h2 class="text-sm font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line">${item.title}</h2>
-              <p class="text-[11px] text-orange-600 font-medium mt-1 break-keep">${item.desc}</p>
+              <h2 class="text-base font-extrabold text-stone-900 leading-tight break-keep whitespace-pre-line">${item.title}</h2>
             </button>
           `;
         });
@@ -572,7 +570,6 @@
 
       // 2. 질문 화면
       else if (currentView === "question") {
-        headerSub.classList.add("hidden");
         const node = SUB_QUESTIONS[currentSubNode];
         const qData = node.questions[currentLang] || node.questions["ko"];
         const yesLabel = qData.yesText || i18n.defaultYes;
@@ -604,7 +601,6 @@
 
       // 3. 결과 화면
       else if (currentView === "result") {
-        headerSub.classList.add("hidden");
         const menuObj = MENUS[currentSubNode];
         const menu = menuObj[currentLang] || menuObj["ko"];
         const targetOrderUrl = menuObj.orderUrl;
