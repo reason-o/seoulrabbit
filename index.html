@@ -391,7 +391,7 @@
       }
     };
 
-    // 12종 메뉴 데이터 & 다이렉트 주문 링크 (당근레몬소다 포함)
+    // 12종 메뉴 데이터 & 다이렉트 주문 링크
     const MENUS = {
       ginger_shot: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/19808240?area=bnq",
@@ -445,7 +445,7 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22835885?area=bnq",
         ko: { name: "CCA주스", tag: "#속편한주스 #양배추당근사과 #가벼운루틴", desc: "당근(Carrot), 양배추(Cabbage), 사과(Apple)의 신선함으로 편안하고 가벼운 하루를 완성합니다." },
         en: { name: "CCA Juice", tag: "#EasyOnStomach #CabbageCarrotApple #Digest", desc: "Blended with fresh cabbage, carrot, and apple to keep your body light and comfy." },
-        ja: { name: "CCAジュース", tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やか", desc: "キャベツ・ニンジン・リンゴ入りで、軽やかで心地よい一日をサポート。" },
+        ja: { name: "CCAジュース", tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やか", desc: "キャベツ・ニンジン・リンゴ入りで、軽やかで心地よい一日를 지원합니다." },
         zh: { name: "CCA 舒胃果蔬汁", tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #肠胃轻松", desc: "新鲜卷心菜、胡萝卜、苹果搭配，喝完身体特别轻盈舒服。" },
         fr: { name: "Jus CCA", tag: "#EstomacLéger #ChouCarottePomme #DigestionFacile", desc: "Chou, carotte et pomme pour apaiser et faire du bien à votre corps naturellement." }
       },
@@ -453,7 +453,7 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18046068?area=bnq",
         ko: { name: "100% 당근", tag: "#물설탕0 #순수착즙 #달콤한원액", desc: "물이나 설탕 없이 오직 당근만 착즙했어요. 신선하고 달콤한 당근 본연의 풍부한 영양을 즐겨보세요." },
         en: { name: "100% Carrot", tag: "#ZeroAddedWater #PureRaw #SweetCarrot", desc: "Pure cold-pressed raw carrot juice with zero water or sugar. Naturally sweet!" },
-        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #本物のニンジン #自然な甘さ", desc: "水も砂糖도 ゼロ！新鮮なニンジンだけを搾った、驚くほど甘いジュース。" },
+        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #本物のニンジン #自然な甘さ", desc: "水も砂糖もゼロ！新鮮なニンジンだけを搾った、驚くほど甘いジュース。" },
         zh: { name: "100% 纯胡萝卜汁", tag: "#不加一滴水和糖 #纯天然原汁 #自然清甜", desc: "不加水也不加糖，只有纯粹胡萝卜原汁，甘甜可口超新鲜！" },
         fr: { name: "100% Carotte", tag: "#SansEauSansSucre #100Carotte #DouceurNaturelle", desc: "100% pur jus de carotte pressé, sans eau ni sucre. Naturellement doux !" }
       },
@@ -482,8 +482,8 @@
         fr: { name: "Drinking Carrot Cake", tag: "#DessertGourmand #GoûtGâteau #Onctueux", desc: "Un gâteau à la carotte à boire ! Doux, gourmand et réconfortant." }
       },
       carrot_lemon_soda: {
-        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18263158?area=bnq",
-        ko: { name: "캐롯레몬소다", tag: "#청량탄산 #상큼톡톡 #갈증해소", desc: "달콤한 당근과 상큼한 레몬, 톡 쏘는 탄산수가 만나 시원하고 짜릿하게 즐기는 스파클링 에이드예요." },
+        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/23049055?area=bnq",
+        ko: { name: "당근레몬소다", tag: "#청량탄산 #상큼톡톡 #갈증해소", desc: "달콤한 당근과 상큼한 레몬, 톡 쏘는 탄산수가 만나 시원하고 짜릿하게 즐기는 스파클링 에이드예요." },
         en: { name: "Carrot Lemon Soda", tag: "#Sparkling #ZestyLemon #Refreshing", desc: "Sweet carrot, zesty lemon, and fizzy sparkling water for an ultra-refreshing sip!" },
         ja: { name: "キャロットレモンソーダ", tag: "#シュワッと炭酸 #爽快レモン #喉ごし最高", desc: "甘いニンジンと爽快レモンに炭酸が弾ける、すっきり爽快なスパークリング！" },
         zh: { name: "胡萝卜柠檬气泡饮", tag: "#爽口清凉 #鲜柠气泡 #解渴提神", desc: "清甜胡萝卜、鲜柠清香与劲爽气泡碰撞，解渴又过瘾！" },
@@ -585,7 +585,7 @@
         btnBack.classList.remove("hidden");
       }
 
-      // 1. 홈 화면 (5개 카드: 2열 + 마지막 카드 중앙 정렬)
+      // 1. 홈 화면 (5개 카드: 2열 그리드 + 마지막 카드 중앙 정렬)
       if (currentView === "home") {
         let html = `<div class="animate-fade-in grid grid-cols-2 gap-2.5 py-1">`;
         
@@ -611,7 +611,7 @@
         viewContainer.innerHTML = html;
       }
 
-      // 2. 질문 화면 (부연 설명 없이 질문 문구에 집중)
+      // 2. 질문 화면
       else if (currentView === "question") {
         const node = SUB_QUESTIONS[currentSubNode];
         const qData = node.questions[currentLang] || node.questions["ko"];
