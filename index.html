@@ -391,103 +391,343 @@
       }
     };
 
-    // 12종 메뉴 데이터 & 다이렉트 주문 링크
+    // 12종 메뉴 데이터 & 사용자 맞춤 설명 및 다국어 지원
     const MENUS = {
       ginger_shot: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/19808240?area=bnq",
-        ko: { name: "서울진저샷", tag: "#에너지충전 #초강력활력 #리프레시", desc: "나른할 때 원샷! 눈이 번쩍 뜨이고 정신이 맑아지는 강력한 생강 에너지 샷이에요." },
-        en: { name: "Seoul Ginger Shot", tag: "#EnergyBoost #RawVitality #Focus", desc: "Take a shot to instantly energize your day and awaken your senses!" },
-        ja: { name: "ソウルジンジャーショット", tag: "#元気チャージ #超強力 #目覚まし", desc: "ひと口でシャキッと！活力とパワーがみなぎる超濃厚ショットです。" },
-        zh: { name: "首尔生姜生力饮", tag: "#一秒醒脑 #强效元气 #清醒提神", desc: "困倦时一口饮尽！瞬间清醒、驱散疲劳的高浓度能量饮。" },
-        fr: { name: "Seoul Ginger Shot", tag: "#CoupDeFouet #ÉnergiePure #Tonus", desc: "À boire d'un trait pour réveiller votre esprit et faire le plein d'énergie !" }
+        ko: {
+          name: "서울진저샷",
+          tag: "#에너지충전 #초강력활력 #리프레시",
+          desc: "나른할 때 원샷! 눈이 번쩍 뜨이고 정신이 맑아지는 강력한 생강 에너지 샷이에요."
+        },
+        en: {
+          name: "Seoul Ginger Shot",
+          tag: "#EnergyBoost #RawVitality #Focus",
+          desc: "Take a shot to instantly energize your day and awaken your senses with pure ginger power!"
+        },
+        ja: {
+          name: "ソウルジンジャーショット",
+          tag: "#元気チャージ #超強力 #目覚まし",
+          desc: "ひと口でシャキッと！活力とパワーがみなぎる超濃厚生姜ショットです。"
+        },
+        zh: {
+          name: "首尔生姜生力饮",
+          tag: "#一秒醒脑 #强效元气 #清醒提神",
+          desc: "困倦时一口饮尽！瞬间清醒、驱散疲劳的高浓度生姜能量饮。"
+        },
+        fr: {
+          name: "Seoul Ginger Shot",
+          tag: "#CoupDeFouet #ÉnergiePure #Tonus",
+          desc: "À boire d'un trait pour réveiller votre esprit et faire le plein d'énergie vive !"
+        }
       },
       orange_carrot_ginger: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18262957?area=bnq",
-        ko: { name: "오렌지당근생강", tag: "#상큼알싸 #오렌지과즙 #기분전환", desc: "상큼한 오렌지 뒤에 은은한 생강 맛이 싹 돌아서 마시자마자 기분이 산뜻해져요." },
-        en: { name: "Orange Carrot Ginger", tag: "#CitrusWarmth #FreshOrange #Refreshing", desc: "Zesty fresh orange with a warming twist for a bright, comforting lift." },
-        ja: { name: "オレンジキャロット生姜", tag: "#爽やかな温もり #生搾りオレンジ #リフレッシュ", desc: "爽やかなオレンジと心地よい温もりが広がり、気分がパッと晴れやかに。" },
-        zh: { name: "香橙胡萝卜生姜汁", tag: "#酸甜暖胃 #鲜橙果香 #温润清爽", desc: "鲜橙的酸甜与温润的辛香完美融合，一口下去清爽又暖身。" },
-        fr: { name: "Orange Carotte Gingembre", tag: "#AgrumeChaleureux #OrangeFraîche #Peps", desc: "L'orange acidulée rencontre une douce chaleur réconfortante pour un vrai coup de frais." }
+        ko: {
+          name: "오렌지당근생강",
+          tag: "#상큼오렌지 #기분전환",
+          desc: "상큼한 오렌지 뒤에 은은한 생강 맛이 싹 돌아서 마시자마자 기분이 산뜻해져요."
+        },
+        en: {
+          name: "Orange Carrot Ginger",
+          tag: "#FreshOrange #RefreshingMood",
+          desc: "Zesty fresh orange with a subtle warm twist for a bright, uplifting feeling right away."
+        },
+        ja: {
+          name: "オレンジキャロット生姜",
+          tag: "#爽やかオレンジ #気分転換",
+          desc: "爽やかなオレンジの後にほんのり生姜が広がり、飲んだ瞬間気分がすっきり晴れやかに。"
+        },
+        zh: {
+          name: "香橙胡萝卜生姜汁",
+          tag: "#鲜橙果香 #焕新心情",
+          desc: "清甜鲜橙伴随着若隐若现的温润姜香，入口瞬间身心舒畅。"
+        },
+        fr: {
+          name: "Orange Carotte Gingembre",
+          tag: "#OrangeFraîche #NouvelleÉnergie",
+          desc: "L'orange acidulée suivie d'une douce note de gingembre pour un coup d'éclat immédiat."
+        }
       },
       carrot_ginger: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18262909?area=bnq",
-        ko: { name: "당근생강", tag: "#따뜻한맛 #알싸한국룰 #속이풀리는", desc: "달달한 당근에 은은하게 퍼지는 알싸한 온기! 몸을 기분 좋게 덥혀주는 든든한 조합이에요." },
-        en: { name: "Carrot Ginger", tag: "#CozyWarmth #ClassicBlend #Comforting", desc: "Sweet carrot with a deeply comforting warm note. Perfect for soothing your body." },
-        ja: { name: "キャロットジンジャー", tag: "#ポカポカ温もり #深みのある味 #体が喜ぶ", desc: "甘いニンジンにじんわり広がる心地よい温もり。体を優しく包み込みます。" },
-        zh: { name: "胡萝卜生姜汁", tag: "#温润滋养 #经典醇香 #暖胃首选", desc: "甘甜胡萝卜搭配深层温润的香气，温润舒爽，滋养身心。" },
-        fr: { name: "Carotte Gingembre", tag: "#ChaleurApaisante #ÉpicéDoux #Réconfort", desc: "La douceur de la carotte avec une note chaude et profonde pour un pur moment de réconfort." }
+        ko: {
+          name: "당근생강",
+          tag: "#알싸한생강 #환상조합",
+          desc: "달달한 당근에 은은하게 퍼지는 알싸한 생강! 깔끔한 뒷맛!"
+        },
+        en: {
+          name: "Carrot Ginger",
+          tag: "#SpicyGinger #PerfectDuo",
+          desc: "Sweet carrot blended with the warm spice of ginger. Wonderfully clean finish!"
+        },
+        ja: {
+          name: "キャロットジンジャー",
+          tag: "#ピリッと生姜 #黄金コンビ",
+          desc: "甘いニンジンにじんわり広がる生姜のアクセント！後味もすっきり爽やか！"
+        },
+        zh: {
+          name: "胡萝卜生姜汁",
+          tag: "#温润生姜 #绝妙搭配",
+          desc: "清甜胡萝卜中融入温润辛香的生姜，回味格外清爽！"
+        },
+        fr: {
+          name: "Carotte Gingembre",
+          tag: "#GingembreÉpicé #DuoParfait",
+          desc: "Carotte douce relevée d'une touche de gingembre pour une fin de bouche très nette !"
+        }
       },
       carrot_coffee: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/17245869?area=bnq",
-        ko: { name: "당근커피", tag: "#카페인충전 #시그니처커피 #은은한단맛", desc: "진한 에스프레소에 당근의 달큰함이 더해진 서울래빗만의 특별한 시그니처 커피예요." },
-        en: { name: "Carrot Coffee", tag: "#CaffeineBoost #SignatureCoffee #Unique", desc: "Bold espresso blended with subtle carrot sweetness. Our famous creation!" },
-        ja: { name: "キャロットコーヒー", tag: "#カフェイン補給 #名物珈琲 #クセになる", desc: "深みのあるエスプレッソにニンジンの甘みが溶け込んだ名物コーヒー。" },
-        zh: { name: "胡萝卜咖啡", tag: "#咖啡因充能 #招牌创意特调 #回甘独特", desc: "浓郁意式浓缩融入胡萝卜甘甜，首尔兔子独家招牌特调咖啡。" },
-        fr: { name: "Carrot Coffee", tag: "#CaféOriginal #EspressoDoux #Signature", desc: "L'intensité du café relevée d'une touche de carotte. Notre création phare !" }
+        ko: {
+          name: "당근커피",
+          tag: "#카페인충전 #시그니처커피 #은은한단맛",
+          desc: "당근의 달달함에 콜드브루커피가 더해진 서울래빗만의 특별한 시그니처 커피예요."
+        },
+        en: {
+          name: "Carrot Coffee",
+          tag: "#CaffeineFix #SignatureCoffee #SubtleSweet",
+          desc: "Sweet cold-pressed carrot meets smooth cold brew coffee. Seoul Rabbit's iconic creation!"
+        },
+        ja: {
+          name: "キャロットコーヒー",
+          tag: "#カフェイン補給 #名物珈琲 #優しい甘み",
+          desc: "ニンジンの自然な甘みにコールドブリュー珈琲を合わせたソウルラビット名物の一杯。"
+        },
+        zh: {
+          name: "胡萝卜咖啡",
+          tag: "#咖啡因充能 #招牌咖啡 #自然回甘",
+          desc: "自然清甜的胡萝卜原汁融入顺滑冷萃咖啡，首尔兔子独家招牌特调。"
+        },
+        fr: {
+          name: "Carrot Coffee",
+          tag: "#CaféOriginal #ColdBrew #Signature",
+          desc: "La douceur de la carotte alliée à un cold brew aromatique. Notre signature exclusive !"
+        }
       },
       carrot_apple: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18262733?area=bnq",
-        ko: { name: "당근사과", tag: "#달콤상큼 #실패없는맛 #인기1위", desc: "사과의 달콤함과 당근이 만난 누구나 다 좋아하는 꿀조합 베스트셀러 주스예요." },
-        en: { name: "Carrot Apple", tag: "#SweetCrisp #NeverFails #MostPopular", desc: "Crisp sweet apples meet fresh carrots. The crowd-favorite classic!" },
-        ja: { name: "キャロットアップル", tag: "#甘酸っぱくて美味しい #大人気 #定番の味", desc: "リンゴの爽やかな甘みとニンジンが出会った、絶対に失敗しない一番人気！" },
-        zh: { name: "苹果胡萝卜汁", tag: "#酸甜爽口 #百喝不腻 #人气第一", desc: "清甜苹果搭配鲜嫩胡萝卜，酸甜适口，谁喝都会喜欢的经典第一名！" },
-        fr: { name: "Carotte Pomme", tag: "#DouxEtFrais #Incontournable #TopVente", desc: "La douceur de la pomme mariée à la carotte. Le grand classique adoré de tous !" }
+        ko: {
+          name: "당근사과",
+          tag: "#달콤상큼 #실패없는맛 #인기1위",
+          desc: "사과의 달콤함과 당근이 만났어요. 누구나 다 좋아하는 꿀조합 베스트셀러 주스예요."
+        },
+        en: {
+          name: "Carrot Apple",
+          tag: "#SweetCrisp #NeverFails #No1Popular",
+          desc: "Crisp sweet apples harmoniously blended with fresh carrots. Our all-time #1 bestseller!"
+        },
+        ja: {
+          name: "キャロットアップル",
+          tag: "#甘酸っぱい #大人気 #不動のNo1",
+          desc: "甘酸っぱいリンゴと新鮮なニンジンが出会った、誰もが大好きな人気No.1ベストセラー！"
+        },
+        zh: {
+          name: "苹果胡萝卜汁",
+          tag: "#酸甜可口 #经典百搭 #人气第一",
+          desc: "清甜苹果遇上鲜嫩胡萝卜，人手一杯、绝不踩雷的高人气镇店之宝。"
+        },
+        fr: {
+          name: "Carotte Pomme",
+          tag: "#DouxEtFrais #Incontournable #TopVente",
+          desc: "La pomme croquante mariée à la carotte douce. Le best-seller n°1 adoré de tous !"
+        }
       },
       abc_juice: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22835851?area=bnq",
-        ko: { name: "ABC주스", tag: "#몸이가벼워지는 #사과비트당근 #생기충전", desc: "사과(Apple), 비트(Beet), 당근(Carrot)의 꿀조합! 몸에 기분 좋은 생기와 활력을 선물합니다." },
-        en: { name: "ABC Juice", tag: "#FeelLight #AppleBeetCarrot #DailyGlow", desc: "Apple, beet, and carrot golden blend to bring natural vitality and glow to your day." },
-        ja: { name: "ABCジュース", tag: "#体が軽くなる #リンゴビーツニンジン #元気チャージ", desc: "リンゴ・ビーツ・ニンジンの黄金比！内側から輝くような活力を届けます。" },
-        zh: { name: "ABC 活力果蔬汁", tag: "#身体变轻盈 #苹果甜菜根胡萝卜 #气色红润", desc: "苹果、甜菜根、胡萝卜经典配比，让身心重获轻盈，活力满满。" },
-        fr: { name: "Jus ABC", tag: "#CorpsLéger #PommeBetteraveCarotte #Vitalité", desc: "L'accord parfait pomme-betterave-carotte pour retrouver tonus et légèreté." }
+        ko: {
+          name: "ABC주스",
+          tag: "#몸이가벼워지는 #사과비트당근 #생기충전",
+          desc: "사과(Apple), 비트(Beet), 당근(Carrot)의 꿀조합! 몸에 기분 좋은 생기와 활력을 선물합니다."
+        },
+        en: {
+          name: "ABC Juice",
+          tag: "#FeelLight #AppleBeetCarrot #DailyGlow",
+          desc: "Apple, Beet, and Carrot golden blend! Brings natural vitality and lightness to your daily routine."
+        },
+        ja: {
+          name: "ABCジュース",
+          tag: "#体が軽くなる #リンゴビーツニンジン #元気チャージ",
+          desc: "リンゴ・ビーツ・ニンジンの黄金比！内側から輝くような活力を届けます。"
+        },
+        zh: {
+          name: "ABC 活力果蔬汁",
+          tag: "#身体变轻盈 #苹果甜菜根胡萝卜 #气色红润",
+          desc: "苹果、甜菜根、胡萝卜经典黄金配比，为身体注入满满元气与轻盈活力。"
+        },
+        fr: {
+          name: "Jus ABC",
+          tag: "#CorpsLéger #PommeBetteraveCarotte #Vitalité",
+          desc: "L'accord parfait pomme-betterave-carotte pour retrouver tonus et légèreté au quotidien."
+        }
       },
       cca_juice: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22835885?area=bnq",
-        ko: { name: "CCA주스", tag: "#속편한주스 #양배추당근사과 #가벼운루틴", desc: "당근(Carrot), 양배추(Cabbage), 사과(Apple)의 신선함으로 편안하고 가벼운 하루를 완성합니다." },
-        en: { name: "CCA Juice", tag: "#EasyOnStomach #CabbageCarrotApple #Digest", desc: "Blended with fresh cabbage, carrot, and apple to keep your body light and comfy." },
-        ja: { name: "CCAジュース", tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やか", desc: "キャベツ・ニンジン・リンゴ入りで、軽やかで心地よい一日를 지원합니다." },
-        zh: { name: "CCA 舒胃果蔬汁", tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #肠胃轻松", desc: "新鲜卷心菜、胡萝卜、苹果搭配，喝完身体特别轻盈舒服。" },
-        fr: { name: "Jus CCA", tag: "#EstomacLéger #ChouCarottePomme #DigestionFacile", desc: "Chou, carotte et pomme pour apaiser et faire du bien à votre corps naturellement." }
+        ko: {
+          name: "CCA주스",
+          tag: "#속편한주스 #양배추당근사과 #가벼운루틴",
+          desc: "당근(Carrot), 양배추(Cabbage), 사과(Apple)의 신선함으로 편안하고 가벼운 하루를 완성합니다."
+        },
+        en: {
+          name: "CCA Juice",
+          tag: "#StomachComfort #CabbageCarrotApple #LightRoutine",
+          desc: "Fresh blend of Carrot, Cabbage, and Apple designed for digestive comfort and a light day."
+        },
+        ja: {
+          name: "CCAジュース",
+          tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やかルーティン",
+          desc: "ニンジン・キャベツ・リンゴのやさしい新鮮さで、心地よく軽やかな毎日を。"
+        },
+        zh: {
+          name: "CCA 舒胃果蔬汁",
+          tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #轻盈日常",
+          desc: "新鲜胡萝卜、卷心菜和苹果调配，温和呵护肠胃，带来无负担的轻盈感。"
+        },
+        fr: {
+          name: "Jus CCA",
+          tag: "#EstomacLéger #ChouCarottePomme #DigestionFacile",
+          desc: "Carotte, chou et pomme pour apaiser l'estomac et faire du bien à votre corps."
+        }
       },
       carrot_100: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18046068?area=bnq",
-        ko: { name: "100% 당근", tag: "#물설탕0 #순수착즙 #달콤한원액", desc: "물이나 설탕 없이 오직 당근만 착즙했어요. 신선하고 달콤한 당근 본연의 풍부한 영양을 즐겨보세요." },
-        en: { name: "100% Carrot", tag: "#ZeroAddedWater #PureRaw #SweetCarrot", desc: "Pure cold-pressed raw carrot juice with zero water or sugar. Naturally sweet!" },
-        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #本物のニンジン #自然な甘さ", desc: "水も砂糖もゼロ！新鮮なニンジンだけを搾った、驚くほど甘いジュース。" },
-        zh: { name: "100% 纯胡萝卜汁", tag: "#不加一滴水和糖 #纯天然原汁 #自然清甜", desc: "不加水也不加糖，只有纯粹胡萝卜原汁，甘甜可口超新鲜！" },
-        fr: { name: "100% Carotte", tag: "#SansEauSansSucre #100Carotte #DouceurNaturelle", desc: "100% pur jus de carotte pressé, sans eau ni sucre. Naturellement doux !" }
+        ko: {
+          name: "100% 당근",
+          tag: "#물설탕0 #순수착즙 #달콤한원액",
+          desc: "물이나 설탕 없이 오직 당근만 착즙했어요. 신선하고 달콤한 당근 본연의 풍부한 영양을 즐겨보세요."
+        },
+        en: {
+          name: "100% Carrot",
+          tag: "#ZeroAddedWater #PureRaw #SweetCarrot",
+          desc: "Cold-pressed pure raw carrot juice with 0% added water or sugar. Naturally sweet & nutrient-dense!"
+        },
+        ja: {
+          name: "100% ニンジン",
+          tag: "#水も砂糖もゼロ #純粋生搾り #自然な甘み",
+          desc: "水や砂糖は一切不使用！新鮮なニンジンだけを搾った、驚くほど甘く贅沢な栄養原液。"
+        },
+        zh: {
+          name: "100% 纯胡萝卜汁",
+          tag: "#不加一滴水和糖 #纯压榨原汁 #自然清甜",
+          desc: "不加水也不加糖，纯粹压榨胡萝卜原汁，尽享来自大自然的甘甜与丰沛营养。"
+        },
+        fr: {
+          name: "100% Carotte",
+          tag: "#SansEauSansSucre #100Carotte #DouceurNaturelle",
+          desc: "100% pur jus de carotte pressé, sans eau ni sucre. Naturellement doux et riche en bienfaits !"
+        }
       },
       coco_carrot: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22842359?area=bnq",
-        ko: { name: "코코캐롯", tag: "#코코넛밀크 #부드러운맛 #고소달달", desc: "고소한 코코넛 밀크가 들어가서 라떼처럼 부드럽고 달콤하게 넘어가는 이색 블렌딩 주스예요." },
-        en: { name: "Coco Carrot", tag: "#CoconutMilk #SilkySmooth #Creamy", desc: "Silky coconut milk meets sweet carrot for a rich, smooth tropical sip." },
-        ja: { name: "ココキャロット", tag: "#ココナッツミルク #まろやか #クリーミー", desc: "クリーミーなココナッツミルクとニンジンの贅沢で優しい甘み。" },
-        zh: { name: "椰香胡萝卜", tag: "#浓郁椰奶 #丝滑顺口 #奶香清甜", desc: "浓郁椰奶搭配清甜胡萝卜，口感像拿铁一样丝滑好喝。" },
-        fr: { name: "Coco Carrot", tag: "#LaitDeCoco #TextureSoyeuse #Douceur", desc: "L'onctuosité du lait de coco avec la carotte douce, tout en rondeur." }
+        ko: {
+          name: "코코캐롯",
+          tag: "#코코넛밀크 #부드러운맛 #고소달달",
+          desc: "고소한 코코넛 밀크가 들어가서 부드럽고 달콤하게 넘어가는 이색 블렌딩 주스예요. 가벼운 포만감도 느껴보세요."
+        },
+        en: {
+          name: "Coco Carrot",
+          tag: "#CoconutMilk #SmoothTaste #GentleFullness",
+          desc: "Nutty coconut milk paired with sweet carrot for a smooth, velvety sip. Offers a gentle, satisfying fullness."
+        },
+        ja: {
+          name: "ココキャロット",
+          tag: "#ココナッツミルク #まろやか #ほどよい満足感",
+          desc: "香ばしいココナッツミルク入りでまろやか＆クリーミー！軽やかな満足感も楽しめます。"
+        },
+        zh: {
+          name: "椰香胡萝卜",
+          tag: "#香浓椰奶 #丝滑回甘 #轻盈饱腹",
+          desc: "浓醇椰奶与清甜胡萝卜美妙交融，口感顺滑丝甜，还能带来适度的满足感。"
+        },
+        fr: {
+          name: "Coco Carrot",
+          tag: "#LaitDeCoco #TextureSoyeuse #LégèreSatiété",
+          desc: "Lait de coco onctueux marié à la carotte douce. Velouté et délicatement rassasiant."
+        }
       },
       carrot_colada: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22842456?area=bnq",
-        ko: { name: "캐롯콜라다", tag: "#휴양지맛 #열대과일 #상큼청량", desc: "코코넛 향과 파인애플 등 새콤달콤한 열대 과일 향이 어우러져 기분 좋아지는 트로피컬 주스예요." },
-        en: { name: "Carrot Colada", tag: "#IslandVibe #TropicalFruits #Crisp", desc: "Packed with coconut and tropical pineapple aromas. Tastes like a vacation in a cup!" },
-        ja: { name: "キャロットコラーダ", tag: "#南国リゾート #トロピカル #爽快フルーツ", desc: "ココナッツとパイナップルの香りが弾ける、爽やかでご機嫌な一杯！" },
-        zh: { name: "胡萝卜可乐达", tag: "#海岛度假风 #热带果香 #清爽解渴", desc: "椰香与菠萝热带果味交织，酸甜清爽，喝一口仿佛漫步在海岛！" },
-        fr: { name: "Carrot Colada", tag: "#GoûtVacances #FruitsTropicaux #Frais", desc: "Un parfum de coco et d'ananas tropical. Comme un air de vacances !" }
+        ko: {
+          name: "캐롯콜라다",
+          tag: "#휴양지맛 #열대과일 #상큼청량",
+          desc: "코코넛밀크와 파인애플! 새콤달콤한 열대 과일 향이 어우러져 기분 좋아지는 트로피컬 주스예요."
+        },
+        en: {
+          name: "Carrot Colada",
+          tag: "#ResortVibe #TropicalFruits #ZestyCrisp",
+          desc: "Creamy coconut milk & juicy pineapple! An exotic tropical blend that lifts your mood instantly."
+        },
+        ja: {
+          name: "キャロットコラーダ",
+          tag: "#南国リゾート #トロピカル #爽快フルーツ",
+          desc: "ココナッツミルクとパイナップル！南国フルーツの甘酸っぱい香りが弾けるご機嫌な一杯。"
+        },
+        zh: {
+          name: "胡萝卜可乐达",
+          tag: "#海岛度假风 #热带菠萝 #清爽解渴",
+          desc: "浓郁椰奶邂逅酸甜菠萝！满溢热带风情与果香，喝一口仿佛置身阳光海岛。"
+        },
+        fr: {
+          name: "Carrot Colada",
+          tag: "#GoûtVacances #AnanasTropical #Frais",
+          desc: "Lait de coco et ananas juteux ! Un parfum exotique qui vous transporte en vacances."
+        }
       },
       carrot_cake: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/23041516?area=bnq",
-        ko: { name: "마시는 당근케이크", tag: "#달콤디저트 #케이크맛 #달달한행복", desc: "진짜 당근 케이크를 마시는 듯 달콤하고 부드러운 행복을 주는 프리미엄 디저트 주스예요." },
-        en: { name: "Drinking Carrot Cake", tag: "#SweetDessert #TastesLikeCake #Indulgence", desc: "Like drinking liquid carrot cake! Rich, sweet, and pure happiness." },
-        ja: { name: "飲むキャロットケーキ", tag: "#飲むスイーツ #ケーキそのもの #幸せな甘さ", desc: "まるでキャロットケーキを飲んでいるような甘く贅沢なご褒美デザート。" },
-        zh: { name: "可以喝的胡萝卜蛋糕", tag: "#甜品奶昔 #蛋糕口感 #甜蜜享受", desc: "宛如把香甜的胡萝卜蛋糕融入口中，甜蜜满满的治愈系特饮。" },
-        fr: { name: "Drinking Carrot Cake", tag: "#DessertGourmand #GoûtGâteau #Onctueux", desc: "Un gâteau à la carotte à boire ! Doux, gourmand et réconfortant." }
+        ko: {
+          name: "마시는 당근케이크",
+          tag: "#달콤디저트 #케이크맛 #달달한행복",
+          desc: "진짜 당근 케이크를 마시는 듯 단짠단짠! 부드러운 행복을 주는 프리미엄 디저트 주스예요. 당근주스와 치즈폼, 시나몬 톡톡!"
+        },
+        en: {
+          name: "Drinking Carrot Cake",
+          tag: "#SweetDessert #CakeFlavored #PureHappiness",
+          desc: "Like drinking real carrot cake with a sweet & savory twist! Fresh carrot juice topped with rich cheese foam and cinnamon."
+        },
+        ja: {
+          name: "飲むキャロットケーキ",
+          tag: "#飲むスイーツ #あまじょっぱい #至福のデザート",
+          desc: "まるで本物のキャロットケーキを飲んでいるような甘じょっぱさ！特製チーズフォームとシナモンが香る贅沢デザート。"
+        },
+        zh: {
+          name: "可以喝的胡萝卜蛋糕",
+          tag: "#甜品特饮 #咸甜蛋糕风味 #治愈幸福感",
+          desc: "宛如喝得到的咸甜胡萝卜蛋糕！清甜胡萝卜汁融入醇厚芝士奶盖，撒上肉桂香气，一口治愈。"
+        },
+        fr: {
+          name: "Drinking Carrot Cake",
+          tag: "#DessertGourmand #GoûtGâteau #MousseFromage",
+          desc: "Un vrai gâteau à la carotte à boire ! Jus de carotte doux surmonté d'une mousse fromage onctueuse et d'une touche de cannelle."
+        }
       },
       carrot_lemon_soda: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/23049055?area=bnq",
-        ko: { name: "당근레몬소다", tag: "#청량탄산 #상큼톡톡 #갈증해소", desc: "달콤한 당근과 상큼한 레몬, 톡 쏘는 탄산수가 만나 시원하고 짜릿하게 즐기는 스파클링 에이드예요." },
-        en: { name: "Carrot Lemon Soda", tag: "#Sparkling #ZestyLemon #Refreshing", desc: "Sweet carrot, zesty lemon, and fizzy sparkling water for an ultra-refreshing sip!" },
-        ja: { name: "キャロットレモンソーダ", tag: "#シュワッと炭酸 #爽快レモン #喉ごし最高", desc: "甘いニンジンと爽快レモンに炭酸が弾ける、すっきり爽快なスパークリング！" },
-        zh: { name: "胡萝卜柠檬气泡饮", tag: "#爽口清凉 #鲜柠气泡 #解渴提神", desc: "清甜胡萝卜、鲜柠清香与劲爽气泡碰撞，解渴又过瘾！" },
-        fr: { name: "Carrot Lemon Soda", tag: "#Pétillant #CitronFrais #Désaltérant", desc: "Carotte douce, citron tonique et fines bulles pétillantes pour une fraîcheur absolue !" }
+        ko: {
+          name: "당근레몬소다",
+          tag: "#청량탄산 #상큼톡톡 #갈증해소",
+          desc: "달콤한 당근과 상큼한 레몬, 톡 쏘는 탄산수가 만나 시원하고 짜릿하게 즐기는 스파클링 에이드예요."
+        },
+        en: {
+          name: "Carrot Lemon Soda",
+          tag: "#Sparkling #ZestyLemon #ThirstQuencher",
+          desc: "Sweet carrot, zesty lemon, and crisp sparkling water combined for an ultra-refreshing fizzy thirst quencher!"
+        },
+        ja: {
+          name: "당근레몬소다",
+          tag: "#シュワッと炭酸 #爽快レモン #喉ごし最高",
+          desc: "甘いニンジンと爽快レモンに炭酸水が弾ける、すっきり爽快なスパークリングエード！"
+        },
+        zh: {
+          name: "胡萝卜柠檬气泡饮",
+          tag: "#清爽气泡 #鲜柠酸甜 #畅爽解渴",
+          desc: "清甜胡萝卜、鲜柠果香与劲爽气泡水碰撞，冰爽过瘾，瞬间驱散燥热与口渴！"
+        },
+        fr: {
+          name: "Carrot Lemon Soda",
+          tag: "#Pétillant #CitronTonique #Désaltérant",
+          desc: "Carotte douce, citron acidulé et eau pétillante pour une boisson gazeuse ultra-fraîche et désaltérante !"
+        }
       }
     };
 
@@ -585,7 +825,7 @@
         btnBack.classList.remove("hidden");
       }
 
-      // 1. 홈 화면 (5개 카드: 2열 그리드 + 마지막 카드 중앙 정렬)
+      // 1. 홈 화면 (5개 카드)
       if (currentView === "home") {
         let html = `<div class="animate-fade-in grid grid-cols-2 gap-2.5 py-1">`;
         
