@@ -4,6 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>서울래빗 서촌주스랩 - 메뉴 찾기</title>
+
+  <!-- 카카오톡 및 SNS 공유(오픈그래프) 설정 -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="서울래빗 서촌주스랩 | 내 몸에 맞는 주스 찾기" />
+  <meta property="og:description" content="지금 내 몸 상태와 기분에 딱 맞는 맞춤 주스를 찾아보세요." />
+  <meta id="og-image-tag" property="og:image" content="og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script>
+    // 카카오톡 크롤러가 전체 절대 경로로 이미지를 인식할 수 있도록 보정
+    const ogImg = document.getElementById('og-image-tag');
+    if (ogImg && !ogImg.content.startsWith('http')) {
+      ogImg.content = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + 'og-image.png';
+    }
+  </script>
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -120,7 +138,6 @@
       }
     };
 
-    // 1단계 테마 카드 4종
     const STATUS_CATEGORIES = [
       {
         id: "wake_up",
@@ -168,7 +185,6 @@
       }
     ];
 
-    // 2~4단계 질문 트리
     const SUB_QUESTIONS = {
       // ⚡ 1. 확 깨는 한 잔
       q_wake_ginger_like: {
@@ -251,7 +267,7 @@
           ko: { q: "상큼함에 생강의 알싸함도 괜찮아요?", sub: "오렌지당근생강 vs 사과/비트 과채 조합" },
           en: { q: "Is a hint of spicy ginger with the citrus okay for you?", sub: "Orange Carrot Ginger vs Apple/Beet blends" },
           ja: { q: "爽やかさに生姜のピリッとした辛味も大丈夫ですか？", sub: "オレンジキャロット生姜 vs リンゴ/ビーツブレンド" },
-          zh: { q: "在酸甜中带有一点生姜的微辣也可以吗？", sub: "香橙胡萝卜生姜汁 vs 苹果/甜菜根配方" },
+          zh: { q: "在酸甜中带有一点生姜의 微辣也可以吗？", sub: "香橙胡萝卜生姜汁 vs 苹果/甜菜根配方" },
           fr: { q: "Une pointe de gingembre avec la fraîcheur vous convient ?", sub: "Orange Carotte Gingembre vs Pomme / Betterave" }
         },
         yes: { result: "orange_carrot_ginger" },
@@ -300,7 +316,7 @@
         questions: {
           ko: { q: "비트가 들어간 산뜻한 맛이 좋아요?", sub: "비트의 맑은 활력(ABC) vs 양배추의 속 편함(CCA)" },
           en: { q: "Do you prefer an energizing beetroot balance?", sub: "Vibrant Beetroot (ABC) vs Soothing Cabbage (CCA)" },
-          ja: { q: "ビーツが入った爽やかな味が良いですか？", sub: "巡りを整えるビーツ(ABC) vs お腹に優しいキャベツ(CCA)" },
+          ja: { q: "ビーツが入った爽やかな味が良いですか？", sub: "巡りを整えるビーツ(ABC) vs お腹에 優しいキャベツ(CCA)" },
           zh: { q: "更想要搭配甜菜根的清爽口感吗？", sub: "气色满满甜菜根(ABC) vs 舒缓肠胃卷心菜(CCA)" },
           fr: { q: "Préférez-vous la note fraîche de la betterave ?", sub: "Betterave vivifiante (ABC) vs Chou apaisant (CCA)" }
         },
@@ -371,7 +387,6 @@
       }
     };
 
-    // 11종 메뉴 데이터 & 다이렉트 주문 링크
     const MENUS = {
       ginger_shot: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/19808240?area=bnq",
@@ -433,7 +448,7 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18046068?area=bnq",
         ko: { name: "100% 당근", tag: "#물설탕0 #순수착즙 #달콤한원액", desc: "물이나 설탕 없이 오직 당근만 착즙했어요. 신선하고 달콤한 당근 본연의 풍부한 영양을 즐겨보세요." },
         en: { name: "100% Carrot", tag: "#ZeroAddedWater #PureRaw #SweetCarrot", desc: "Pure cold-pressed raw carrot juice with zero water or sugar. Naturally sweet!" },
-        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #本物のニンジン #自然な甘さ", desc: "水も砂糖도 ゼロ！新鮮なニンジンだけを搾った、驚くほど甘いジュース。" },
+        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #本物のニンジン #自然な甘さ", desc: "水も砂糖もゼロ！新鮮なニンジンだけを搾った、驚くほど甘いジュース。" },
         zh: { name: "100% 纯胡萝卜汁", tag: "#不加一滴水和糖 #纯天然原汁 #自然清甜", desc: "不加水也不加糖，只有纯粹胡萝卜原汁，甘甜可口超新鲜！" },
         fr: { name: "100% Carotte", tag: "#SansEauSansSucre #100Carotte #DouceurNaturelle", desc: "100% pur jus de carotte pressé, sans eau ni sucre. Naturellement doux !" }
       },
@@ -543,7 +558,6 @@
     function render() {
       const i18n = I18N[currentLang];
 
-      // 1. 첫 화면(메인)일 때의 헤더 노출 제어
       if (currentView === "home") {
         langBar.classList.remove("hidden");
         logoContainer.classList.remove("hidden");
@@ -553,7 +567,6 @@
         mainHeader.className = "p-4 pb-2 text-center relative border-b border-orange-50";
         btnBack.classList.add("hidden");
       } else {
-        // 질문 및 결과 화면: 언어바 & 로고 & 메인질문 숨김, 뒤로가기 버튼만 심플하게 노출
         langBar.classList.add("hidden");
         logoContainer.classList.add("hidden");
         logoDivider.classList.add("hidden");
@@ -562,7 +575,7 @@
         btnBack.classList.remove("hidden");
       }
 
-      // 2. 홈 화면 렌더링 (여백 줄이고 아이콘 & 텍스트 꽉 차게)
+      // 1. 홈 화면
       if (currentView === "home") {
         let html = `<div class="animate-fade-in grid grid-cols-2 gap-2.5 py-1">`;
         
@@ -575,7 +588,7 @@
             : `<span class="text-4xl mb-1.5 leading-none">${cat.icon}</span>`;
 
           html += `
-            <button onclick="selectStatus('${cat.id}')" class="w-full p-3.5 rounded-2xl bg-orange-50/50 hover:bg-orange-100/70 border border-orange-100 active:scale-[0.97] transition-all flex flex-col items-center justify-center text-center group shadow-sm min-h-[135px]">
+            <button onclick="selectStatus('${cat.id}')" class="w-full p-3.5 rounded-2xl bg-white hover:bg-orange-50/50 border border-stone-200/80 hover:border-orange-200 active:scale-[0.97] transition-all flex flex-col items-center justify-center text-center group shadow-sm min-h-[135px]">
               ${iconMarkup}
               <h2 class="text-base font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line mt-1">${item.title}</h2>
             </button>
@@ -586,7 +599,7 @@
         viewContainer.innerHTML = html;
       }
 
-      // 3. 질문 화면 렌더링
+      // 2. 질문 화면
       else if (currentView === "question") {
         const node = SUB_QUESTIONS[currentSubNode];
         const qData = node.questions[currentLang] || node.questions["ko"];
@@ -617,7 +630,7 @@
         `;
       }
 
-      // 4. 결과 화면 렌더링
+      // 3. 결과 화면
       else if (currentView === "result") {
         const menuObj = MENUS[currentSubNode];
         const menu = menuObj[currentLang] || menuObj["ko"];
