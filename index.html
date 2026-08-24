@@ -21,8 +21,8 @@
   <!-- 메인 카드 컨테이너 -->
   <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100/80 overflow-hidden flex flex-col min-h-[580px] relative">
     
-    <!-- 언어 선택 바 -->
-    <nav class="bg-stone-50/80 border-b border-orange-50 px-3 py-2 flex items-center justify-center gap-1 text-xs">
+    <!-- 언어 선택 바 (첫 화면에서만 표시) -->
+    <nav id="lang-bar" class="bg-stone-50/80 border-b border-orange-50 px-3 py-2 flex items-center justify-center gap-1 text-xs">
       <button onclick="setLanguage('ko')" id="lang-ko" class="lang-btn px-2.5 py-1 rounded-full font-bold transition-all bg-orange-500 text-white">한국어</button>
       <button onclick="setLanguage('en')" id="lang-en" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">English</button>
       <button onclick="setLanguage('ja')" id="lang-ja" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">日本語</button>
@@ -30,29 +30,30 @@
       <button onclick="setLanguage('fr')" id="lang-fr" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">Français</button>
     </nav>
 
-    <!-- 상단 헤더 & 뒤로가기 -->
-    <header class="p-5 pb-3 text-center relative border-b border-orange-50">
-      <button id="btn-back" class="hidden absolute left-4 top-5 text-stone-600 hover:text-stone-900 transition-colors flex items-center gap-1 text-xs font-bold bg-stone-100 hover:bg-stone-200 px-2.5 py-1.5 rounded-full" aria-label="Back">
+    <!-- 상단 헤더 -->
+    <header id="main-header" class="p-4 pb-2 text-center relative border-b border-orange-50">
+      <!-- 뒤로가기 버튼 -->
+      <button id="btn-back" class="hidden absolute left-4 top-4 text-stone-600 hover:text-stone-900 transition-colors flex items-center gap-1 text-xs font-bold bg-stone-100 hover:bg-stone-200 px-2.5 py-1.5 rounded-full" aria-label="Back">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" />
         </svg>
         <span id="back-text">이전</span>
       </button>
 
-      <!-- 상단 로고 이미지 (logo.png 없으면 텍스트 뱃지로 안전하게 fallback) -->
-      <div class="flex justify-center items-center mb-2">
+      <!-- 상단 로고 (첫 화면에서만 표시) -->
+      <div id="logo-container" class="flex justify-center items-center mb-1.5">
         <img src="logo.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-[11px] font-bold tracking-widest text-orange-600 uppercase bg-orange-100/70 px-2.5 py-0.5 rounded-full inline-block\'>Seoul Rabbit</span>';" class="h-8 max-w-[160px] object-contain" />
       </div>
 
-      <!-- 로고와 메인 텍스트 사이 구분선 -->
-      <div class="w-12 h-[1.5px] bg-orange-200/80 mx-auto mb-2.5 rounded-full"></div>
+      <!-- 구분선 (첫 화면에서만 표시) -->
+      <div id="logo-divider" class="w-12 h-[1.5px] bg-orange-200/80 mx-auto mb-2 rounded-full"></div>
 
-      <!-- 메인 질문 -->
-      <h1 id="header-title" class="text-lg font-extrabold text-stone-900 tracking-tight leading-tight">지금 어떤 한 잔이 필요하세요?</h1>
+      <!-- 메인 질문 (첫 화면에서만 표시) -->
+      <h1 id="header-title" class="text-base sm:text-lg font-extrabold text-stone-900 tracking-tight leading-tight">지금 어떤 한 잔이 필요하세요?</h1>
     </header>
 
     <!-- 동적 화면 렌더링 영역 -->
-    <div id="view-container" class="flex-1 p-3.5 sm:p-4 flex flex-col justify-center"></div>
+    <div id="view-container" class="flex-1 p-3 sm:p-4 flex flex-col justify-center"></div>
 
     <!-- 하단 푸터 -->
     <footer id="footer-text" class="py-3 text-center bg-stone-50/50 border-t border-stone-100 text-xs text-stone-400 font-medium">
@@ -119,7 +120,7 @@
       }
     };
 
-    // 1단계 테마 카드 4종 (간결한 제목 & 부제목 제거 & 큰 아이콘)
+    // 1단계 테마 카드 4종
     const STATUS_CATEGORIES = [
       {
         id: "wake_up",
@@ -432,7 +433,7 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18046068?area=bnq",
         ko: { name: "100% 당근", tag: "#물설탕0 #순수착즙 #달콤한원액", desc: "물이나 설탕 없이 오직 당근만 착즙했어요. 신선하고 달콤한 당근 본연의 풍부한 영양을 즐겨보세요." },
         en: { name: "100% Carrot", tag: "#ZeroAddedWater #PureRaw #SweetCarrot", desc: "Pure cold-pressed raw carrot juice with zero water or sugar. Naturally sweet!" },
-        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #本物のニンジン #自然な甘さ", desc: "水も砂糖もゼロ！新鮮なニンジンだけを搾った、驚くほど甘いジュース。" },
+        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #本物のニンジン #自然な甘さ", desc: "水も砂糖도 ゼロ！新鮮なニンジンだけを搾った、驚くほど甘いジュース。" },
         zh: { name: "100% 纯胡萝卜汁", tag: "#不加一滴水和糖 #纯天然原汁 #自然清甜", desc: "不加水也不加糖，只有纯粹胡萝卜原汁，甘甜可口超新鲜！" },
         fr: { name: "100% Carotte", tag: "#SansEauSansSucre #100Carotte #DouceurNaturelle", desc: "100% pur jus de carotte pressé, sans eau ni sucre. Naturellement doux !" }
       },
@@ -463,9 +464,13 @@
     };
 
     const viewContainer = document.getElementById("view-container");
+    const langBar = document.getElementById("lang-bar");
+    const mainHeader = document.getElementById("main-header");
+    const logoContainer = document.getElementById("logo-container");
+    const logoDivider = document.getElementById("logo-divider");
+    const headerTitle = document.getElementById("header-title");
     const btnBack = document.getElementById("btn-back");
     const backText = document.getElementById("back-text");
-    const headerTitle = document.getElementById("header-title");
     const footerText = document.getElementById("footer-text");
 
     window.setLanguage = function(lang) {
@@ -538,28 +543,41 @@
     function render() {
       const i18n = I18N[currentLang];
 
-      if (history.length > 0) {
-        btnBack.classList.remove("hidden");
-      } else {
+      // 1. 첫 화면(메인)일 때의 헤더 노출 제어
+      if (currentView === "home") {
+        langBar.classList.remove("hidden");
+        logoContainer.classList.remove("hidden");
+        logoDivider.classList.remove("hidden");
+        headerTitle.classList.remove("hidden");
+        mainHeader.classList.remove("hidden");
+        mainHeader.className = "p-4 pb-2 text-center relative border-b border-orange-50";
         btnBack.classList.add("hidden");
+      } else {
+        // 질문 및 결과 화면: 언어바 & 로고 & 메인질문 숨김, 뒤로가기 버튼만 심플하게 노출
+        langBar.classList.add("hidden");
+        logoContainer.classList.add("hidden");
+        logoDivider.classList.add("hidden");
+        headerTitle.classList.add("hidden");
+        mainHeader.className = "p-3 text-center relative border-b border-stone-100 min-h-[44px]";
+        btnBack.classList.remove("hidden");
       }
 
-      // 1. 홈 화면 (아이콘 확대, 공백 축소, 간결한 타이틀)
+      // 2. 홈 화면 렌더링 (여백 줄이고 아이콘 & 텍스트 꽉 차게)
       if (currentView === "home") {
-        let html = `<div class="animate-fade-in grid grid-cols-2 gap-3 py-1">`;
+        let html = `<div class="animate-fade-in grid grid-cols-2 gap-2.5 py-1">`;
         
         STATUS_CATEGORIES.forEach(cat => {
           const item = cat[currentLang] || cat["ko"];
           const isImageFile = cat.icon.includes(".");
 
           const iconMarkup = isImageFile
-            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-4xl mb-2\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-16 h-16 object-contain mb-2 drop-shadow-sm group-hover:scale-105 transition-transform" />`
-            : `<span class="text-4xl mb-2">${cat.icon}</span>`;
+            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-4xl mb-1.5 leading-none\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-16 h-16 object-contain mb-1 drop-shadow-sm group-hover:scale-105 transition-transform" />`
+            : `<span class="text-4xl mb-1.5 leading-none">${cat.icon}</span>`;
 
           html += `
-            <button onclick="selectStatus('${cat.id}')" class="w-full p-4 rounded-2xl bg-orange-50/50 hover:bg-orange-100/70 border border-orange-100 active:scale-[0.97] transition-all flex flex-col items-center justify-center text-center group shadow-sm min-h-[145px]">
+            <button onclick="selectStatus('${cat.id}')" class="w-full p-3.5 rounded-2xl bg-orange-50/50 hover:bg-orange-100/70 border border-orange-100 active:scale-[0.97] transition-all flex flex-col items-center justify-center text-center group shadow-sm min-h-[135px]">
               ${iconMarkup}
-              <h2 class="text-base font-extrabold text-stone-900 leading-tight break-keep whitespace-pre-line">${item.title}</h2>
+              <h2 class="text-base font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line mt-1">${item.title}</h2>
             </button>
           `;
         });
@@ -568,7 +586,7 @@
         viewContainer.innerHTML = html;
       }
 
-      // 2. 질문 화면
+      // 3. 질문 화면 렌더링
       else if (currentView === "question") {
         const node = SUB_QUESTIONS[currentSubNode];
         const qData = node.questions[currentLang] || node.questions["ko"];
@@ -599,7 +617,7 @@
         `;
       }
 
-      // 3. 결과 화면
+      // 4. 결과 화면 렌더링
       else if (currentView === "result") {
         const menuObj = MENUS[currentSubNode];
         const menu = menuObj[currentLang] || menuObj["ko"];
