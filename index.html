@@ -48,7 +48,7 @@
     </nav>
 
     <!-- 상단 헤더 -->
-    <header id="main-header" class="p-4 sm:p-5 pb-3 relative border-b border-orange-50">
+    <header id="main-header" class="p-5 pb-3 relative border-b border-orange-50 text-center">
       <!-- 뒤로가기 버튼 -->
       <button id="btn-back" class="hidden absolute left-4 top-4 text-stone-600 hover:text-stone-900 transition-colors flex items-center gap-1 text-xs font-bold bg-stone-100 hover:bg-stone-200 px-2.5 py-1.5 rounded-full" aria-label="Back">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -57,13 +57,11 @@
         <span id="back-text">이전</span>
       </button>
 
-      <!-- 홈 전용 헤더: 2줄 타이틀 + 우측 icon-green.png -->
-      <div id="home-title-box" class="flex items-center justify-between gap-3">
-        <div class="text-left">
-          <p id="header-sub" class="text-xs sm:text-sm font-bold text-orange-600 tracking-tight">오늘 뭐 마실지 고민돼요?</p>
-          <h1 id="header-title" class="text-lg sm:text-xl font-black text-stone-900 tracking-tight leading-snug mt-0.5">서울래빗이 골라드릴게요.</h1>
-        </div>
-        <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-3xl\'>🐰</span>';" class="w-12 h-12 sm:w-14 sm:h-14 object-contain flex-shrink-0 drop-shadow-sm" />
+      <!-- 홈 전용 헤더: 가운데 정렬 (그린토끼 + 2줄 문구) -->
+      <div id="home-title-box" class="flex flex-col items-center justify-center">
+        <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-3xl mb-1.5\'>🐰</span>';" class="w-14 h-14 object-contain mb-2 drop-shadow-sm" />
+        <p id="header-sub" class="text-xs sm:text-sm font-bold text-orange-600 tracking-tight">오늘 뭐 마실지 고민돼요?</p>
+        <h1 id="header-title" class="text-lg sm:text-xl font-black text-stone-900 tracking-tight leading-snug mt-0.5">서울래빗이 골라드릴게요.</h1>
       </div>
     </header>
 
@@ -145,68 +143,68 @@
       }
     };
 
-    // 1단계 5대 핵심 테마 카드
+    // 1단계 5대 선택지
     const STATUS_CATEGORIES = [
       {
-        id: "blue_clear",
-        icon: "icon-blue.png",
-        fallbackEmoji: "🥬",
-        ko: { title: "뻥 뚫림이 필요해요" },
-        en: { title: "Need Pure Refresh" },
-        ja: { title: "すっきり爽快感" },
-        zh: { title: "需要清爽畅快" },
-        fr: { title: "Besoin de Légèreté" },
-        nextQuestion: "q_light_fruit_sour"
-      },
-      {
-        id: "red_energy",
+        id: "low_energy",
         icon: "icon-red.png",
         fallbackEmoji: "⚡",
-        ko: { title: "강렬함이 필요해요" },
-        en: { title: "Need Intense Power" },
-        ja: { title: "強力な刺激と活力" },
-        zh: { title: "需要超强能量" },
-        fr: { title: "Besoin d'Intensité" },
+        ko: { title: "기운이 없어요" },
+        en: { title: "Feeling Drained" },
+        ja: { title: "元気が出ない" },
+        zh: { title: "浑身没力气" },
+        fr: { title: "Manque d'Énergie" },
         nextQuestion: "q_wake_ginger_like"
       },
       {
-        id: "baby_health",
+        id: "bloated_stomach",
+        icon: "icon-blue.png",
+        fallbackEmoji: "🥬",
+        ko: { title: "속이 더부룩해요" },
+        en: { title: "Feeling Bloated" },
+        ja: { title: "お腹が重い・もたれる" },
+        zh: { title: "肠胃发胀发闷" },
+        fr: { title: "Estomac Lourd" },
+        nextQuestion: "q_bloat_veggie"
+      },
+      {
+        id: "care_health",
         icon: "icon-baby.png",
         fallbackEmoji: "🥕",
-        ko: { title: "건강을 챙기고 싶어요" },
-        en: { title: "Care for My Health" },
-        ja: { title: "健康を気遣いたい" },
-        zh: { title: "想好好调理健康" },
-        fr: { title: "Prendre Soin de Soi" },
+        ko: { title: "건강해질래요" },
+        en: { title: "Want to Be Healthy" },
+        ja: { title: "健康になりたい" },
+        zh: { title: "想要健康活力" },
+        fr: { title: "Vivre Sainement" },
         nextQuestion: "q_healthy_veggie_presence"
       },
       {
-        id: "fun_sweet",
+        id: "need_fun",
         icon: "icon-fun.png",
         fallbackEmoji: "🥥",
         ko: { title: "재미가 필요해요" },
-        en: { title: "Need Fun & Sweet" },
-        ja: { title: "楽しさと甘い癒やし" },
-        zh: { title: "想要新奇美味" },
+        en: { title: "Need Something Fun" },
+        ja: { title: "楽しさがほしい" },
+        zh: { title: "想要新鲜有趣" },
         fr: { title: "Envie de Plaisir" },
         nextQuestion: "q_sweet_creamy"
       },
       {
-        id: "gift_special",
+        id: "need_gift",
         icon: "icon-gift.png",
         fallbackEmoji: "🎁",
         ko: { title: "선물이 필요해요" },
-        en: { title: "Need a Great Gift" },
+        en: { title: "Looking for a Gift" },
         ja: { title: "ギフトを探している" },
-        zh: { title: "精选心意好礼" },
-        fr: { title: "Offrir un Cadeau" },
+        zh: { title: "需要贴心好礼" },
+        fr: { title: "Idée Cadeau" },
         nextQuestion: "q_gift_target"
       }
     ];
 
     // 질문 트리
     const SUB_QUESTIONS = {
-      // ⚡ 강렬함이 필요해요
+      // ⚡ 1. 기운이 없어요
       q_wake_ginger_like: {
         questions: {
           ko: { q: "알싸한 생강 맛도 좋아하세요?", sub: "생강 특유의 알싸한 향 선호 여부" },
@@ -263,53 +261,31 @@
         no: { result: "carrot_100" }
       },
 
-      // 🥬 뻥 뚫림이 필요해요
-      q_light_fruit_sour: {
+      // 🥬 2. 속이 더부룩해요
+      q_bloat_veggie: {
         questions: {
-          ko: { q: "과일의 상큼함이 있는 게 좋아요?", sub: "과일의 상큼달콤함 vs 채소 중심의 깔끔한 맛" },
-          en: { q: "Do you prefer a fruity, crisp and refreshing taste?", sub: "Fruity sweet & sour vs Clean veggie flavor" },
-          ja: { q: "果実の爽やかな酸味がある方が良いですか？", sub: "フルーティーな甘酸っぱさ vs 野菜本来のすっきり感" },
-          zh: { q: "喜欢带有水果自然酸甜的口感吗？", sub: "水果酸甜风味 vs 纯粹清爽蔬菜风味" },
-          fr: { q: "Préférez-vous la fraîcheur acidulée des fruits ?", sub: "Fruits acidulés vs Goût pur des légumes" }
-        },
-        yes: "q_light_ginger_fine",
-        no: "q_light_veggie_taste"
-      },
-      q_light_ginger_fine: {
-        questions: {
-          ko: { q: "상큼함에 생강의 알싸함도 괜찮아요?", sub: "오렌지당근생강 vs 사과/비트 과채 조합" },
-          en: { q: "Is a hint of spicy ginger with the citrus okay for you?", sub: "Orange Carrot Ginger vs Apple/Beet blends" },
-          ja: { q: "爽やかさに生姜のピリッとした辛味も大丈夫ですか？", sub: "オレンジキャロット生姜 vs リンゴ/ビーツブレンド" },
-          zh: { q: "在酸甜中带有一点生姜의 微辣也可以吗？", sub: "香橙胡萝卜生姜汁 vs 苹果/甜菜根配方" },
-          fr: { q: "Une pointe de gingembre avec la fraîcheur vous convient ?", sub: "Orange Carotte Gingembre vs Pomme / Betterave" }
-        },
-        yes: { result: "orange_carrot_ginger" },
-        no: "q_light_beet_like"
-      },
-      q_light_beet_like: {
-        questions: {
-          ko: { q: "비트가 들어가도 좋아요?", sub: "사과·비트·당근(ABC) vs 달콤상큼 당근사과" },
-          en: { q: "Are you happy with nutrient-rich beetroot in it?", sub: "ABC (Apple, Beet, Carrot) vs Sweet Carrot Apple" },
-          ja: { q: "ビーツが入っていても大丈夫ですか？", sub: "ABCジュース vs 定番キャロットアップル" },
-          zh: { q: "加入红润养颜的甜菜根可以吗？", sub: "ABC果蔬汁 (含甜菜根) vs 经典苹果胡萝卜" },
-          fr: { q: "La betterave vous convient-elle ?", sub: "Jus ABC (avec betterave) vs Simple Carotte-Pomme" }
-        },
-        yes: { result: "abc_juice" },
-        no: { result: "carrot_apple" }
-      },
-      q_light_veggie_taste: {
-        questions: {
-          ko: { q: "채소 맛이 조금 느껴져도 괜찮아요?", sub: "양배추 배합(CCA) vs 100% 순수 당근 착즙" },
-          en: { q: "Is a light taste of fresh veggies okay for you?", sub: "Soothing Cabbage (CCA) vs 100% Pure Raw Carrot" },
-          ja: { q: "野菜の風味が少し感じられても大丈夫ですか？", sub: "胃에 優しいキャベツ(CCA) vs ニンジン100%ストレート" },
-          zh: { q: "能接受稍带一点清爽蔬菜风味吗？", sub: "养胃卷心菜复合(CCA) vs 100% 纯胡萝卜汁" },
-          fr: { q: "Une touche de légumes frais vous convient-elle ?", sub: "Mélange au chou (CCA) vs 100% Pur jus de carotte" }
+          ko: { q: "위장을 편안하게 달래주는 양배추 배합이 좋아요?", sub: "속 편한 CCA주스 vs 몸을 가볍게 비우는 ABC/순수당근" },
+          en: { q: "Do you prefer a soothing cabbage blend for digestion?", sub: "Soothing CCA Juice vs Light Cleanse ABC / Pure Carrot" },
+          ja: { q: "胃に優しくお腹を落ち着かせるキャベツブレンドが良いですか？", sub: "お腹に優しいCCA vs すっきりリセットABC / 純粋ニンジン" },
+          zh: { q: "想要温和舒缓胃部负担的卷心菜配方吗？", sub: "舒胃CCA果蔬汁 vs 轻盈排浊ABC / 纯胡萝卜汁" },
+          fr: { q: "Préférez-vous un mélange au chou doux pour l'estomac ?", sub: "Jus CCA apaisant vs Jus ABC / 100% Pur jus" }
         },
         yes: { result: "cca_juice" },
+        no: "q_bloat_cleanse"
+      },
+      q_bloat_cleanse: {
+        questions: {
+          ko: { q: "비트가 들어가 몸을 맑고 가볍게 비워주는 게 좋아요?", sub: "생기 가득 ABC주스 vs 물·설탕 0% 순수 당근 원액" },
+          en: { q: "Do you prefer beetroot to cleanse and refresh your body?", sub: "Vital ABC Juice vs 100% Pure Raw Carrot Juice" },
+          ja: { q: "ビーツ入りで内側からすっきりリフレッシュしたいですか？", sub: "巡り整うABCジュース vs 100%純粋ニンジン原液" },
+          zh: { q: "想要加入甜菜根来轻盈身体、重焕活力吗？", sub: "清盈ABC果蔬汁 vs 100% 纯胡萝卜原汁" },
+          fr: { q: "Préférez-vous la betterave pour purifier votre corps ?", sub: "Jus ABC vivifiant vs 100% Pur jus de carotte brut" }
+        },
+        yes: { result: "abc_juice" },
         no: { result: "carrot_100" }
       },
 
-      // 🥕 건강을 챙기고 싶어요
+      // 🥕 3. 건강해질래요
       q_healthy_veggie_presence: {
         questions: {
           ko: { q: "채소의 존재감이 조금 있어도 괜찮아요?", sub: "과채 기능성 블렌딩 vs 부드럽고 친숙한 조합" },
@@ -325,7 +301,7 @@
         questions: {
           ko: { q: "비트가 들어간 산뜻한 맛이 좋아요?", sub: "비트의 맑은 활력(ABC) vs 양배추의 속 편함(CCA)" },
           en: { q: "Do you prefer an energizing beetroot balance?", sub: "Vibrant Beetroot (ABC) vs Soothing Cabbage (CCA)" },
-          ja: { q: "ビーツが入った爽やかな味が良いですか？", sub: "巡りを整えるビーツ(ABC) vs お腹에 優しいキャベツ(CCA)" },
+          ja: { q: "ビーツが入った爽やかな味が良いですか？", sub: "巡りを整えるビーツ(ABC) vs お腹に優しいキャベツ(CCA)" },
           zh: { q: "更想要搭配甜菜根的清爽口感吗？", sub: "气色满满甜菜根(ABC) vs 舒缓肠胃卷心菜(CCA)" },
           fr: { q: "Préférez-vous la note fraîche de la betterave ?", sub: "Betterave vivifiante (ABC) vs Chou apaisant (CCA)" }
         },
@@ -344,7 +320,7 @@
         no: { result: "carrot_apple" }
       },
 
-      // 🥥 재미가 필요해요
+      // 🥥 4. 재미가 필요해요
       q_sweet_creamy: {
         questions: {
           ko: { q: "부드럽고 크리미한 맛이 좋아요?", sub: "크리미 디저트/스무디 vs 향긋한 커피/과일 주스" },
@@ -372,7 +348,7 @@
           ko: { q: "열대과일의 상큼달콤함도 더해질까요?", sub: "상큼청량한 캐롯콜라다 vs 부드럽고 고소한 코코캐롯" },
           en: { q: "Would you like tropical fruit freshness added to it?", sub: "Tropical Carrot Colada vs Smooth Coco Carrot" },
           ja: { q: "南国フルーツの甘酸っぱさもプラスしますか？", sub: "爽快キャロットコラーダ vs まろやかココキャロット" },
-          zh: { q: "想要加入热带水果의 酸甜果香吗？", sub: "清爽热带胡萝卜可乐达 vs 丝滑椰香胡萝卜" },
+          zh: { q: "想要加入热带水果的酸甜果香吗？", sub: "清爽热带胡萝卜可乐达 vs 丝滑椰香胡萝卜" },
           fr: { q: "Voulez-vous ajouter la fraîcheur des fruits tropicaux ?", sub: "Carrot Colada des îles vs Coco Carrot crémeux" }
         },
         yes: { result: "carrot_colada" },
@@ -390,7 +366,7 @@
         no: { result: "carrot_apple" }
       },
 
-      // 🎁 선물이 필요해요
+      // 🎁 5. 선물이 필요해요
       q_gift_target: {
         questions: {
           ko: { q: "호불호 없이 누구나 좋아하는 맛을 원하시나요?", sub: "달콤하고 친숙한 베스트셀러 vs 특별한 건강 케어 선물", yesText: "YES (친숙하고 대중적인 맛)", noText: "NO (특별한 건강 케어 선물)" },
@@ -469,7 +445,7 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22835885?area=bnq",
         ko: { name: "CCA주스", tag: "#속편한주스 #양배추당근사과 #가벼운루틴", desc: "당근(Carrot), 양배추(Cabbage), 사과(Apple)의 신선함으로 편안하고 가벼운 하루를 완성합니다." },
         en: { name: "CCA Juice", tag: "#EasyOnStomach #CabbageCarrotApple #Digest", desc: "Blended with fresh cabbage, carrot, and apple to keep your body light and comfy." },
-        ja: { name: "CCAジュース", tag: "#お腹에 優しい #キャベツニンジンリンゴ #軽やか", desc: "キャベツ・ニンジン・リンゴ入りで、軽やかで心地よい一日をサポート。" },
+        ja: { name: "CCAジュース", tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やか", desc: "キャベツ・ニンジン・リンゴ入りで、軽やかで心地よい一日をサポート。" },
         zh: { name: "CCA 舒胃果蔬汁", tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #肠胃轻松", desc: "新鲜卷心菜、胡萝卜、苹果搭配，喝完身体特别轻盈舒服。" },
         fr: { name: "Jus CCA", tag: "#EstomacLéger #ChouCarottePomme #DigestionFacile", desc: "Chou, carotte et pomme pour apaiser et faire du bien à votre corps naturellement." }
       },
@@ -477,7 +453,7 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18046068?area=bnq",
         ko: { name: "100% 당근", tag: "#물설탕0 #순수착즙 #달콤한원액", desc: "물이나 설탕 없이 오직 당근만 착즙했어요. 신선하고 달콤한 당근 본연의 풍부한 영양을 즐겨보세요." },
         en: { name: "100% Carrot", tag: "#ZeroAddedWater #PureRaw #SweetCarrot", desc: "Pure cold-pressed raw carrot juice with zero water or sugar. Naturally sweet!" },
-        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #本物のニンジン #自然な甘さ", desc: "水も砂糖도 ゼロ！新鮮なニンジンだけを搾った、驚くほど甘いジュース。" },
+        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #本物のニンジン #自然な甘さ", desc: "水も砂糖もゼロ！新鮮なニンジンだけを搾った、驚くほど甘いジュース。" },
         zh: { name: "100% 纯胡萝卜汁", tag: "#不加一滴水和糖 #纯天然原汁 #自然清甜", desc: "不加水也不加糖，只有纯粹胡萝卜原汁，甘甜可口超新鲜！" },
         fr: { name: "100% Carotte", tag: "#SansEauSansSucre #100Carotte #DouceurNaturelle", desc: "100% pur jus de carotte pressé, sans eau ni sucre. Naturellement doux !" }
       },
@@ -592,7 +568,7 @@
         langBar.classList.remove("hidden");
         homeTitleBox.classList.remove("hidden");
         mainHeader.classList.remove("hidden");
-        mainHeader.className = "p-4 sm:p-5 pb-3 relative border-b border-orange-50";
+        mainHeader.className = "p-5 pb-3 relative border-b border-orange-50 text-center";
         btnBack.classList.add("hidden");
       } else {
         langBar.classList.add("hidden");
@@ -601,7 +577,7 @@
         btnBack.classList.remove("hidden");
       }
 
-      // 1. 홈 화면 (5개 카드: 2열 + 마지막 카드 중앙 정렬)
+      // 1. 홈 화면 (5개 카드: 2열 그리드 + 마지막 카드 중앙 정렬)
       if (currentView === "home") {
         let html = `<div class="animate-fade-in grid grid-cols-2 gap-2.5 py-1">`;
         
