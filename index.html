@@ -15,7 +15,6 @@
   <meta name="twitter:card" content="summary_large_image" />
 
   <script>
-    // 카카오톡 크롤러가 전체 절대 경로로 이미지를 인식할 수 있도록 보정
     const ogImg = document.getElementById('og-image-tag');
     if (ogImg && !ogImg.content.startsWith('http')) {
       ogImg.content = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + 'og-image.png';
@@ -37,7 +36,7 @@
 <body class="bg-[#FAF7F2] min-h-screen text-stone-800 flex items-center justify-center p-3 sm:p-4 font-sans antialiased">
 
   <!-- 메인 카드 컨테이너 -->
-  <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100/80 overflow-hidden flex flex-col min-h-[580px] relative">
+  <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100/80 overflow-hidden flex flex-col min-h-[620px] relative">
     
     <!-- 언어 선택 바 (첫 화면에서만 표시) -->
     <nav id="lang-bar" class="bg-stone-50/80 border-b border-orange-50 px-3 py-2 flex items-center justify-center gap-1 text-xs">
@@ -93,8 +92,8 @@
         recommendBadge: "지금 딱 맞는 추천 메뉴",
         orderBtn: "네이버 주문으로 바로가기",
         restartBtn: "처음부터 다시 찾기",
-        defaultYes: "YES (네, 좋아요)",
-        defaultNo: "NO (다른 게 좋아요)"
+        defaultYes: "YES (네, 맞아요)",
+        defaultNo: "NO (다른 느낌이요)"
       },
       en: {
         headerTitle: "What kind of drink do you need right now?",
@@ -138,6 +137,7 @@
       }
     };
 
+    // 1단계: 6개 테마 카드 (선물: icon-gift.png / 엄마: icon-baby.png 매핑)
     const STATUS_CATEGORIES = [
       {
         id: "wake_up",
@@ -182,9 +182,32 @@
         zh: { title: "香甜美味" },
         fr: { title: "Douceur Sucrée" },
         nextQuestion: "q_sweet_creamy"
+      },
+      {
+        id: "gift_idea",
+        icon: "icon-gift.png",
+        fallbackEmoji: "🎁",
+        ko: { title: "선물하고 싶어요" },
+        en: { title: "Special Gift" },
+        ja: { title: "プレゼントに" },
+        zh: { title: "精选送礼" },
+        fr: { title: "Cadeau Idéal" },
+        nextQuestion: "q_gift_target"
+      },
+      {
+        id: "healthy_mom",
+        icon: "icon-baby.png",
+        fallbackEmoji: "🌱",
+        ko: { title: "건강한 엄마에요" },
+        en: { title: "For Healthy Mom" },
+        ja: { title: "すこやかママ" },
+        zh: { title: "健康妈妈/孕期" },
+        fr: { title: "Maman en Santé" },
+        nextQuestion: "q_mom_stomach"
       }
     ];
 
+    // 질문 트리
     const SUB_QUESTIONS = {
       // ⚡ 1. 확 깨는 한 잔
       q_wake_ginger_like: {
@@ -267,7 +290,7 @@
           ko: { q: "상큼함에 생강의 알싸함도 괜찮아요?", sub: "오렌지당근생강 vs 사과/비트 과채 조합" },
           en: { q: "Is a hint of spicy ginger with the citrus okay for you?", sub: "Orange Carrot Ginger vs Apple/Beet blends" },
           ja: { q: "爽やかさに生姜のピリッとした辛味も大丈夫ですか？", sub: "オレンジキャロット生姜 vs リンゴ/ビーツブレンド" },
-          zh: { q: "在酸甜中带有一点生姜의 微辣也可以吗？", sub: "香橙胡萝卜生姜汁 vs 苹果/甜菜根配方" },
+          zh: { q: "在酸甜中带有一点生姜的微辣也可以吗？", sub: "香橙胡萝卜生姜汁 vs 苹果/甜菜根配方" },
           fr: { q: "Une pointe de gingembre avec la fraîcheur vous convient ?", sub: "Orange Carotte Gingembre vs Pomme / Betterave" }
         },
         yes: { result: "orange_carrot_ginger" },
@@ -290,7 +313,7 @@
         questions: {
           ko: { q: "채소 맛이 조금 느껴져도 괜찮아요?", sub: "양배추 배합(CCA) vs 100% 순수 당근 착즙" },
           en: { q: "Is a light taste of fresh veggies okay for you?", sub: "Soothing Cabbage (CCA) vs 100% Pure Raw Carrot" },
-          ja: { q: "野菜の風味が少し感じられても大丈夫ですか？", sub: "胃に優しいキャベツ(CCA) vs ニンジン100%ストレート" },
+          ja: { q: "野菜の風味が少し感じられても大丈夫ですか？", sub: "胃에 優しいキャベツ(CCA) vs ニンジン100%ストレート" },
           zh: { q: "能接受稍带一点清爽蔬菜风味吗？", sub: "养胃卷心菜复合(CCA) vs 100% 纯胡萝卜汁" },
           fr: { q: "Une touche de légumes frais vous convient-elle ?", sub: "Mélange au chou (CCA) vs 100% Pur jus de carotte" }
         },
@@ -316,7 +339,7 @@
         questions: {
           ko: { q: "비트가 들어간 산뜻한 맛이 좋아요?", sub: "비트의 맑은 활력(ABC) vs 양배추의 속 편함(CCA)" },
           en: { q: "Do you prefer an energizing beetroot balance?", sub: "Vibrant Beetroot (ABC) vs Soothing Cabbage (CCA)" },
-          ja: { q: "ビーツが入った爽やかな味が良いですか？", sub: "巡りを整えるビーツ(ABC) vs お腹에 優しいキャベツ(CCA)" },
+          ja: { q: "ビーツが入った爽やかな味が良いですか？", sub: "巡りを整えるビーツ(ABC) vs お腹に優しいキャベツ(CCA)" },
           zh: { q: "更想要搭配甜菜根的清爽口感吗？", sub: "气色满满甜菜根(ABC) vs 舒缓肠胃卷心菜(CCA)" },
           fr: { q: "Préférez-vous la note fraîche de la betterave ?", sub: "Betterave vivifiante (ABC) vs Chou apaisant (CCA)" }
         },
@@ -384,9 +407,62 @@
         },
         yes: { result: "carrot_coffee" },
         no: { result: "carrot_apple" }
+      },
+
+      // 🎁 5. 선물하고 싶어요
+      q_gift_target: {
+        step: 2,
+        questions: {
+          ko: { q: "호불호 없이 누구나 좋아하는 맛을 원하시나요?", sub: "달콤하고 친숙한 베스트셀러 vs 특별한 건강 케어 선물", yesText: "YES (친숙하고 대중적인 맛)", noText: "NO (특별한 건강 케어 선물)" },
+          en: { q: "Looking for a crowd-pleaser that anyone loves?", sub: "Popular approachable taste vs Special wellness gift", yesText: "YES (Sweet & Popular)", noText: "NO (Special Wellness Gift)" },
+          ja: { q: "誰にでも喜ばれる定番の味をお探しですか？", sub: "大人気ベストセラー vs 特別なヘルスケアギフト", yesText: "YES (定番・親しみやすい味)", noText: "NO (特別な健康ギフト)" },
+          zh: { q: "想要大家都喜欢的百搭经典风味吗？", sub: "大众高人气风味 vs 特色健康礼品", yesText: "YES (经典人气酸甜)", noText: "NO (特色健康调理)" },
+          fr: { q: "Cherchez-vous un goût apprécié de tous ?", sub: "Boisson populaire vs Cadeau bien-être spécial", yesText: "OUI (Fruité & Doux)", noText: "NON (Soin Santé)" }
+        },
+        yes: { result: "carrot_apple" },
+        no: "q_gift_care_focus"
+      },
+      q_gift_care_focus: {
+        step: 3,
+        questions: {
+          ko: { q: "몸을 맑고 가볍게 비우는 루틴을 선물할까요?", sub: "맑은 생기 ABC주스 vs 번쩍 뜨이는 서울진저샷", yesText: "YES (비움과 생기 루틴)", noText: "NO (강력한 활력과 에너지)" },
+          en: { q: "Would you like to gift a revitalizing daily cleanse?", sub: "ABC Daily Glow vs Intense Energy Ginger Shot", yesText: "YES (Daily Cleanse)", noText: "NO (Energy Shot)" },
+          ja: { q: "すっきりと体を整えるルーティンを贈りますか？", sub: "めぐり整うABCジュース vs 元気あふれるジンジャーショット", yesText: "YES (すっきりリフレッシュ)", noText: "NO (強力エナジー)" },
+          zh: { q: "想要送一份清盈调理、焕发光彩的礼物吗？", sub: "焕活ABC果蔬汁 vs 超强首尔生姜生力饮", yesText: "YES (轻盈排浊焕彩)", noText: "NO (强效活力提神)" },
+          fr: { q: "Préférez-vous offrir une cure légère et détox ?", sub: "Cure ABC éclat vs Shot de gingembre tonus", yesText: "OUI (Légèreté & Éclat)", noText: "NON (Coup de Fouet)" }
+        },
+        yes: { result: "abc_juice" },
+        no: { result: "ginger_shot" }
+      },
+
+      // 🌱 6. 건강한 엄마에요 (icon-baby.png)
+      q_mom_stomach: {
+        step: 2,
+        questions: {
+          ko: { q: "속이 편안하고 가벼운 채소 위주를 원하시나요?", sub: "위장 케어 양배추 배합 vs 순수 과채 영양", yesText: "YES (속이 편한 양배추 배합)", noText: "NO (순수 과채 영양/간식)" },
+          en: { q: "Do you prefer gentle greens easy on the stomach?", sub: "Soothing Cabbage blend vs Raw pure nutrition", yesText: "YES (Digestive Comfort)", noText: "NO (Pure Nutrition)" },
+          ja: { q: "お腹に優しく胃がすっきりする野菜をお望みですか？", sub: "キャベツ入り(CCA) vs 素材まるごと純粋栄養", yesText: "YES (胃に優しいキャベツ)", noText: "NO (純粋な栄養/おやつ)" },
+          zh: { q: "想要温和舒缓、养胃无负担的蔬菜配方吗？", sub: "养胃卷心菜复合(CCA) vs 纯正天然营养", yesText: "YES (温和舒胃卷心菜)", noText: "NO (纯正果蔬营养)" },
+          fr: { q: "Préférez-vous un jus très doux pour l'estomac ?", sub: "Chou apaisant (CCA) vs Nutrition pure & naturelle", yesText: "OUI (Chou Apaisant)", noText: "NON (Nutrition Pure)" }
+        },
+        yes: { result: "cca_juice" },
+        no: "q_mom_pure_raw"
+      },
+      q_mom_pure_raw: {
+        step: 3,
+        questions: {
+          ko: { q: "물·설탕 0% 순수 착즙 원액을 원하시나요?", sub: "100% 당근 순수착즙 vs 고소하고 부드러운 코코캐롯", yesText: "YES (100% 무첨가 순수착즙)", noText: "NO (부드러운 영양 간식)" },
+          en: { q: "Do you want 100% raw juice with 0% added water/sugar?", sub: "100% Raw Carrot vs Creamy Coco Carrot", yesText: "YES (100% Pure Raw)", noText: "NO (Creamy Snack)" },
+          ja: { q: "水・砂糖ゼロの100%純粋ストレートが良いですか？", sub: "100% ニンジン無添加 vs まろやかココキャロット", yesText: "YES (100% ニンジン)", noText: "NO (まろやかココナッツ)" },
+          zh: { q: "想要不加水和糖的100%纯压榨原汁吗？", sub: "100% 纯胡萝卜汁 vs 丝滑椰香特调", yesText: "YES (100% 纯原汁)", noText: "NO (丝滑滋养饮品)" },
+          fr: { q: "Voulez-vous un pur jus 100% brut sans eau ni sucre ?", sub: "100% Pur jus de carotte vs Coco Carrot onctueux", yesText: "OUI (100% Pur Jus)", noText: "NON (Douceur Onctueuse)" }
+        },
+        yes: { result: "carrot_100" },
+        no: { result: "coco_carrot" }
       }
     };
 
+    // 11종 메뉴 데이터 & 다이렉트 주문 링크
     const MENUS = {
       ginger_shot: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/19808240?area=bnq",
@@ -448,7 +524,7 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18046068?area=bnq",
         ko: { name: "100% 당근", tag: "#물설탕0 #순수착즙 #달콤한원액", desc: "물이나 설탕 없이 오직 당근만 착즙했어요. 신선하고 달콤한 당근 본연의 풍부한 영양을 즐겨보세요." },
         en: { name: "100% Carrot", tag: "#ZeroAddedWater #PureRaw #SweetCarrot", desc: "Pure cold-pressed raw carrot juice with zero water or sugar. Naturally sweet!" },
-        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #本物のニンジン #自然な甘さ", desc: "水も砂糖もゼロ！新鮮なニンジンだけを搾った、驚くほど甘いジュース。" },
+        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #本物のニンジン #自然な甘さ", desc: "水も砂糖도 ゼロ！新鮮なニンジンだけを搾った、驚くほど甘いジュース。" },
         zh: { name: "100% 纯胡萝卜汁", tag: "#不加一滴水和糖 #纯天然原汁 #自然清甜", desc: "不加水也不加糖，只有纯粹胡萝卜原汁，甘甜可口超新鲜！" },
         fr: { name: "100% Carotte", tag: "#SansEauSansSucre #100Carotte #DouceurNaturelle", desc: "100% pur jus de carotte pressé, sans eau ni sucre. Naturellement doux !" }
       },
@@ -575,7 +651,7 @@
         btnBack.classList.remove("hidden");
       }
 
-      // 1. 홈 화면
+      // 1. 홈 화면 (6개 카드 렌더링)
       if (currentView === "home") {
         let html = `<div class="animate-fade-in grid grid-cols-2 gap-2.5 py-1">`;
         
@@ -584,13 +660,13 @@
           const isImageFile = cat.icon.includes(".");
 
           const iconMarkup = isImageFile
-            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-4xl mb-1.5 leading-none\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-16 h-16 object-contain mb-1 drop-shadow-sm group-hover:scale-105 transition-transform" />`
-            : `<span class="text-4xl mb-1.5 leading-none">${cat.icon}</span>`;
+            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1 leading-none\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-12 h-12 object-contain mb-1 drop-shadow-sm group-hover:scale-105 transition-transform" />`
+            : `<span class="text-3xl mb-1 leading-none">${cat.icon}</span>`;
 
           html += `
-            <button onclick="selectStatus('${cat.id}')" class="w-full p-3.5 rounded-2xl bg-white hover:bg-orange-50/50 border border-stone-200/80 hover:border-orange-200 active:scale-[0.97] transition-all flex flex-col items-center justify-center text-center group shadow-sm min-h-[135px]">
+            <button onclick="selectStatus('${cat.id}')" class="w-full p-3 rounded-2xl bg-white hover:bg-orange-50/50 border border-stone-200/80 hover:border-orange-200 active:scale-[0.97] transition-all flex flex-col items-center justify-center text-center group shadow-sm min-h-[110px]">
               ${iconMarkup}
-              <h2 class="text-base font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line mt-1">${item.title}</h2>
+              <h2 class="text-sm font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
             </button>
           `;
         });
