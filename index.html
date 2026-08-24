@@ -48,7 +48,7 @@
     </nav>
 
     <!-- 상단 헤더 -->
-    <header id="main-header" class="p-4 pb-2 text-center relative border-b border-orange-50">
+    <header id="main-header" class="p-5 pb-3 text-center relative border-b border-orange-50">
       <!-- 뒤로가기 버튼 -->
       <button id="btn-back" class="hidden absolute left-4 top-4 text-stone-600 hover:text-stone-900 transition-colors flex items-center gap-1 text-xs font-bold bg-stone-100 hover:bg-stone-200 px-2.5 py-1.5 rounded-full" aria-label="Back">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -57,24 +57,21 @@
         <span id="back-text">이전</span>
       </button>
 
-      <!-- 상단 로고 (첫 화면에서만 표시) -->
-      <div id="logo-container" class="flex justify-center items-center mb-1.5">
-        <img src="logo.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-[11px] font-bold tracking-widest text-orange-600 uppercase bg-orange-100/70 px-2.5 py-0.5 rounded-full inline-block\'>Seoul Rabbit</span>';" class="h-8 max-w-[160px] object-contain" />
-      </div>
-
-      <!-- 구분선 (첫 화면에서만 표시) -->
-      <div id="logo-divider" class="w-12 h-[1.5px] bg-orange-200/80 mx-auto mb-2 rounded-full"></div>
-
-      <!-- 메인 질문 (첫 화면에서만 표시) -->
-      <h1 id="header-title" class="text-base sm:text-lg font-extrabold text-stone-900 tracking-tight leading-tight">지금 어떤 한 잔이 필요하세요?</h1>
+      <!-- 메인 질문 (크기 확대 및 문구 수정) -->
+      <h1 id="header-title" class="text-xl sm:text-2xl font-black text-stone-900 tracking-tight leading-snug">지금 필요한 건강 주스는?</h1>
     </header>
 
     <!-- 동적 화면 렌더링 영역 -->
-    <div id="view-container" class="flex-1 p-3 sm:p-4 flex flex-col justify-center"></div>
+    <div id="view-container" class="flex-1 p-3.5 sm:p-4 flex flex-col justify-center"></div>
 
-    <!-- 하단 푸터 -->
-    <footer id="footer-text" class="py-3 text-center bg-stone-50/50 border-t border-stone-100 text-xs text-stone-400 font-medium">
-      서울래빗 서촌주스랩
+    <!-- 하단 푸터 & 서울래빗 로고 -->
+    <footer class="py-3 text-center bg-stone-50/50 border-t border-stone-100 flex flex-col items-center justify-center gap-1">
+      <div id="logo-container" class="flex justify-center items-center">
+        <img src="logo.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-xs font-extrabold tracking-widest text-orange-600 uppercase\'>Seoul Rabbit</span>';" class="h-6 max-w-[140px] object-contain" />
+      </div>
+      <p id="footer-text" class="text-[11px] text-stone-400 font-medium">
+        서울래빗 서촌주스랩
+      </p>
     </footer>
   </main>
 
@@ -86,7 +83,7 @@
 
     const I18N = {
       ko: {
-        headerTitle: "지금 어떤 한 잔이 필요하세요?",
+        headerTitle: "지금 필요한 건강 주스는?",
         backText: "이전",
         footerText: "서울래빗 서촌주스랩",
         recommendBadge: "지금 딱 맞는 추천 메뉴",
@@ -96,7 +93,7 @@
         defaultNo: "NO (다른 느낌이요)"
       },
       en: {
-        headerTitle: "What kind of drink do you need right now?",
+        headerTitle: "Which healthy juice do you need right now?",
         backText: "Back",
         footerText: "Seoul Rabbit Seochon Juice Lab",
         recommendBadge: "RECOMMENDED FOR YOU",
@@ -106,7 +103,7 @@
         defaultNo: "NO"
       },
       ja: {
-        headerTitle: "今、どんな一杯が必要ですか？",
+        headerTitle: "今、必要な健康ジュースは？",
         backText: "戻る",
         footerText: "ソウルラビット 西村ジュースラボ",
         recommendBadge: "あなたへのおすすめ",
@@ -116,7 +113,7 @@
         defaultNo: "NO (いいえ)"
       },
       zh: {
-        headerTitle: "此刻你需要一杯怎样的饮品？",
+        headerTitle: "此刻你最需要的健康果汁是？",
         backText: "返回",
         footerText: "Seoul Rabbit 西村果汁实验所",
         recommendBadge: "为你推荐",
@@ -126,7 +123,7 @@
         defaultNo: "NO (换一个)"
       },
       fr: {
-        headerTitle: "De quelle boisson avez-vous besoin maintenant ?",
+        headerTitle: "De quel jus santé avez-vous besoin maintenant ?",
         backText: "Retour",
         footerText: "Seoul Rabbit Seochon Juice Lab",
         recommendBadge: "RECOMMANDÉ POUR VOUS",
@@ -137,7 +134,7 @@
       }
     };
 
-    // 1단계: 6개 테마 카드 (선물: icon-gift.png / 엄마: icon-baby.png 매핑)
+    // 1단계: 6개 테마 카드
     const STATUS_CATEGORIES = [
       {
         id: "wake_up",
@@ -290,7 +287,7 @@
           ko: { q: "상큼함에 생강의 알싸함도 괜찮아요?", sub: "오렌지당근생강 vs 사과/비트 과채 조합" },
           en: { q: "Is a hint of spicy ginger with the citrus okay for you?", sub: "Orange Carrot Ginger vs Apple/Beet blends" },
           ja: { q: "爽やかさに生姜のピリッとした辛味も大丈夫ですか？", sub: "オレンジキャロット生姜 vs リンゴ/ビーツブレンド" },
-          zh: { q: "在酸甜中带有一点生姜的微辣也可以吗？", sub: "香橙胡萝卜生姜汁 vs 苹果/甜菜根配方" },
+          zh: { q: "在酸甜中带有一点生姜의 微辣也可以吗？", sub: "香橙胡萝卜生姜汁 vs 苹果/甜菜根配方" },
           fr: { q: "Une pointe de gingembre avec la fraîcheur vous convient ?", sub: "Orange Carotte Gingembre vs Pomme / Betterave" }
         },
         yes: { result: "orange_carrot_ginger" },
@@ -339,7 +336,7 @@
         questions: {
           ko: { q: "비트가 들어간 산뜻한 맛이 좋아요?", sub: "비트의 맑은 활력(ABC) vs 양배추의 속 편함(CCA)" },
           en: { q: "Do you prefer an energizing beetroot balance?", sub: "Vibrant Beetroot (ABC) vs Soothing Cabbage (CCA)" },
-          ja: { q: "ビーツが入った爽やかな味が良いですか？", sub: "巡りを整えるビーツ(ABC) vs お腹に優しいキャベツ(CCA)" },
+          ja: { q: "ビーツが入った爽やかな味が良いですか？", sub: "巡りを整えるビーツ(ABC) vs お腹에 優しいキャベツ(CCA)" },
           zh: { q: "更想要搭配甜菜根的清爽口感吗？", sub: "气色满满甜菜根(ABC) vs 舒缓肠胃卷心菜(CCA)" },
           fr: { q: "Préférez-vous la note fraîche de la betterave ?", sub: "Betterave vivifiante (ABC) vs Chou apaisant (CCA)" }
         },
@@ -390,7 +387,7 @@
           ko: { q: "열대과일의 상큼달콤함도 더해질까요?", sub: "상큼청량한 캐롯콜라다 vs 부드럽고 고소한 코코캐롯" },
           en: { q: "Would you like tropical fruit freshness added to it?", sub: "Tropical Carrot Colada vs Smooth Coco Carrot" },
           ja: { q: "南国フルーツの甘酸っぱさもプラスしますか？", sub: "爽快キャロットコラーダ vs まろやかココキャロット" },
-          zh: { q: "想要加入热带水果的酸甜果香吗？", sub: "清爽热带胡萝卜可乐达 vs 丝滑椰香胡萝卜" },
+          zh: { q: "想要加入热带水果의 酸甜果香吗？", sub: "清爽热带胡萝卜可乐达 vs 丝滑椰香胡萝卜" },
           fr: { q: "Voulez-vous ajouter la fraîcheur des fruits tropicaux ?", sub: "Carrot Colada des îles vs Coco Carrot crémeux" }
         },
         yes: { result: "carrot_colada" },
@@ -435,13 +432,13 @@
         no: { result: "ginger_shot" }
       },
 
-      // 🌱 6. 건강한 엄마에요 (icon-baby.png)
+      // 🌱 6. 건강한 엄마에요
       q_mom_stomach: {
         step: 2,
         questions: {
           ko: { q: "속이 편안하고 가벼운 채소 위주를 원하시나요?", sub: "위장 케어 양배추 배합 vs 순수 과채 영양", yesText: "YES (속이 편한 양배추 배합)", noText: "NO (순수 과채 영양/간식)" },
           en: { q: "Do you prefer gentle greens easy on the stomach?", sub: "Soothing Cabbage blend vs Raw pure nutrition", yesText: "YES (Digestive Comfort)", noText: "NO (Pure Nutrition)" },
-          ja: { q: "お腹に優しく胃がすっきりする野菜をお望みですか？", sub: "キャベツ入り(CCA) vs 素材まるごと純粋栄養", yesText: "YES (胃に優しいキャベツ)", noText: "NO (純粋な栄養/おやつ)" },
+          ja: { q: "お腹에 優しく胃がすっきりする野菜をお望みですか？", sub: "キャベツ入り(CCA) vs 素材まるごと純粋栄養", yesText: "YES (胃에 優しいキャベツ)", noText: "NO (純粋な栄養/おやつ)" },
           zh: { q: "想要温和舒缓、养胃无负担的蔬菜配方吗？", sub: "养胃卷心菜复合(CCA) vs 纯正天然营养", yesText: "YES (温和舒胃卷心菜)", noText: "NO (纯正果蔬营养)" },
           fr: { q: "Préférez-vous un jus très doux pour l'estomac ?", sub: "Chou apaisant (CCA) vs Nutrition pure & naturelle", yesText: "OUI (Chou Apaisant)", noText: "NON (Nutrition Pure)" }
         },
@@ -516,7 +513,7 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22835885?area=bnq",
         ko: { name: "CCA주스", tag: "#속편한주스 #양배추당근사과 #가벼운루틴", desc: "당근(Carrot), 양배추(Cabbage), 사과(Apple)의 신선함으로 편안하고 가벼운 하루를 완성합니다." },
         en: { name: "CCA Juice", tag: "#EasyOnStomach #CabbageCarrotApple #Digest", desc: "Blended with fresh cabbage, carrot, and apple to keep your body light and comfy." },
-        ja: { name: "CCAジュース", tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やか", desc: "キャベツ・ニンジン・リンゴ入りで、軽やかで心地よい一日をサポート。" },
+        ja: { name: "CCAジュース", tag: "#お腹에 優しい #キャベツニンジンリンゴ #軽やか", desc: "キャベツ・ニンジン・リンゴ入りで、軽やかで心地よい一日をサポート。" },
         zh: { name: "CCA 舒胃果蔬汁", tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #肠胃轻松", desc: "新鲜卷心菜、胡萝卜、苹果搭配，喝完身体特别轻盈舒服。" },
         fr: { name: "Jus CCA", tag: "#EstomacLéger #ChouCarottePomme #DigestionFacile", desc: "Chou, carotte et pomme pour apaiser et faire du bien à votre corps naturellement." }
       },
@@ -557,8 +554,6 @@
     const viewContainer = document.getElementById("view-container");
     const langBar = document.getElementById("lang-bar");
     const mainHeader = document.getElementById("main-header");
-    const logoContainer = document.getElementById("logo-container");
-    const logoDivider = document.getElementById("logo-divider");
     const headerTitle = document.getElementById("header-title");
     const btnBack = document.getElementById("btn-back");
     const backText = document.getElementById("back-text");
@@ -636,22 +631,18 @@
 
       if (currentView === "home") {
         langBar.classList.remove("hidden");
-        logoContainer.classList.remove("hidden");
-        logoDivider.classList.remove("hidden");
         headerTitle.classList.remove("hidden");
         mainHeader.classList.remove("hidden");
-        mainHeader.className = "p-4 pb-2 text-center relative border-b border-orange-50";
+        mainHeader.className = "p-5 pb-3 text-center relative border-b border-orange-50";
         btnBack.classList.add("hidden");
       } else {
         langBar.classList.add("hidden");
-        logoContainer.classList.add("hidden");
-        logoDivider.classList.add("hidden");
         headerTitle.classList.add("hidden");
         mainHeader.className = "p-3 text-center relative border-b border-stone-100 min-h-[44px]";
         btnBack.classList.remove("hidden");
       }
 
-      // 1. 홈 화면 (6개 카드 렌더링)
+      // 1. 홈 화면 (6개 박스)
       if (currentView === "home") {
         let html = `<div class="animate-fade-in grid grid-cols-2 gap-2.5 py-1">`;
         
