@@ -48,7 +48,7 @@
     </nav>
 
     <!-- 상단 헤더 -->
-    <header id="main-header" class="p-5 pb-3 text-center relative border-b border-orange-50">
+    <header id="main-header" class="p-4 sm:p-5 pb-3 relative border-b border-orange-50">
       <!-- 뒤로가기 버튼 -->
       <button id="btn-back" class="hidden absolute left-4 top-4 text-stone-600 hover:text-stone-900 transition-colors flex items-center gap-1 text-xs font-bold bg-stone-100 hover:bg-stone-200 px-2.5 py-1.5 rounded-full" aria-label="Back">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -57,8 +57,14 @@
         <span id="back-text">이전</span>
       </button>
 
-      <!-- 메인 질문 (크기 확대 및 문구 수정) -->
-      <h1 id="header-title" class="text-xl sm:text-2xl font-black text-stone-900 tracking-tight leading-snug">지금 필요한 건강 주스는?</h1>
+      <!-- 홈 전용 헤더: 2줄 타이틀 + 우측 icon-green.png -->
+      <div id="home-title-box" class="flex items-center justify-between gap-3">
+        <div class="text-left">
+          <p id="header-sub" class="text-xs sm:text-sm font-bold text-orange-600 tracking-tight">오늘 뭐 마실지 고민돼요?</p>
+          <h1 id="header-title" class="text-lg sm:text-xl font-black text-stone-900 tracking-tight leading-snug mt-0.5">서울래빗이 골라드릴게요.</h1>
+        </div>
+        <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-3xl\'>🐰</span>';" class="w-12 h-12 sm:w-14 sm:h-14 object-contain flex-shrink-0 drop-shadow-sm" />
+      </div>
     </header>
 
     <!-- 동적 화면 렌더링 영역 -->
@@ -83,7 +89,8 @@
 
     const I18N = {
       ko: {
-        headerTitle: "지금 필요한 건강 주스는?",
+        headerSub: "오늘 뭐 마실지 고민돼요?",
+        headerTitle: "서울래빗이 골라드릴게요.",
         backText: "이전",
         footerText: "서울래빗 서촌주스랩",
         recommendBadge: "지금 딱 맞는 추천 메뉴",
@@ -93,7 +100,8 @@
         defaultNo: "NO (다른 느낌이요)"
       },
       en: {
-        headerTitle: "Which healthy juice do you need right now?",
+        headerSub: "Not sure what to drink today?",
+        headerTitle: "Seoul Rabbit has your pick.",
         backText: "Back",
         footerText: "Seoul Rabbit Seochon Juice Lab",
         recommendBadge: "RECOMMENDED FOR YOU",
@@ -103,7 +111,8 @@
         defaultNo: "NO"
       },
       ja: {
-        headerTitle: "今、必要な健康ジュースは？",
+        headerSub: "今日何を飲むか迷っていますか？",
+        headerTitle: "ソウルラビットが選びます！",
         backText: "戻る",
         footerText: "ソウルラビット 西村ジュースラボ",
         recommendBadge: "あなたへのおすすめ",
@@ -113,7 +122,8 @@
         defaultNo: "NO (いいえ)"
       },
       zh: {
-        headerTitle: "此刻你最需要的健康果汁是？",
+        headerSub: "今天不知道喝什么好吗？",
+        headerTitle: "首尔兔子为你量身推荐！",
         backText: "返回",
         footerText: "Seoul Rabbit 西村果汁实验所",
         recommendBadge: "为你推荐",
@@ -123,7 +133,8 @@
         defaultNo: "NO (换一个)"
       },
       fr: {
-        headerTitle: "De quel jus santé avez-vous besoin maintenant ?",
+        headerSub: "Vous hésitez sur votre boisson ?",
+        headerTitle: "Seoul Rabbit choisit pour vous.",
         backText: "Retour",
         footerText: "Seoul Rabbit Seochon Juice Lab",
         recommendBadge: "RECOMMANDÉ POUR VOUS",
@@ -134,81 +145,69 @@
       }
     };
 
-    // 1단계: 6개 테마 카드
+    // 1단계 5대 핵심 테마 카드
     const STATUS_CATEGORIES = [
       {
-        id: "wake_up",
-        icon: "icon-energy.png",
-        fallbackEmoji: "⚡",
-        ko: { title: "확 깨는 한 잔" },
-        en: { title: "Instant Wake-up" },
-        ja: { title: "シャキッと目覚まし" },
-        zh: { title: "瞬间提神" },
-        fr: { title: "Coup de Fouet" },
-        nextQuestion: "q_wake_ginger_like"
-      },
-      {
-        id: "light_fresh",
-        icon: "icon-fresh.png",
+        id: "blue_clear",
+        icon: "icon-blue.png",
         fallbackEmoji: "🥬",
-        ko: { title: "산뜻한 한 잔" },
-        en: { title: "Light & Refreshing" },
-        ja: { title: "軽やかで爽快" },
-        zh: { title: "轻盈清爽" },
-        fr: { title: "Frais & Léger" },
+        ko: { title: "뻥 뚫림이 필요해요" },
+        en: { title: "Need Pure Refresh" },
+        ja: { title: "すっきり爽快感" },
+        zh: { title: "需要清爽畅快" },
+        fr: { title: "Besoin de Légèreté" },
         nextQuestion: "q_light_fruit_sour"
       },
       {
-        id: "healthy_juice",
-        icon: "icon-healthy.png",
+        id: "red_energy",
+        icon: "icon-red.png",
+        fallbackEmoji: "⚡",
+        ko: { title: "강렬함이 필요해요" },
+        en: { title: "Need Intense Power" },
+        ja: { title: "強力な刺激と活力" },
+        zh: { title: "需要超强能量" },
+        fr: { title: "Besoin d'Intensité" },
+        nextQuestion: "q_wake_ginger_like"
+      },
+      {
+        id: "baby_health",
+        icon: "icon-baby.png",
         fallbackEmoji: "🥕",
-        ko: { title: "건강한 한 잔" },
-        en: { title: "Proper Healthy" },
-        ja: { title: "本格健康ジュース" },
-        zh: { title: "健康纯正" },
-        fr: { title: "Santé & Vitalité" },
+        ko: { title: "건강을 챙기고 싶어요" },
+        en: { title: "Care for My Health" },
+        ja: { title: "健康を気遣いたい" },
+        zh: { title: "想好好调理健康" },
+        fr: { title: "Prendre Soin de Soi" },
         nextQuestion: "q_healthy_veggie_presence"
       },
       {
-        id: "sweet_tasty",
-        icon: "icon-sweet.png",
+        id: "fun_sweet",
+        icon: "icon-fun.png",
         fallbackEmoji: "🥥",
-        ko: { title: "달콤한 한 잔" },
-        en: { title: "Sweet & Tasty" },
-        ja: { title: "甘い癒やし" },
-        zh: { title: "香甜美味" },
-        fr: { title: "Douceur Sucrée" },
+        ko: { title: "재미가 필요해요" },
+        en: { title: "Need Fun & Sweet" },
+        ja: { title: "楽しさと甘い癒やし" },
+        zh: { title: "想要新奇美味" },
+        fr: { title: "Envie de Plaisir" },
         nextQuestion: "q_sweet_creamy"
       },
       {
-        id: "gift_idea",
+        id: "gift_special",
         icon: "icon-gift.png",
         fallbackEmoji: "🎁",
-        ko: { title: "선물하고 싶어요" },
-        en: { title: "Special Gift" },
-        ja: { title: "プレゼントに" },
-        zh: { title: "精选送礼" },
-        fr: { title: "Cadeau Idéal" },
+        ko: { title: "선물이 필요해요" },
+        en: { title: "Need a Great Gift" },
+        ja: { title: "ギフトを探している" },
+        zh: { title: "精选心意好礼" },
+        fr: { title: "Offrir un Cadeau" },
         nextQuestion: "q_gift_target"
-      },
-      {
-        id: "healthy_mom",
-        icon: "icon-baby.png",
-        fallbackEmoji: "🌱",
-        ko: { title: "건강한 엄마에요" },
-        en: { title: "For Healthy Mom" },
-        ja: { title: "すこやかママ" },
-        zh: { title: "健康妈妈/孕期" },
-        fr: { title: "Maman en Santé" },
-        nextQuestion: "q_mom_stomach"
       }
     ];
 
     // 질문 트리
     const SUB_QUESTIONS = {
-      // ⚡ 1. 확 깨는 한 잔
+      // ⚡ 강렬함이 필요해요
       q_wake_ginger_like: {
-        step: 2,
         questions: {
           ko: { q: "알싸한 생강 맛도 좋아하세요?", sub: "생강 특유의 알싸한 향 선호 여부" },
           en: { q: "Do you enjoy the spicy warmth of ginger?", sub: "Spicy ginger aroma preference" },
@@ -220,7 +219,6 @@
         no: "q_wake_coffee_aroma"
       },
       q_wake_ginger_strong: {
-        step: 3,
         questions: {
           ko: { q: "생강 맛이 강할수록 좋아요?", sub: "고농축 샷 vs 상큼한 과채 블렌딩" },
           en: { q: "The stronger the ginger, the better?", sub: "Super concentrated shot vs Citrus blend" },
@@ -232,7 +230,6 @@
         no: "q_wake_orange_sour"
       },
       q_wake_orange_sour: {
-        step: 4,
         questions: {
           ko: { q: "오렌지처럼 상큼한 맛도 좋아하세요?", sub: "시트러스 오렌지 추가 vs 진한 당근생강 클래식" },
           en: { q: "Do you like a refreshing citrus flavor like orange?", sub: "Orange twist vs Classic carrot ginger" },
@@ -244,7 +241,6 @@
         no: { result: "carrot_ginger" }
       },
       q_wake_coffee_aroma: {
-        step: 3,
         questions: {
           ko: { q: "커피 향은 좋아하세요?", sub: "에스프레소 카페인 음료 vs 논카페인 주스" },
           en: { q: "Do you like the aroma of coffee?", sub: "Espresso signature vs Non-caffeine juice" },
@@ -256,7 +252,6 @@
         no: "q_wake_citrus_juice"
       },
       q_wake_citrus_juice: {
-        step: 4,
         questions: {
           ko: { q: "오렌지처럼 상큼한 주스는 좋아하세요?", sub: "상큼한 과즙 블렌딩 vs 100% 순수 당근 착즙" },
           en: { q: "Do you like a refreshing juice like orange?", sub: "Zesty citrus blend vs 100% pure raw carrot" },
@@ -268,9 +263,8 @@
         no: { result: "carrot_100" }
       },
 
-      // 🥬 2. 산뜻한 한 잔
+      // 🥬 뻥 뚫림이 필요해요
       q_light_fruit_sour: {
-        step: 2,
         questions: {
           ko: { q: "과일의 상큼함이 있는 게 좋아요?", sub: "과일의 상큼달콤함 vs 채소 중심의 깔끔한 맛" },
           en: { q: "Do you prefer a fruity, crisp and refreshing taste?", sub: "Fruity sweet & sour vs Clean veggie flavor" },
@@ -282,7 +276,6 @@
         no: "q_light_veggie_taste"
       },
       q_light_ginger_fine: {
-        step: 3,
         questions: {
           ko: { q: "상큼함에 생강의 알싸함도 괜찮아요?", sub: "오렌지당근생강 vs 사과/비트 과채 조합" },
           en: { q: "Is a hint of spicy ginger with the citrus okay for you?", sub: "Orange Carrot Ginger vs Apple/Beet blends" },
@@ -294,7 +287,6 @@
         no: "q_light_beet_like"
       },
       q_light_beet_like: {
-        step: 4,
         questions: {
           ko: { q: "비트가 들어가도 좋아요?", sub: "사과·비트·당근(ABC) vs 달콤상큼 당근사과" },
           en: { q: "Are you happy with nutrient-rich beetroot in it?", sub: "ABC (Apple, Beet, Carrot) vs Sweet Carrot Apple" },
@@ -306,7 +298,6 @@
         no: { result: "carrot_apple" }
       },
       q_light_veggie_taste: {
-        step: 3,
         questions: {
           ko: { q: "채소 맛이 조금 느껴져도 괜찮아요?", sub: "양배추 배합(CCA) vs 100% 순수 당근 착즙" },
           en: { q: "Is a light taste of fresh veggies okay for you?", sub: "Soothing Cabbage (CCA) vs 100% Pure Raw Carrot" },
@@ -318,9 +309,8 @@
         no: { result: "carrot_100" }
       },
 
-      // 🥕 3. 건강한 한 잔
+      // 🥕 건강을 챙기고 싶어요
       q_healthy_veggie_presence: {
-        step: 2,
         questions: {
           ko: { q: "채소의 존재감이 조금 있어도 괜찮아요?", sub: "과채 기능성 블렌딩 vs 부드럽고 친숙한 조합" },
           en: { q: "Do you mind the presence of earthy healthy greens?", sub: "Functional root/green blend vs Smooth approachable blend" },
@@ -332,7 +322,6 @@
         no: "q_healthy_coco_smooth"
       },
       q_healthy_beet_sour: {
-        step: 3,
         questions: {
           ko: { q: "비트가 들어간 산뜻한 맛이 좋아요?", sub: "비트의 맑은 활력(ABC) vs 양배추의 속 편함(CCA)" },
           en: { q: "Do you prefer an energizing beetroot balance?", sub: "Vibrant Beetroot (ABC) vs Soothing Cabbage (CCA)" },
@@ -344,7 +333,6 @@
         no: { result: "cca_juice" }
       },
       q_healthy_coco_smooth: {
-        step: 3,
         questions: {
           ko: { q: "코코넛밀크의 부드러운 맛은 좋아하세요?", sub: "고소하고 부드러운 코코넛 vs 달콤상큼한 사과" },
           en: { q: "Do you like the smooth, silky taste of coconut milk?", sub: "Nutty Coco Carrot vs Classic Carrot Apple" },
@@ -356,9 +344,8 @@
         no: { result: "carrot_apple" }
       },
 
-      // 🥥 4. 달콤한 한 잔
+      // 🥥 재미가 필요해요
       q_sweet_creamy: {
-        step: 2,
         questions: {
           ko: { q: "부드럽고 크리미한 맛이 좋아요?", sub: "크리미 디저트/스무디 vs 향긋한 커피/과일 주스" },
           en: { q: "Do you prefer a smooth, creamy and rich texture?", sub: "Creamy desserts & smoothies vs Coffee & fruity drinks" },
@@ -370,7 +357,6 @@
         no: "q_sweet_coffee_like"
       },
       q_sweet_coconut_like: {
-        step: 3,
         questions: {
           ko: { q: "코코넛의 이국적인 향을 좋아하세요?", sub: "코코넛 블렌딩 vs 달콤한 디저트 케이크" },
           en: { q: "Do you enjoy the exotic aroma of coconut?", sub: "Coconut blend vs Sweet carrot cake dessert" },
@@ -382,7 +368,6 @@
         no: { result: "carrot_cake" }
       },
       q_sweet_tropical_fruit: {
-        step: 4,
         questions: {
           ko: { q: "열대과일의 상큼달콤함도 더해질까요?", sub: "상큼청량한 캐롯콜라다 vs 부드럽고 고소한 코코캐롯" },
           en: { q: "Would you like tropical fruit freshness added to it?", sub: "Tropical Carrot Colada vs Smooth Coco Carrot" },
@@ -394,7 +379,6 @@
         no: { result: "coco_carrot" }
       },
       q_sweet_coffee_like: {
-        step: 3,
         questions: {
           ko: { q: "향긋한 커피(에스프레소)가 땡기시나요?", sub: "에스프레소 당근커피 vs 달콤상큼한 당근사과" },
           en: { q: "Are you in the mood for espresso coffee?", sub: "Craft Carrot Coffee vs Sweet crisp Carrot Apple" },
@@ -406,9 +390,8 @@
         no: { result: "carrot_apple" }
       },
 
-      // 🎁 5. 선물하고 싶어요
+      // 🎁 선물이 필요해요
       q_gift_target: {
-        step: 2,
         questions: {
           ko: { q: "호불호 없이 누구나 좋아하는 맛을 원하시나요?", sub: "달콤하고 친숙한 베스트셀러 vs 특별한 건강 케어 선물", yesText: "YES (친숙하고 대중적인 맛)", noText: "NO (특별한 건강 케어 선물)" },
           en: { q: "Looking for a crowd-pleaser that anyone loves?", sub: "Popular approachable taste vs Special wellness gift", yesText: "YES (Sweet & Popular)", noText: "NO (Special Wellness Gift)" },
@@ -420,7 +403,6 @@
         no: "q_gift_care_focus"
       },
       q_gift_care_focus: {
-        step: 3,
         questions: {
           ko: { q: "몸을 맑고 가볍게 비우는 루틴을 선물할까요?", sub: "맑은 생기 ABC주스 vs 번쩍 뜨이는 서울진저샷", yesText: "YES (비움과 생기 루틴)", noText: "NO (강력한 활력과 에너지)" },
           en: { q: "Would you like to gift a revitalizing daily cleanse?", sub: "ABC Daily Glow vs Intense Energy Ginger Shot", yesText: "YES (Daily Cleanse)", noText: "NO (Energy Shot)" },
@@ -430,32 +412,6 @@
         },
         yes: { result: "abc_juice" },
         no: { result: "ginger_shot" }
-      },
-
-      // 🌱 6. 건강한 엄마에요
-      q_mom_stomach: {
-        step: 2,
-        questions: {
-          ko: { q: "속이 편안하고 가벼운 채소 위주를 원하시나요?", sub: "위장 케어 양배추 배합 vs 순수 과채 영양", yesText: "YES (속이 편한 양배추 배합)", noText: "NO (순수 과채 영양/간식)" },
-          en: { q: "Do you prefer gentle greens easy on the stomach?", sub: "Soothing Cabbage blend vs Raw pure nutrition", yesText: "YES (Digestive Comfort)", noText: "NO (Pure Nutrition)" },
-          ja: { q: "お腹에 優しく胃がすっきりする野菜をお望みですか？", sub: "キャベツ入り(CCA) vs 素材まるごと純粋栄養", yesText: "YES (胃에 優しいキャベツ)", noText: "NO (純粋な栄養/おやつ)" },
-          zh: { q: "想要温和舒缓、养胃无负担的蔬菜配方吗？", sub: "养胃卷心菜复合(CCA) vs 纯正天然营养", yesText: "YES (温和舒胃卷心菜)", noText: "NO (纯正果蔬营养)" },
-          fr: { q: "Préférez-vous un jus très doux pour l'estomac ?", sub: "Chou apaisant (CCA) vs Nutrition pure & naturelle", yesText: "OUI (Chou Apaisant)", noText: "NON (Nutrition Pure)" }
-        },
-        yes: { result: "cca_juice" },
-        no: "q_mom_pure_raw"
-      },
-      q_mom_pure_raw: {
-        step: 3,
-        questions: {
-          ko: { q: "물·설탕 0% 순수 착즙 원액을 원하시나요?", sub: "100% 당근 순수착즙 vs 고소하고 부드러운 코코캐롯", yesText: "YES (100% 무첨가 순수착즙)", noText: "NO (부드러운 영양 간식)" },
-          en: { q: "Do you want 100% raw juice with 0% added water/sugar?", sub: "100% Raw Carrot vs Creamy Coco Carrot", yesText: "YES (100% Pure Raw)", noText: "NO (Creamy Snack)" },
-          ja: { q: "水・砂糖ゼロの100%純粋ストレートが良いですか？", sub: "100% ニンジン無添加 vs まろやかココキャロット", yesText: "YES (100% ニンジン)", noText: "NO (まろやかココナッツ)" },
-          zh: { q: "想要不加水和糖的100%纯压榨原汁吗？", sub: "100% 纯胡萝卜汁 vs 丝滑椰香特调", yesText: "YES (100% 纯原汁)", noText: "NO (丝滑滋养饮品)" },
-          fr: { q: "Voulez-vous un pur jus 100% brut sans eau ni sucre ?", sub: "100% Pur jus de carotte vs Coco Carrot onctueux", yesText: "OUI (100% Pur Jus)", noText: "NON (Douceur Onctueuse)" }
-        },
-        yes: { result: "carrot_100" },
-        no: { result: "coco_carrot" }
       }
     };
 
@@ -554,6 +510,8 @@
     const viewContainer = document.getElementById("view-container");
     const langBar = document.getElementById("lang-bar");
     const mainHeader = document.getElementById("main-header");
+    const homeTitleBox = document.getElementById("home-title-box");
+    const headerSub = document.getElementById("header-sub");
     const headerTitle = document.getElementById("header-title");
     const btnBack = document.getElementById("btn-back");
     const backText = document.getElementById("back-text");
@@ -571,6 +529,7 @@
       }
 
       const i18n = I18N[currentLang];
+      headerSub.innerText = i18n.headerSub;
       headerTitle.innerText = i18n.headerTitle;
       backText.innerText = i18n.backText;
       footerText.innerText = i18n.footerText;
@@ -631,31 +590,33 @@
 
       if (currentView === "home") {
         langBar.classList.remove("hidden");
-        headerTitle.classList.remove("hidden");
+        homeTitleBox.classList.remove("hidden");
         mainHeader.classList.remove("hidden");
-        mainHeader.className = "p-5 pb-3 text-center relative border-b border-orange-50";
+        mainHeader.className = "p-4 sm:p-5 pb-3 relative border-b border-orange-50";
         btnBack.classList.add("hidden");
       } else {
         langBar.classList.add("hidden");
-        headerTitle.classList.add("hidden");
+        homeTitleBox.classList.add("hidden");
         mainHeader.className = "p-3 text-center relative border-b border-stone-100 min-h-[44px]";
         btnBack.classList.remove("hidden");
       }
 
-      // 1. 홈 화면 (6개 박스)
+      // 1. 홈 화면 (5개 카드: 2열 + 마지막 카드 중앙 정렬)
       if (currentView === "home") {
         let html = `<div class="animate-fade-in grid grid-cols-2 gap-2.5 py-1">`;
         
-        STATUS_CATEGORIES.forEach(cat => {
+        STATUS_CATEGORIES.forEach((cat, index) => {
           const item = cat[currentLang] || cat["ko"];
           const isImageFile = cat.icon.includes(".");
+          const isLastItem = (index === STATUS_CATEGORIES.length - 1);
+          const gridSpan = isLastItem ? "col-span-2 sm:col-span-1 sm:col-start-1 sm:col-end-3 max-w-[200px] mx-auto w-full" : "w-full";
 
           const iconMarkup = isImageFile
             ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1 leading-none\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-12 h-12 object-contain mb-1 drop-shadow-sm group-hover:scale-105 transition-transform" />`
             : `<span class="text-3xl mb-1 leading-none">${cat.icon}</span>`;
 
           html += `
-            <button onclick="selectStatus('${cat.id}')" class="w-full p-3 rounded-2xl bg-white hover:bg-orange-50/50 border border-stone-200/80 hover:border-orange-200 active:scale-[0.97] transition-all flex flex-col items-center justify-center text-center group shadow-sm min-h-[110px]">
+            <button onclick="selectStatus('${cat.id}')" class="${gridSpan} p-3 rounded-2xl bg-white hover:bg-orange-50/50 border border-stone-200/80 hover:border-orange-200 active:scale-[0.97] transition-all flex flex-col items-center justify-center text-center group shadow-sm min-h-[110px]">
               ${iconMarkup}
               <h2 class="text-sm font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
             </button>
@@ -676,8 +637,7 @@
         viewContainer.innerHTML = `
           <div class="animate-fade-in flex flex-col justify-between h-full py-2">
             <div class="my-auto text-center py-4">
-              <span class="text-orange-500 font-bold text-xs tracking-wider uppercase bg-orange-100/80 px-2.5 py-1 rounded-full">STEP ${node.step}</span>
-              <h2 class="text-xl font-bold text-stone-900 mt-3 mb-2 leading-snug break-keep">
+              <h2 class="text-xl font-bold text-stone-900 mb-2 leading-snug break-keep">
                 ${qData.q}
               </h2>
               <p class="text-xs text-stone-500 break-keep">
