@@ -886,13 +886,13 @@
           const gridSpan = isLastItem ? "col-span-2 sm:col-span-1 sm:col-start-1 sm:col-end-3 max-w-[190px] mx-auto w-full" : "w-full";
 
           const iconMarkup = isImageFile
-            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-2.5xl mb-1 leading-none drop-shadow\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-11 h-11 sm:w-12 sm:h-12 object-contain mb-1 drop-shadow-[0_3px_6px_rgba(0,0,0,0.1)] group-hover:scale-110 transition-transform" />`
-            : `<span class="text-2.5xl mb-1 leading-none drop-shadow">${cat.icon}</span>`;
+            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1 leading-none drop-shadow\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-[52px] h-[52px] sm:w-14 sm:h-14 object-contain mb-1 drop-shadow-[0_3px_6px_rgba(0,0,0,0.1)] group-hover:scale-110 transition-transform" />`
+            : `<span class="text-3xl mb-1 leading-none drop-shadow">${cat.icon}</span>`;
 
           html += `
-            <button onclick="selectStatus('${cat.id}')" class="${gridSpan} ${cat.themeStyle} p-2.5 rounded-[22px] bg-gradient-to-b border-2 active:scale-[0.96] transition-all flex flex-col items-center justify-center text-center group shadow-[0_3px_10px_rgba(180,140,110,0.12)] hover:shadow-[0_5px_14px_rgba(180,140,110,0.18)] min-h-[102px]">
+            <button onclick="selectStatus('${cat.id}')" class="${gridSpan} ${cat.themeStyle} p-2.5 rounded-[22px] bg-gradient-to-b border-2 active:scale-[0.96] transition-all flex flex-col items-center justify-center text-center group shadow-[0_3px_10px_rgba(180,140,110,0.12)] hover:shadow-[0_5px_14px_rgba(180,140,110,0.18)] min-h-[106px]">
               ${iconMarkup}
-              <h2 class="text-xs sm:text-sm font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
+              <h2 class="text-sm sm:text-base font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
             </button>
           `;
         });
