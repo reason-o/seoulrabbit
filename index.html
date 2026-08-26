@@ -33,13 +33,13 @@
     }
   </style>
 </head>
-<body class="bg-[#FAF7F2] min-h-screen text-stone-800 flex items-center justify-center p-2.5 sm:p-4 font-sans antialiased">
+<body class="bg-[#FAF7F2] min-h-screen text-stone-800 flex items-center justify-center p-3 sm:p-4 font-sans antialiased">
 
   <!-- 메인 카드 컨테이너 -->
-  <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100/80 overflow-hidden flex flex-col min-h-[580px] relative">
+  <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100/80 overflow-hidden flex flex-col min-h-[640px] relative">
     
     <!-- 언어 선택 바 (첫 화면에서만 표시) -->
-    <nav id="lang-bar" class="bg-stone-50/80 border-b border-orange-50 px-3 py-1.5 flex items-center justify-center gap-1 text-xs">
+    <nav id="lang-bar" class="bg-stone-50/80 border-b border-orange-50 px-3 py-2 flex items-center justify-center gap-1 text-xs">
       <button onclick="setLanguage('ko')" id="lang-ko" class="lang-btn px-2.5 py-1 rounded-full font-bold transition-all bg-orange-500 text-white">한국어</button>
       <button onclick="setLanguage('en')" id="lang-en" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">English</button>
       <button onclick="setLanguage('ja')" id="lang-ja" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">日本語</button>
@@ -47,8 +47,8 @@
       <button onclick="setLanguage('fr')" id="lang-fr" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">Français</button>
     </nav>
 
-    <!-- 상단 헤더 -->
-    <header id="main-header" class="p-4 pb-3 relative border-b border-orange-50 text-center">
+    <!-- 상단 헤더 (초록토끼 좌측 + 2줄 타이틀 우측 중앙 정렬) -->
+    <header id="main-header" class="p-4 pb-2 relative border-b border-orange-50">
       <!-- 뒤로가기 버튼 -->
       <button id="btn-back" class="hidden absolute left-4 top-4 text-stone-600 hover:text-stone-900 transition-colors flex items-center gap-1 text-xs font-bold bg-stone-100 hover:bg-stone-200 px-2.5 py-1.5 rounded-full" aria-label="Back">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -57,12 +57,12 @@
         <span id="back-text">이전</span>
       </button>
 
-      <!-- 홈 전용 헤더 (토끼 왼쪽 + 오른쪽 2줄 문구 / 통째로 가운데 정렬) -->
-      <div id="home-title-box" class="flex items-center justify-center gap-2.5 text-left">
-        <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-3xl\'>🐰</span>';" class="w-12 h-12 sm:w-14 sm:h-14 object-contain shrink-0 drop-shadow-sm" />
-        <div class="flex flex-col justify-center">
-          <p id="header-sub" class="text-xs font-bold text-orange-600 tracking-tight leading-tight">오늘 뭐 마실지 고민돼요?</p>
-          <h1 id="header-title" class="text-base sm:text-lg font-black text-stone-900 tracking-tight leading-tight mt-0.5">서울래빗이 골라드릴게요.</h1>
+      <!-- 홈 전용 헤더 -->
+      <div id="home-title-box" class="flex items-center justify-center gap-2.5 py-1">
+        <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-4xl\'>🐰</span>';" class="w-14 h-14 object-contain drop-shadow-sm flex-shrink-0" />
+        <div class="flex flex-col text-left">
+          <p id="header-sub" class="text-xs font-bold text-orange-600 tracking-tight leading-none mb-1">오늘 뭐 마실지 고민돼요?</p>
+          <h1 id="header-title" class="text-lg font-black text-stone-900 tracking-tight leading-snug">서울래빗이 골라드릴게요.</h1>
         </div>
       </div>
     </header>
@@ -71,11 +71,11 @@
     <div id="view-container" class="flex-1 p-3.5 sm:p-4 flex flex-col justify-center"></div>
 
     <!-- 하단 푸터 & 서울래빗 로고 -->
-    <footer class="py-2.5 text-center bg-stone-50/50 border-t border-stone-100 flex flex-col items-center justify-center gap-0.5">
+    <footer class="py-3 text-center bg-stone-50/50 border-t border-stone-100 flex flex-col items-center justify-center gap-1">
       <div id="logo-container" class="flex justify-center items-center">
-        <img src="logo.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-xs font-extrabold tracking-widest text-orange-600 uppercase\'>Seoul Rabbit</span>';" class="h-5 max-w-[130px] object-contain" />
+        <img src="logo.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-xs font-extrabold tracking-widest text-orange-600 uppercase\'>Seoul Rabbit</span>';" class="h-6 max-w-[140px] object-contain" />
       </div>
-      <p id="footer-text" class="text-[10px] text-stone-400 font-medium">
+      <p id="footer-text" class="text-[11px] text-stone-400 font-medium">
         서울래빗 주스랩
       </p>
     </footer>
@@ -93,7 +93,7 @@
         headerTitle: "서울래빗이 골라드릴게요.",
         backText: "이전",
         footerText: "서울래빗 주스랩",
-        exploreMenuBtn: "서울래빗 메뉴 구경하기",
+        exploreMenuBtn: "서울래빗 전체 메뉴 구경하기",
         recommendBadge: "지금 딱 맞는 추천 메뉴",
         orderBtn: "네이버 주문으로 바로가기",
         restartBtn: "처음부터 다시 찾기",
@@ -150,13 +150,12 @@
       }
     };
 
-    // 1단계 5대 선택지
     const STATUS_CATEGORIES = [
       {
         id: "low_energy",
         icon: "icon-red.png",
         fallbackEmoji: "⚡",
-        themeStyle: "from-[#FFF5F2] to-[#FFEBE6] border-[#FFC8BF] hover:border-red-400 rotate-[-3.5deg] hover:rotate-0",
+        rotation: "-rotate-2",
         ko: { title: "기운이 없어요" },
         en: { title: "Feeling Drained" },
         ja: { title: "元気が出ない" },
@@ -168,7 +167,7 @@
         id: "bloated_stomach",
         icon: "icon-blue.png",
         fallbackEmoji: "🥬",
-        themeStyle: "from-[#F0F8FF] to-[#E6F3FF] border-[#BDE0FE] hover:border-sky-400 rotate-[3deg] hover:rotate-0",
+        rotation: "rotate-2",
         ko: { title: "속이 더부룩해요" },
         en: { title: "Feeling Bloated" },
         ja: { title: "お腹が重い・もたれる" },
@@ -180,7 +179,7 @@
         id: "care_health",
         icon: "icon-baby.png",
         fallbackEmoji: "🥕",
-        themeStyle: "from-[#F2FAF4] to-[#E5F5E9] border-[#BCE3C9] hover:border-emerald-400 rotate-[-3deg] hover:rotate-0",
+        rotation: "rotate-1",
         ko: { title: "건강해질래요" },
         en: { title: "Want to Be Healthy" },
         ja: { title: "健康になりたい" },
@@ -192,7 +191,7 @@
         id: "need_fun",
         icon: "icon-fun.png",
         fallbackEmoji: "🥥",
-        themeStyle: "from-[#FFFDF0] to-[#FFF9E5] border-[#FCE2A6] hover:border-amber-400 rotate-[4deg] hover:rotate-0",
+        rotation: "-rotate-2",
         ko: { title: "재미가 필요해요" },
         en: { title: "Need Something Fun" },
         ja: { title: "楽しさがほしい" },
@@ -204,7 +203,7 @@
         id: "need_gift",
         icon: "icon-gift.png",
         fallbackEmoji: "🎁",
-        themeStyle: "from-[#FFF0F5] to-[#FFE4E8] border-[#FFC2D1] hover:border-pink-400 rotate-[-2.5deg] hover:rotate-0",
+        rotation: "rotate-1",
         ko: { title: "선물이 필요해요" },
         en: { title: "Looking for a Gift" },
         ja: { title: "ギフトを探している" },
@@ -214,9 +213,7 @@
       }
     ];
 
-    // 질문 트리
     const SUB_QUESTIONS = {
-      // ⚡ [1. 기운이 없어요]
       q_wake_ginger_like: {
         intro: {
           ko: "으랏차차! 힘낼 수 있는 메뉴를 추천할게요!",
@@ -272,7 +269,7 @@
         questions: {
           ko: { q: "상큼한 오렌지 좋아해요?" },
           en: { q: "Do you like refreshing orange?" },
-          ja: { q: "爽やかなオレンジは好きですか？" },
+          ja: { q: "爽やかなオレンジ는 좋아하세요?" },
           zh: { q: "喜欢酸甜清爽的香橙吗？" },
           fr: { q: "Aimez-vous l'orange acidulée et fraîche ?" }
         },
@@ -280,7 +277,6 @@
         no: { result: "carrot_100" }
       },
 
-      // 🥬 [2. 속이 더부룩해요]
       q_bloat_cabbage: {
         intro: {
           ko: "편안한 속을 위해 추천해드릴게요!",
@@ -311,7 +307,6 @@
         no: { result: "carrot_100" }
       },
 
-      // 🥕 [3. 건강해질래요]
       q_health_veggie: {
         intro: {
           ko: "건강한 하루를 위한 추천!",
@@ -353,7 +348,6 @@
         no: { result: "carrot_apple" }
       },
 
-      // 🥥 [4. 재미가 필요해요]
       q_fun_creamy: {
         intro: {
           ko: "상상하지 못한 재미를 드려요!",
@@ -406,7 +400,6 @@
         no: { result: "carrot_lemon_soda" }
       },
 
-      // 🎁 [5. 선물이 필요해요]
       q_gift_popular: {
         intro: {
           ko: "캐롯보틀로 센스있는 선물!",
@@ -438,343 +431,102 @@
       }
     };
 
-    // 12종 메뉴 데이터 & 네이버 주문 링크
     const MENUS = {
       ginger_shot: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/19808240?area=bnq",
-        ko: {
-          name: "서울진저샷",
-          tag: "#에너지충전 #초강력활력 #리프레시",
-          desc: "나른할 때 원샷! 눈이 번쩍 뜨이고 정신이 맑아지는 강력한 생강 에너지 샷이에요."
-        },
-        en: {
-          name: "Seoul Ginger Shot",
-          tag: "#EnergyBoost #RawVitality #Focus",
-          desc: "Take a shot to instantly energize your day and awaken your senses with pure ginger power!"
-        },
-        ja: {
-          name: "ソウルジンジャーショット",
-          tag: "#元気チャージ #超強力 #目覚まし",
-          desc: "ひと口でシャキッと！活力とパワーがみなぎる超濃厚生姜ショットです。"
-        },
-        zh: {
-          name: "首尔生姜生力饮",
-          tag: "#一秒醒脑 #强效元气 #清醒提神",
-          desc: "困倦时一口饮尽！瞬间清醒、驱散疲劳的高浓度生姜能量饮。"
-        },
-        fr: {
-          name: "Seoul Ginger Shot",
-          tag: "#CoupDeFouet #ÉnergiePure #Tonus",
-          desc: "À boire d'un trait pour réveiller votre esprit et faire le plein d'énergie vive !"
-        }
+        ko: { name: "서울진저샷", tag: "#에너지충전 #초강력활력 #리프레시", desc: "나른할 때 원샷! 눈이 번쩍 뜨이고 정신이 맑아지는 강력한 생강 에너지 샷이에요." },
+        en: { name: "Seoul Ginger Shot", tag: "#EnergyBoost #RawVitality #Focus", desc: "Take a shot to instantly energize your day and awaken your senses with pure ginger power!" },
+        ja: { name: "ソウルジンジャーショット", tag: "#元気チャージ #超強力 #目覚まし", desc: "ひと口でシャキッと！活力とパワーがみなぎる超濃厚生姜ショットです。" },
+        zh: { name: "首尔生姜生力饮", tag: "#一秒醒脑 #强效元气 #清醒提神", desc: "困倦时一口饮尽！瞬间清醒、驱散疲劳的高浓度生姜能量饮。" },
+        fr: { name: "Seoul Ginger Shot", tag: "#CoupDeFouet #ÉnergiePure #Tonus", desc: "À boire d'un trait pour réveiller votre esprit et faire le plein d'énergie vive !" }
       },
       orange_carrot_ginger: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18262957?area=bnq",
-        ko: {
-          name: "오렌지당근생강",
-          tag: "#상큼오렌지 #기분전환",
-          desc: "상큼한 오렌지 뒤에 은은한 생강 맛이 싹 돌아서 마시자마자 기분이 산뜻해져요."
-        },
-        en: {
-          name: "Orange Carrot Ginger",
-          tag: "#FreshOrange #RefreshingMood",
-          desc: "Zesty fresh orange with a subtle warm twist for a bright, uplifting feeling right away."
-        },
-        ja: {
-          name: "オレンジキャロット生姜",
-          tag: "#爽やかオレンジ #気分転換",
-          desc: "爽やかなオレンジの後にほんのり生姜が広がり、飲んだ瞬間気分がすっきり晴れやかに。"
-        },
-        zh: {
-          name: "香橙胡萝卜生姜汁",
-          tag: "#鲜橙果香 #焕新心情",
-          desc: "清甜鲜橙伴随着若隐若现的温润姜香，入口瞬间身心舒畅。"
-        },
-        fr: {
-          name: "Orange Carotte Gingembre",
-          tag: "#OrangeFraîche #NouvelleÉnergie",
-          desc: "L'orange acidulée suivie d'une douce note de gingembre pour un coup d'éclat immédiat."
-        }
+        ko: { name: "오렌지당근생강", tag: "#상큼오렌지 #기분전환", desc: "상큼한 오렌지 뒤에 은은한 생강 맛이 싹 돌아서 마시자마자 기분이 산뜻해져요." },
+        en: { name: "Orange Carrot Ginger", tag: "#FreshOrange #RefreshingMood", desc: "Zesty fresh orange with a subtle warm twist for a bright, uplifting feeling right away." },
+        ja: { name: "オレンジキャロット生姜", tag: "#爽やかオレンジ #気分転換", desc: "爽やかなオレンジの後にほんのり生姜が広がり、飲んだ瞬間気分がすっきり晴れやかに。" },
+        zh: { name: "香橙胡萝卜生姜汁", tag: "#鲜橙果香 #焕新心情", desc: "清甜鲜橙伴随着若隐若现的温润姜香，入口瞬间身心舒畅。" },
+        fr: { name: "Orange Carotte Gingembre", tag: "#OrangeFraîche #NouvelleÉnergie", desc: "L'orange acidulée suivie d'une douce note de gingembre pour un coup d'éclat immédiat." }
       },
       carrot_ginger: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18262909?area=bnq",
-        ko: {
-          name: "당근생강",
-          tag: "#알싸한생강 #환상조합",
-          desc: "달달한 당근에 은은하게 퍼지는 알싸한 생강! 깔끔한 뒷맛!"
-        },
-        en: {
-          name: "Carrot Ginger",
-          tag: "#SpicyGinger #PerfectDuo",
-          desc: "Sweet carrot blended with the warm spice of ginger. Wonderfully clean finish!"
-        },
-        ja: {
-          name: "キャロットジンジャー",
-          tag: "#ピリッと生姜 #黄金コンビ",
-          desc: "甘いニンジンにじんわり広がる生姜のアクセント！後味もすっきり爽やか！"
-        },
-        zh: {
-          name: "胡萝卜生姜汁",
-          tag: "#温润生姜 #绝妙搭配",
-          desc: "清甜胡萝卜中融入温润辛香的生姜，回味格外清爽！"
-        },
-        fr: {
-          name: "Carotte Gingembre",
-          tag: "#GingembreÉpicé #DuoParfait",
-          desc: "Carotte douce relevée d'une touche de gingembre pour une fin de bouche très nette !"
-        }
+        ko: { name: "당근생강", tag: "#알싸한생강 #환상조합", desc: "달달한 당근에 은은하게 퍼지는 알싸한 생강! 깔끔한 뒷맛!" },
+        en: { name: "Carrot Ginger", tag: "#SpicyGinger #PerfectDuo", desc: "Sweet carrot blended with the warm spice of ginger. Wonderfully clean finish!" },
+        ja: { name: "キャロットジンジャー", tag: "#ピリッと生姜 #黄金コンビ", desc: "甘いニンジンにじんわり広がる生姜のアクセント！後味もすっきり爽やか！" },
+        zh: { name: "胡萝卜生姜汁", tag: "#温润生姜 #绝妙搭配", desc: "清甜胡萝卜中融入温润辛香的生姜，回味格外清爽！" },
+        fr: { name: "Carotte Gingembre", tag: "#GingembreÉpicé #DuoParfait", desc: "Carotte douce relevée d'une touche de gingembre pour une fin de bouche très nette !" }
       },
       carrot_coffee: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/17245869?area=bnq",
-        ko: {
-          name: "당근커피",
-          tag: "#카페인충전 #시그니처커피 #은은한단맛",
-          desc: "당근의 달달함에 콜드브루커피가 더해진 서울래빗만의 특별한 시그니처 커피예요."
-        },
-        en: {
-          name: "Carrot Coffee",
-          tag: "#CaffeineFix #SignatureCoffee #SubtleSweet",
-          desc: "Sweet cold-pressed carrot meets smooth cold brew coffee. Seoul Rabbit's iconic creation!"
-        },
-        ja: {
-          name: "キャロットコーヒー",
-          tag: "#カフェイン補給 #名物珈琲 #優しい甘み",
-          desc: "ニンジンの自然な甘みにコールドブリュー珈琲를 合わせたソウルラビット名物の一杯。"
-        },
-        zh: {
-          name: "胡萝卜咖啡",
-          tag: "#咖啡因充能 #招牌咖啡 #自然回甘",
-          desc: "自然清甜的胡萝卜原汁融入顺滑冷萃咖啡，首尔兔子独家招牌特调。"
-        },
-        fr: {
-          name: "Carrot Coffee",
-          tag: "#CaféOriginal #ColdBrew #Signature",
-          desc: "La douceur de la carotte alliée à un cold brew aromatique. Notre signature exclusive !"
-        }
+        ko: { name: "당근커피", tag: "#카페인충전 #시그니처커피 #은은한단맛", desc: "당근의 달달함에 콜드브루커피가 더해진 서울래빗만의 특별한 시그니처 커피예요." },
+        en: { name: "Carrot Coffee", tag: "#CaffeineFix #SignatureCoffee #SubtleSweet", desc: "Sweet cold-pressed carrot meets smooth cold brew coffee. Seoul Rabbit's iconic creation!" },
+        ja: { name: "キャロットコーヒー", tag: "#カフェイン補給 #名物珈琲 #優しい甘み", desc: "ニンジンの自然な甘みにコールドブリュー珈琲を合わせたソウルラビット名物の一杯。" },
+        zh: { name: "胡萝卜咖啡", tag: "#咖啡因充能 #招牌咖啡 #自然回甘", desc: "自然清甜的胡萝卜原汁融入顺滑冷萃咖啡，首尔兔子独家招牌特调。" },
+        fr: { name: "Carrot Coffee", tag: "#CaféOriginal #ColdBrew #Signature", desc: "La douceur de la carotte alliée à un cold brew aromatique. Notre signature exclusive !" }
       },
       carrot_apple: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18262733?area=bnq",
-        ko: {
-          name: "당근사과",
-          tag: "#달콤상큼 #실패없는맛 #인기1위",
-          desc: "사과의 달콤함과 당근이 만났어요. 누구나 다 좋아하는 꿀조합 베스트셀러 주스예요."
-        },
-        en: {
-          name: "Carrot Apple",
-          tag: "#SweetCrisp #NeverFails #No1Popular",
-          desc: "Crisp sweet apples harmoniously blended with fresh carrots. Our all-time #1 bestseller!"
-        },
-        ja: {
-          name: "キャロットアップル",
-          tag: "#甘酸っぱい #大人気 #不動のNo1",
-          desc: "甘酸っぱいリンゴと新鮮なニンジンが出会った、誰もが大好きな人気No.1ベストセラー！"
-        },
-        zh: {
-          name: "苹果胡萝卜汁",
-          tag: "#酸甜可口 #经典百搭 #人气第一",
-          desc: "清甜苹果遇上鲜嫩胡萝卜，人手一杯、绝不踩雷的高人气镇店之宝。"
-        },
-        fr: {
-          name: "Carotte Pomme",
-          tag: "#DouxEtFrais #Incontournable #TopVente",
-          desc: "La pomme croquante mariée à la carotte douce. Le best-seller n°1 adoré de tous !"
-        }
+        ko: { name: "당근사과", tag: "#달콤상큼 #실패없는맛 #인기1위", desc: "사과의 달콤함과 당근이 만났어요. 누구나 다 좋아하는 꿀조합 베스트셀러 주스예요." },
+        en: { name: "Carrot Apple", tag: "#SweetCrisp #NeverFails #No1Popular", desc: "Crisp sweet apples harmoniously blended with fresh carrots. Our all-time #1 bestseller!" },
+        ja: { name: "キャロットアップル", tag: "#甘酸っぱい #大人気 #不動のNo1", desc: "甘酸っぱいリンゴと新鮮なニンジンが出会った、誰もが大好きな人気No.1ベストセラー！" },
+        zh: { name: "苹果胡萝卜汁", tag: "#酸甜可口 #经典百搭 #人气第一", desc: "清甜苹果遇上鲜嫩胡萝卜，人手一杯、绝不踩雷的高人气镇店之宝。" },
+        fr: { name: "Carotte Pomme", tag: "#DouxEtFrais #Incontournable #TopVente", desc: "La pomme croquante mariée à la carotte douce. Le best-seller n°1 adoré de tous !" }
       },
       abc_juice: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22835851?area=bnq",
-        ko: {
-          name: "ABC주스",
-          tag: "#몸이가벼워지는 #사과비트당근 #생기충전",
-          desc: "사과(Apple), 비트(Beet), 당근(Carrot)의 꿀조합! 몸에 기분 좋은 생기와 활력을 선물합니다."
-        },
-        en: {
-          name: "ABC Juice",
-          tag: "#FeelLight #AppleBeetCarrot #DailyGlow",
-          desc: "Apple, Beet, and Carrot golden blend! Brings natural vitality and lightness to your daily routine."
-        },
-        ja: {
-          name: "ABCジュース",
-          tag: "#体が軽くなる #リンゴビーツニンジン #元気チャージ",
-          desc: "リンゴ・ビーツ・ニンジンの黄金比！内側から輝くような活力を届けます。"
-        },
-        zh: {
-          name: "ABC 活力果蔬汁",
-          tag: "#身体变轻盈 #苹果甜菜根胡萝卜 #气色红润",
-          desc: "苹果、甜菜根、胡萝卜经典黄金配比，为身体注入满满元气与轻盈活力。"
-        },
-        fr: {
-          name: "Jus ABC",
-          tag: "#CorpsLéger #PommeBetteraveCarotte #Vitalité",
-          desc: "L'accord parfait pomme-betterave-carotte pour retrouver tonus et légèreté au quotidien."
-        }
+        ko: { name: "ABC주스", tag: "#몸이가벼워지는 #사과비트당근 #생기충전", desc: "사과(Apple), 비트(Beet), 당근(Carrot)의 꿀조합! 몸에 기분 좋은 생기와 활력을 선물합니다." },
+        en: { name: "ABC Juice", tag: "#FeelLight #AppleBeetCarrot #DailyGlow", desc: "Apple, Beet, and Carrot golden blend! Brings natural vitality and lightness to your daily routine." },
+        ja: { name: "ABCジュース", tag: "#体が軽くなる #リンゴビーツニンジン #元気チャージ", desc: "リンゴ・ビーツ・ニンジンの黄金比！内側から輝くような活力を届けます。" },
+        zh: { name: "ABC 活力果蔬汁", tag: "#身体变轻盈 #苹果甜菜根胡萝卜 #气色红润", desc: "苹果、甜菜根、胡萝卜经典黄金配比，为身体注入满满元气与轻盈活力。" },
+        fr: { name: "Jus ABC", tag: "#CorpsLéger #PommeBetteraveCarotte #Vitalité", desc: "L'accord parfait pomme-betterave-carotte pour retrouver tonus et légèreté au quotidien." }
       },
       cca_juice: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22835885?area=bnq",
-        ko: {
-          name: "CCA주스",
-          tag: "#속편한주스 #양배추당근사과 #가벼운루틴",
-          desc: "당근(Carrot), 양배추(Cabbage), 사과(Apple)의 신선함으로 편안하고 가벼운 하루를 완성합니다."
-        },
-        en: {
-          name: "CCA Juice",
-          tag: "#StomachComfort #CabbageCarrotApple #LightRoutine",
-          desc: "Fresh blend of Carrot, Cabbage, and Apple designed for digestive comfort and a light day."
-        },
-        ja: {
-          name: "CCAジュース",
-          tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やかルーティン",
-          desc: "ニンジン・キャベツ・リンゴのやさしい新鮮さで、心地よく軽やかな毎日を。"
-        },
-        zh: {
-          name: "CCA 舒胃果蔬汁",
-          tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #轻盈日常",
-          desc: "新鲜胡萝卜、卷心菜和苹果调配，温和呵护肠胃，带来无负担的轻盈感。"
-        },
-        fr: {
-          name: "Jus CCA",
-          tag: "#EstomacLéger #ChouCarottePomme #DigestionFacile",
-          desc: "Carotte, chou et pomme pour apaiser l'estomac et faire du bien à votre corps."
-        }
+        ko: { name: "CCA주스", tag: "#속편한주스 #양배추당근사과 #가벼운루틴", desc: "당근(Carrot), 양배추(Cabbage), 사과(Apple)의 신선함으로 편안하고 가벼운 하루를 완성합니다." },
+        en: { name: "CCA Juice", tag: "#StomachComfort #CabbageCarrotApple #LightRoutine", desc: "Fresh blend of Carrot, Cabbage, and Apple designed for digestive comfort and a light day." },
+        ja: { name: "CCAジュース", tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やかルーティン", desc: "ニンジン・キャベツ・リンゴのやさしい新鮮さで、心地よく軽やかな毎日を。" },
+        zh: { name: "CCA 舒胃果蔬汁", tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #轻盈日常", desc: "新鲜胡萝卜、卷心菜和苹果调配，温和呵护肠胃，带来无负担的轻盈感。" },
+        fr: { name: "Jus CCA", tag: "#EstomacLéger #ChouCarottePomme #DigestionFacile", desc: "Carotte, chou et pomme pour apaiser l'estomac et faire du bien à votre corps." }
       },
       carrot_100: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18046068?area=bnq",
-        ko: {
-          name: "100% 당근",
-          tag: "#물설탕0 #순수착즙 #달콤한원액",
-          desc: "물이나 설탕 없이 오직 당근만 착즙했어요. 신선하고 달콤한 당근 본연의 풍부한 영양을 즐겨보세요."
-        },
-        en: {
-          name: "100% Carrot",
-          tag: "#ZeroAddedWater #PureRaw #SweetCarrot",
-          desc: "Cold-pressed pure raw carrot juice with 0% added water or sugar. Naturally sweet & nutrient-dense!"
-        },
-        ja: {
-          name: "100% ニンジン",
-          tag: "#水も砂糖もゼロ #純粋生搾り #自然な甘み",
-          desc: "水や砂糖は一切不使用！新鮮なニンジンだけ를 搾った、驚くほど甘く贅沢な栄養原液。"
-        },
-        zh: {
-          name: "100% 纯胡萝卜汁",
-          tag: "#不加一滴水和糖 #纯压榨原汁 #自然清甜",
-          desc: "不加水也不加糖，纯粹压榨胡萝卜原汁，尽享来自大自然的甘甜与丰沛营养。"
-        },
-        fr: {
-          name: "100% Carotte",
-          tag: "#SansEauSansSucre #100Carotte #DouceurNaturelle",
-          desc: "100% pur jus de carotte pressé, sans eau ni sucre. Naturellement doux et riche en bienfaits !"
-        }
+        ko: { name: "100% 당근", tag: "#물설탕0 #순수착즙 #달콤한원액", desc: "물이나 설탕 없이 오직 당근만 착즙했어요. 신선하고 달콤한 당근 본연의 풍부한 영양을 즐겨보세요." },
+        en: { name: "100% Carrot", tag: "#ZeroAddedWater #PureRaw #SweetCarrot", desc: "Cold-pressed pure raw carrot juice with 0% added water or sugar. Naturally sweet & nutrient-dense!" },
+        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #純粋生搾り #自然な甘み", desc: "水や砂糖は一切不使用！新鮮なニンジンだけを搾った、驚くほど甘く贅沢な栄養原液。" },
+        zh: { name: "100% 纯胡萝卜汁", tag: "#不加一滴水和糖 #纯压榨原汁 #自然清甜", desc: "不加水也不加糖，纯粹压榨胡萝卜原汁，尽享来自大自然的甘甜与丰沛营养。" },
+        fr: { name: "100% Carotte", tag: "#SansEauSansSucre #100Carotte #DouceurNaturelle", desc: "100% pur jus de carotte pressé, sans eau ni sucre. Naturellement doux et riche en bienfaits !" }
       },
       coco_carrot: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22842359?area=bnq",
-        ko: {
-          name: "코코캐롯",
-          tag: "#코코넛밀크 #부드러운맛 #고소달달",
-          desc: "고소한 코코넛 밀크가 들어가서 부드럽고 달콤하게 넘어가는 이색 블렌딩 주스예요. 가벼운 포만감도 느껴보세요."
-        },
-        en: {
-          name: "Coco Carrot",
-          tag: "#CoconutMilk #SmoothTaste #GentleFullness",
-          desc: "Nutty coconut milk paired with sweet carrot for a smooth, velvety sip. Offers a gentle, satisfying fullness."
-        },
-        ja: {
-          name: "ココキャロット",
-          tag: "#ココナッツミルク #まろやか #ほどよい満足感",
-          desc: "香ばしいココナッツミルク入りでまろやか＆クリーミー！軽やかな満足感도 楽しめます。"
-        },
-        zh: {
-          name: "椰香胡萝卜",
-          tag: "#香浓椰奶 #丝滑回甘 #轻盈饱腹",
-          desc: "浓醇椰奶与清甜胡萝卜美妙交融，口感顺滑丝甜，还能带来适度的满足感。"
-        },
-        fr: {
-          name: "Coco Carrot",
-          tag: "#LaitDeCoco #TextureSoyeuse #LégèreSatiété",
-          desc: "Lait de coco onctueux marié à la carotte douce. Velouté et délicatement rassasiant."
-        }
+        ko: { name: "코코캐롯", tag: "#코코넛밀크 #부드러운맛 #고소달달", desc: "고소한 코코넛 밀크가 들어가서 부드럽고 달콤하게 넘어가는 이색 블렌딩 주스예요. 가벼운 포만감도 느껴보세요." },
+        en: { name: "Coco Carrot", tag: "#CoconutMilk #SmoothTaste #GentleFullness", desc: "Nutty coconut milk paired with sweet carrot for a smooth, velvety sip. Offers a gentle, satisfying fullness." },
+        ja: { name: "ココキャロット", tag: "#ココナッツミルク #まろやか #ほどよい満足感", desc: "香ばしいココナッツミルク入りでまろやか＆クリーミー！軽やかな満足感も楽しめます。" },
+        zh: { name: "椰香胡萝卜", tag: "#香浓椰奶 #丝滑回甘 #轻盈饱腹", desc: "浓醇椰奶与清甜胡萝卜美妙交融，口感顺滑丝甜，还能带来适度的满足感。" },
+        fr: { name: "Coco Carrot", tag: "#LaitDeCoco #TextureSoyeuse #LégèreSatiété", desc: "Lait de coco onctueux marié à la carotte douce. Velouté et délicatement rassasiant." }
       },
       carrot_colada: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22842456?area=bnq",
-        ko: {
-          name: "캐롯콜라다",
-          tag: "#휴양지맛 #열대과일 #상큼청량",
-          desc: "코코넛밀크와 파인애플! 새콤달콤한 열대 과일 향이 어우러져 기분 좋아지는 트로피컬 주스예요."
-        },
-        en: {
-          name: "Carrot Colada",
-          tag: "#ResortVibe #TropicalFruits #ZestyCrisp",
-          desc: "Creamy coconut milk & juicy pineapple! An exotic tropical blend that lifts your mood instantly."
-        },
-        ja: {
-          name: "キャロットコラーダ",
-          tag: "#南国リゾート #トロピカル #爽快フルーツ",
-          desc: "ココナッツミルクとパイナップル！南国フルーツの甘酸っぱい香りが弾けるご機嫌な一杯。"
-        },
-        zh: {
-          name: "胡萝卜可乐达",
-          tag: "#海岛度假风 #热带菠萝 #清爽解渴",
-          desc: "浓郁椰奶邂逅酸甜菠萝！满溢热带风情与果香，喝一口仿佛置身阳光海岛。"
-        },
-        fr: {
-          name: "Carrot Colada",
-          tag: "#GoûtVacances #AnanasTropical #Frais",
-          desc: "Lait de coco et ananas juteux ! Un parfum exotique qui vous transporte en vacances."
-        }
+        ko: { name: "캐롯콜라다", tag: "#휴양지맛 #열대과일 #상큼청량", desc: "코코넛밀크와 파인애플! 새콤달콤한 열대 과일 향이 어우러져 기분 좋아지는 트로피컬 주스예요." },
+        en: { name: "Carrot Colada", tag: "#ResortVibe #TropicalFruits #ZestyCrisp", desc: "Creamy coconut milk & juicy pineapple! An exotic tropical blend that lifts your mood instantly." },
+        ja: { name: "キャロットコラーダ", tag: "#南国リゾート #トロピカル #爽快フルーツ", desc: "ココナッツミルクとパイナップル！南国フルーツの甘酸っぱい香りが弾けるご機嫌な一杯。" },
+        zh: { name: "胡萝卜可乐达", tag: "#海岛度假风 #热带菠萝 #清爽解渴", desc: "浓郁椰奶邂逅酸甜菠萝！满溢热带风情与果香，喝一口仿佛置身阳光海岛。" },
+        fr: { name: "Carrot Colada", tag: "#GoûtVacances #AnanasTropical #Frais", desc: "Lait de coco et ananas juteux ! Un parfum exotique qui vous transporte en vacances." }
       },
       carrot_cake: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/23041516?area=bnq",
-        ko: {
-          name: "마시는 당근케이크",
-          tag: "#달콤디저트 #케이크맛 #달달한행복",
-          desc: "진짜 당근 케이크를 마시는 듯 단짠단짠! 부드러운 행복을 주는 프리미엄 디저트 주스예요. 당근주스와 치즈폼, 시나몬 톡톡!"
-        },
-        en: {
-          name: "Drinking Carrot Cake",
-          tag: "#SweetDessert #CakeFlavored #PureHappiness",
-          desc: "Like drinking real carrot cake with a sweet & savory twist! Fresh carrot juice topped with rich cheese foam and cinnamon."
-        },
-        ja: {
-          name: "飲むキャロットケーキ",
-          tag: "#飲むスイーツ #あまじょっぱい #至福のデザート",
-          desc: "まるで本物のキャロットケーキを飲んでいるような甘じょっぱさ！特製チーズフォームとシナモンが香る贅沢デザート。"
-        },
-        zh: {
-          name: "可以喝的胡萝卜蛋糕",
-          tag: "#甜品特饮 #咸甜蛋糕风味 #治愈幸福感",
-          desc: "宛如喝得到的咸甜胡萝卜蛋糕！清甜胡萝卜汁融入醇厚芝士奶盖，撒上肉桂香气，一口治愈。"
-        },
-        fr: {
-          name: "Drinking Carrot Cake",
-          tag: "#DessertGourmand #GoûtGâteau #MousseFromage",
-          desc: "Un vrai gâteau à la carotte à boire ! Jus de carotte doux surmonté d'une mousse fromage onctueuse et d'une touche de cannelle."
-        }
+        ko: { name: "마시는 당근케이크", tag: "#달콤디저트 #케이크맛 #달달한행복", desc: "진짜 당근 케이크를 마시는 듯 단짠단짠! 부드러운 행복을 주는 프리미엄 디저트 주스예요. 당근주스와 치즈폼, 시나몬 톡톡!" },
+        en: { name: "Drinking Carrot Cake", tag: "#SweetDessert #CakeFlavored #PureHappiness", desc: "Like drinking real carrot cake with a sweet & savory twist! Fresh carrot juice topped with rich cheese foam and cinnamon." },
+        ja: { name: "飲むキャロットケーキ", tag: "#飲むスイーツ #あまじょっぱい #至福のデザート", desc: "まるで本物のキャロットケーキを飲んでいるような甘じょっぱさ！特製チーズフォームとシナモンが香る贅沢デザート。" },
+        zh: { name: "可以喝的胡萝卜蛋糕", tag: "#甜品特饮 #咸甜蛋糕风味 #治愈幸福感", desc: "宛如喝得到的咸甜胡萝卜蛋糕！清甜胡萝卜汁融入醇厚芝士奶盖，撒上肉桂香气，一口治愈。" },
+        fr: { name: "Drinking Carrot Cake", tag: "#DessertGourmand #GoûtGâteau #MousseFromage", desc: "Un vrai gâteau à la carotte à boire ! Jus de carotte doux surmonté d'une mousse fromage onctueuse et d'une touche de cannelle." }
       },
       carrot_lemon_soda: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/23049055?area=bnq",
-        ko: {
-          name: "당근레몬소다",
-          tag: "#청량탄산 #상큼톡톡 #갈증해소",
-          desc: "달콤한 당근과 상큼한 레몬, 톡 쏘는 탄산수가 만나 시원하고 짜릿하게 즐기는 스파클링 에이드예요."
-        },
-        en: {
-          name: "Carrot Lemon Soda",
-          tag: "#Sparkling #ZestyLemon #ThirstQuencher",
-          desc: "Sweet carrot, zesty lemon, and crisp sparkling water combined for an ultra-refreshing fizzy thirst quencher!"
-        },
-        ja: {
-          name: "당근레몬소다",
-          tag: "#シュワッと炭酸 #爽快レモン #喉ごし最高",
-          desc: "甘いニンジンと爽快レモンに炭酸水が弾ける、すっきり爽快なスパークリングエード！"
-        },
-        zh: {
-          name: "胡萝卜柠檬气泡饮",
-          tag: "#清爽气泡 #鲜柠酸甜 #畅爽解渴",
-          desc: "清甜胡萝卜、鲜柠果香与劲爽气泡水碰撞，冰爽过瘾，瞬间驱散燥热与口渴！"
-        },
-        fr: {
-          name: "Carrot Lemon Soda",
-          tag: "#Pétillant #CitronTonique #Désaltérant",
-          desc: "Carotte douce, citron acidulé et eau pétillante pour une boisson gazeuse ultra-fraîche et désaltérante !"
-        }
+        ko: { name: "당근레몬소다", tag: "#청량탄산 #상큼톡톡 #갈증해소", desc: "달콤한 당근과 상큼한 레몬, 톡 쏘는 탄산수가 만나 시원하고 짜릿하게 즐기는 스파클링 에이드예요." },
+        en: { name: "Carrot Lemon Soda", tag: "#Sparkling #ZestyLemon #ThirstQuencher", desc: "Sweet carrot, zesty lemon, and crisp sparkling water combined for an ultra-refreshing fizzy thirst quencher!" },
+        ja: { name: "당근레몬소다", tag: "#シュワッと炭酸 #爽快レモン #喉ごし最高", desc: "甘いニンジンと爽快レモンに炭酸水が弾ける、すっきり爽快なスパークリングエード！" },
+        zh: { name: "胡萝卜柠檬气泡饮", tag: "#清爽气泡 #鲜柠酸甜 #畅爽解渴", desc: "清甜胡萝卜、鲜柠果香与劲爽气泡水碰撞，冰爽过瘾，瞬间驱散燥热与口渴！" },
+        fr: { name: "Carrot Lemon Soda", tag: "#Pétillant #CitronTonique #Désaltérant", desc: "Carotte douce, citron acidulé et eau pétillante pour une boisson gazeuse ultra-fraîche et désaltérante !" }
       }
     };
 
@@ -863,7 +615,7 @@
         langBar.classList.remove("hidden");
         homeTitleBox.classList.remove("hidden");
         mainHeader.classList.remove("hidden");
-        mainHeader.className = "p-4 pb-3 relative border-b border-orange-50 text-center";
+        mainHeader.className = "p-4 pb-2 relative border-b border-orange-50";
         btnBack.classList.add("hidden");
       } else {
         langBar.classList.add("hidden");
@@ -872,27 +624,27 @@
         btnBack.classList.remove("hidden");
       }
 
-      // 1. 홈 화면 (컴팩트 스티커 디자인 - 스크롤 없이 한 화면에 표시)
+      // 1. 홈 화면
       if (currentView === "home") {
         let html = `
-          <div class="animate-fade-in flex flex-col gap-2.5 py-0.5">
-            <div class="grid grid-cols-2 gap-2.5">
+          <div class="animate-fade-in flex flex-col items-center gap-3 py-1 w-full">
+            <div class="grid grid-cols-2 gap-2.5 w-full">
         `;
         
         STATUS_CATEGORIES.forEach((cat, index) => {
           const item = cat[currentLang] || cat["ko"];
           const isImageFile = cat.icon.includes(".");
           const isLastItem = (index === STATUS_CATEGORIES.length - 1);
-          const gridSpan = isLastItem ? "col-span-2 sm:col-span-1 sm:col-start-1 sm:col-end-3 max-w-[190px] mx-auto w-full" : "w-full";
+          const gridSpan = isLastItem ? "col-span-2 max-w-[200px] mx-auto w-full" : "w-full";
 
           const iconMarkup = isImageFile
-            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1 leading-none drop-shadow\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-[52px] h-[52px] sm:w-14 sm:h-14 object-contain mb-1 drop-shadow-[0_3px_6px_rgba(0,0,0,0.1)] group-hover:scale-110 transition-transform" />`
+            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1 leading-none drop-shadow\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-14 h-14 object-contain mb-1 drop-shadow-[0_3px_6px_rgba(0,0,0,0.12)] group-hover:scale-105 transition-transform" />`
             : `<span class="text-3xl mb-1 leading-none drop-shadow">${cat.icon}</span>`;
 
           html += `
-            <button onclick="selectStatus('${cat.id}')" class="${gridSpan} ${cat.themeStyle} p-2.5 rounded-[22px] bg-gradient-to-b border-2 active:scale-[0.96] transition-all flex flex-col items-center justify-center text-center group shadow-[0_3px_10px_rgba(180,140,110,0.12)] hover:shadow-[0_5px_14px_rgba(180,140,110,0.18)] min-h-[106px]">
+            <button onclick="selectStatus('${cat.id}')" class="${gridSpan} ${cat.rotation} hover:rotate-0 p-3 rounded-2xl bg-gradient-to-b from-[#FFFDF9] to-[#F7EFE6] hover:from-orange-50 hover:to-[#F5E6D3] border border-[#EADBCC] active:scale-[0.97] transition-all duration-200 flex flex-col items-center justify-center text-center group shadow-[0_2px_6px_rgba(180,140,110,0.12)] min-h-[114px]">
               ${iconMarkup}
-              <h2 class="text-sm sm:text-base font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
+              <h2 class="text-sm font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
             </button>
           `;
         });
@@ -900,11 +652,12 @@
         html += `
             </div>
 
-            <!-- 서울래빗 메뉴 구경하기 링크 버튼 -->
-            <div class="pt-1">
-              <a href="https://m.booking.naver.com/order/bizes/1140512/items/5866364?area=bnq" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-2xl bg-stone-100/90 hover:bg-stone-200/90 border border-stone-200 active:scale-[0.98] transition-all text-stone-700 font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm">
+            <!-- 산뜻하고 아기자기한 메뉴 구경하기 배지형 링크 버튼 -->
+            <div class="pt-2 w-full flex justify-center">
+              <a href="https://m.booking.naver.com/order/bizes/1140512/items/5866364?area=bnq" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-orange-50 hover:bg-orange-100 text-orange-700 hover:text-orange-800 border border-orange-200/90 active:scale-95 transition-all text-xs font-black shadow-sm">
+                <span>🥕</span>
                 <span>${i18n.exploreMenuBtn}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-stone-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
                 </svg>
               </a>
