@@ -66,7 +66,7 @@
     </header>
 
     <!-- 동적 화면 렌더링 영역 -->
-    <div id="view-container" class="flex-1 p-3.5 sm:p-4 flex flex-col justify-center"></div>
+    <div id="view-container" class="flex-1 p-4 sm:p-5 flex flex-col justify-center"></div>
 
     <!-- 하단 푸터 & 서울래빗 로고 -->
     <footer class="py-3 text-center bg-stone-50/50 border-t border-stone-100 flex flex-col items-center justify-center gap-1">
@@ -148,12 +148,13 @@
       }
     };
 
-    // 1단계 5대 선택지
+    // 1단계 5대 선택지 (각 테마별 맞춤 배지 스타일 설정)
     const STATUS_CATEGORIES = [
       {
         id: "low_energy",
         icon: "icon-red.png",
         fallbackEmoji: "⚡",
+        themeStyle: "from-[#FFF5F2] to-[#FFEBE6] border-[#FFC8BF] hover:border-red-400 rotate-[-1deg]",
         ko: { title: "기운이 없어요" },
         en: { title: "Feeling Drained" },
         ja: { title: "元気が出ない" },
@@ -165,6 +166,7 @@
         id: "bloated_stomach",
         icon: "icon-blue.png",
         fallbackEmoji: "🥬",
+        themeStyle: "from-[#F0F8FF] to-[#E6F3FF] border-[#BDE0FE] hover:border-sky-400 rotate-[1.5deg]",
         ko: { title: "속이 더부룩해요" },
         en: { title: "Feeling Bloated" },
         ja: { title: "お腹が重い・もたれる" },
@@ -176,6 +178,7 @@
         id: "care_health",
         icon: "icon-baby.png",
         fallbackEmoji: "🥕",
+        themeStyle: "from-[#F2FAF4] to-[#E5F5E9] border-[#BCE3C9] hover:border-emerald-400 rotate-[-1.5deg]",
         ko: { title: "건강해질래요" },
         en: { title: "Want to Be Healthy" },
         ja: { title: "健康になりたい" },
@@ -187,6 +190,7 @@
         id: "need_fun",
         icon: "icon-fun.png",
         fallbackEmoji: "🥥",
+        themeStyle: "from-[#FFFDF0] to-[#FFF9E5] border-[#FCE2A6] hover:border-amber-400 rotate-[1deg]",
         ko: { title: "재미가 필요해요" },
         en: { title: "Need Something Fun" },
         ja: { title: "楽しさがほしい" },
@@ -198,6 +202,7 @@
         id: "need_gift",
         icon: "icon-gift.png",
         fallbackEmoji: "🎁",
+        themeStyle: "from-[#FFF0F5] to-[#FFE4E8] border-[#FFC2D1] hover:border-pink-400 rotate-[0deg]",
         ko: { title: "선물이 필요해요" },
         en: { title: "Looking for a Gift" },
         ja: { title: "ギフトを探している" },
@@ -212,11 +217,11 @@
       // ⚡ [1. 기운이 없어요]
       q_wake_ginger_like: {
         intro: {
-          ko: "서울래빗이 힘낼 수 있는 메뉴를 추천할게요!",
-          en: "Seoul Rabbit recommends a boost to power your day!",
-          ja: "元気がみなぎるメニューをソウルラビットがおすすめ！",
-          zh: "首尔兔子为你推荐活力满满的充能饮品！",
-          fr: "Seoul Rabbit vous propose un coup de boost vivifiant !"
+          ko: "으랏차차! 힘낼 수 있는 메뉴를 추천할게요!",
+          en: "Power up! Here is a drink to recharge your energy!",
+          ja: "エイエイオー！元気が湧いてくるおすすめメニューをご提案！",
+          zh: "加满元气！为你推荐能瞬间恢复精力的特色饮品！",
+          fr: "Plein d'énergie ! Voici une boisson pour recharger vos batteries !"
         },
         questions: {
           ko: { q: "알싸한 생강 좋아해요?" },
@@ -532,7 +537,7 @@
         ja: {
           name: "キャロットコーヒー",
           tag: "#カフェイン補給 #名物珈琲 #優しい甘み",
-          desc: "ニンジンの自然な甘みにコールドブリュー珈琲を合わせたソウルラビット名物の一杯。"
+          desc: "ニンジンの自然な甘みにコールドブリュー珈琲를 合わせたソウルラビット名物の一杯。"
         },
         zh: {
           name: "胡萝卜咖啡",
@@ -865,25 +870,25 @@
         btnBack.classList.remove("hidden");
       }
 
-      // 1. 홈 화면
+      // 1. 홈 화면 (스티커/배지 느낌의 통통하고 아기자기한 디자인)
       if (currentView === "home") {
         let html = `
-          <div class="animate-fade-in flex flex-col gap-3 py-1">
-            <div class="grid grid-cols-2 gap-2.5">
+          <div class="animate-fade-in flex flex-col gap-3.5 py-1">
+            <div class="grid grid-cols-2 gap-3">
         `;
         
         STATUS_CATEGORIES.forEach((cat, index) => {
           const item = cat[currentLang] || cat["ko"];
           const isImageFile = cat.icon.includes(".");
           const isLastItem = (index === STATUS_CATEGORIES.length - 1);
-          const gridSpan = isLastItem ? "col-span-2 sm:col-span-1 sm:col-start-1 sm:col-end-3 max-w-[200px] mx-auto w-full" : "w-full";
+          const gridSpan = isLastItem ? "col-span-2 sm:col-span-1 sm:col-start-1 sm:col-end-3 max-w-[210px] mx-auto w-full" : "w-full";
 
           const iconMarkup = isImageFile
-            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1.5 leading-none drop-shadow\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-14 h-14 object-contain mb-1.5 drop-shadow-[0_3px_6px_rgba(0,0,0,0.12)] group-hover:scale-105 transition-transform" />`
-            : `<span class="text-3xl mb-1.5 leading-none drop-shadow">${cat.icon}</span>`;
+            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1 leading-none drop-shadow\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-13 h-13 sm:w-14 sm:h-14 object-contain mb-1 drop-shadow-[0_4px_8px_rgba(0,0,0,0.1)] group-hover:scale-110 transition-transform" />`
+            : `<span class="text-3xl mb-1 leading-none drop-shadow">${cat.icon}</span>`;
 
           html += `
-            <button onclick="selectStatus('${cat.id}')" class="${gridSpan} p-3 rounded-2xl bg-gradient-to-b from-[#FFFDF9] to-[#F7EFE6] hover:from-orange-50 hover:to-[#F5E6D3] border border-[#EADBCC] active:scale-[0.97] transition-all flex flex-col items-center justify-center text-center group shadow-[0_2px_6px_rgba(180,140,110,0.12)] min-h-[118px]">
+            <button onclick="selectStatus('${cat.id}')" class="${gridSpan} ${cat.themeStyle} p-3.5 rounded-[26px] bg-gradient-to-b border-2 active:scale-[0.96] transition-all flex flex-col items-center justify-center text-center group shadow-[0_4px_12px_rgba(180,140,110,0.12)] hover:shadow-[0_6px_16px_rgba(180,140,110,0.2)] min-h-[120px]">
               ${iconMarkup}
               <h2 class="text-sm font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
             </button>
@@ -895,7 +900,7 @@
 
             <!-- 서울래빗 메뉴 구경하기 링크 버튼 -->
             <div class="pt-1">
-              <a href="https://m.booking.naver.com/order/bizes/1140512/items/5866364?area=bnq" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-2xl bg-stone-100 hover:bg-stone-200/90 border border-stone-200/80 active:scale-[0.98] transition-all text-stone-700 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm">
+              <a href="https://m.booking.naver.com/order/bizes/1140512/items/5866364?area=bnq" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-4 rounded-2xl bg-stone-100/90 hover:bg-stone-200/90 border border-stone-200 active:scale-[0.98] transition-all text-stone-700 font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm">
                 <span>${i18n.exploreMenuBtn}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-stone-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
@@ -907,7 +912,7 @@
         viewContainer.innerHTML = html;
       }
 
-      // 2. 질문 화면 (첫 질문 상단 맞춤 멘트 배너 포함)
+      // 2. 질문 화면
       else if (currentView === "question") {
         const node = SUB_QUESTIONS[currentSubNode];
         const qData = node.questions[currentLang] || node.questions["ko"];
@@ -989,3 +994,4 @@
   </script>
 </body>
 </html>
+
