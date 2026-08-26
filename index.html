@@ -211,6 +211,13 @@
     const SUB_QUESTIONS = {
       // ⚡ [1. 기운이 없어요]
       q_wake_ginger_like: {
+        intro: {
+          ko: "서울래빗이 힘낼 수 있는 메뉴를 추천할게요!",
+          en: "Seoul Rabbit recommends a boost to power your day!",
+          ja: "元気がみなぎるメニューをソウルラビットがおすすめ！",
+          zh: "首尔兔子为你推荐活力满满的充能饮品！",
+          fr: "Seoul Rabbit vous propose un coup de boost vivifiant !"
+        },
         questions: {
           ko: { q: "알싸한 생강 좋아해요?" },
           en: { q: "Do you like the spicy kick of ginger?" },
@@ -268,6 +275,13 @@
 
       // 🥬 [2. 속이 더부룩해요]
       q_bloat_cabbage: {
+        intro: {
+          ko: "편안한 속을 위해 추천해드릴게요!",
+          en: "Here are our gentle picks for digestive comfort!",
+          ja: "お腹をスッキリ整えるおすすめの一杯をご提案！",
+          zh: "为你推荐温和舒适、轻盈舒胃的饮品！",
+          fr: "Nos meilleures suggestions pour apaiser votre estomac !"
+        },
         questions: {
           ko: { q: "위장을 편안하게 달래주는 양배추 좋아해요?" },
           en: { q: "Do you like soothing cabbage that eases your stomach?" },
@@ -292,6 +306,13 @@
 
       // 🥕 [3. 건강해질래요]
       q_health_veggie: {
+        intro: {
+          ko: "건강한 하루를 위한 추천!",
+          en: "Fresh picks for your healthy and vibrant day!",
+          ja: "すこやかな毎日のための元気チャージ！",
+          zh: "为你推荐开启健康元气一天的营养之选！",
+          fr: "Une sélection bienfaisante pour une journée saine !"
+        },
         questions: {
           ko: { q: "채소 가득 주스 좋아해요?" },
           en: { q: "Do you enjoy a veggie-packed nutrient juice?" },
@@ -327,6 +348,13 @@
 
       // 🥥 [4. 재미가 필요해요]
       q_fun_creamy: {
+        intro: {
+          ko: "상상하지 못한 재미를 드려요!",
+          en: "Get ready for delightful, unexpected fun flavors!",
+          ja: "想像を超えるワクワク楽しい美味しさをお届け！",
+          zh: "带给你意想不到的惊喜与新奇美味！",
+          fr: "Préparez-vous à une expérience savoureuse et surprenante !"
+        },
         questions: {
           ko: { q: "부드럽고 크리미한 맛이 좋아요?" },
           en: { q: "Do you prefer a smooth, creamy and rich taste?" },
@@ -373,6 +401,13 @@
 
       // 🎁 [5. 선물이 필요해요]
       q_gift_popular: {
+        intro: {
+          ko: "캐롯보틀로 센스있는 선물!",
+          en: "Thoughtful & stylish gifts with Carrot Bottles!",
+          ja: "キャロットボトルでセンスあふれる特別なギフト！",
+          zh: "胡萝卜随行瓶，送礼贴心又有品位！",
+          fr: "Un cadeau raffiné et plein d'attentions en bouteille carotte !"
+        },
         questions: {
           ko: { q: "누구나 좋아하는 맛을 원하시나요?" },
           en: { q: "Looking for a crowd-pleaser that anyone will love?" },
@@ -830,7 +865,7 @@
         btnBack.classList.remove("hidden");
       }
 
-      // 1. 홈 화면 (배경 톤 업그레이드 + 아이콘 강조 + 메뉴 구경하기 버튼)
+      // 1. 홈 화면
       if (currentView === "home") {
         let html = `
           <div class="animate-fade-in flex flex-col gap-3 py-1">
@@ -872,16 +907,28 @@
         viewContainer.innerHTML = html;
       }
 
-      // 2. 질문 화면
+      // 2. 질문 화면 (첫 질문 상단 맞춤 멘트 배너 포함)
       else if (currentView === "question") {
         const node = SUB_QUESTIONS[currentSubNode];
         const qData = node.questions[currentLang] || node.questions["ko"];
         const yesLabel = qData.yesText || i18n.defaultYes;
         const noLabel = qData.noText || i18n.defaultNo;
 
+        let introBanner = "";
+        if (node.intro) {
+          const introText = node.intro[currentLang] || node.intro["ko"];
+          introBanner = `
+            <div class="mb-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-orange-100/90 text-orange-700 border border-orange-200 text-xs font-black shadow-sm break-keep">
+              <span>🐰</span>
+              <span>${introText}</span>
+            </div>
+          `;
+        }
+
         viewContainer.innerHTML = `
           <div class="animate-fade-in flex flex-col justify-between h-full py-2">
-            <div class="my-auto text-center py-6">
+            <div class="my-auto text-center py-4">
+              ${introBanner}
               <h2 class="text-xl sm:text-2xl font-black text-stone-900 leading-snug break-keep">
                 ${qData.q}
               </h2>
