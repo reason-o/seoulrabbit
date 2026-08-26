@@ -150,13 +150,13 @@
       }
     };
 
-    // 1단계 5대 선택지 (각도 및 스타일 살짝 업그레이드)
+    // 1단계 5대 선택지 (각도를 회전감 있게 업그레이드)
     const STATUS_CATEGORIES = [
       {
         id: "low_energy",
         icon: "icon-red.png",
         fallbackEmoji: "⚡",
-        themeStyle: "from-[#FFF5F2] to-[#FFEBE6] border-[#FFC8BF] hover:border-red-400 rotate-[-2.5deg]",
+        themeStyle: "from-[#FFF5F2] to-[#FFEBE6] border-[#FFC8BF] hover:border-red-400 rotate-[-3.5deg] hover:rotate-0",
         ko: { title: "기운이 없어요" },
         en: { title: "Feeling Drained" },
         ja: { title: "元気が出ない" },
@@ -168,7 +168,7 @@
         id: "bloated_stomach",
         icon: "icon-blue.png",
         fallbackEmoji: "🥬",
-        themeStyle: "from-[#F0F8FF] to-[#E6F3FF] border-[#BDE0FE] hover:border-sky-400 rotate-[2deg]",
+        themeStyle: "from-[#F0F8FF] to-[#E6F3FF] border-[#BDE0FE] hover:border-sky-400 rotate-[3deg] hover:rotate-0",
         ko: { title: "속이 더부룩해요" },
         en: { title: "Feeling Bloated" },
         ja: { title: "お腹が重い・もたれる" },
@@ -180,7 +180,7 @@
         id: "care_health",
         icon: "icon-baby.png",
         fallbackEmoji: "🥕",
-        themeStyle: "from-[#F2FAF4] to-[#E5F5E9] border-[#BCE3C9] hover:border-emerald-400 rotate-[-2deg]",
+        themeStyle: "from-[#F2FAF4] to-[#E5F5E9] border-[#BCE3C9] hover:border-emerald-400 rotate-[-3deg] hover:rotate-0",
         ko: { title: "건강해질래요" },
         en: { title: "Want to Be Healthy" },
         ja: { title: "健康になりたい" },
@@ -192,7 +192,7 @@
         id: "need_fun",
         icon: "icon-fun.png",
         fallbackEmoji: "🥥",
-        themeStyle: "from-[#FFFDF0] to-[#FFF9E5] border-[#FCE2A6] hover:border-amber-400 rotate-[2.5deg]",
+        themeStyle: "from-[#FFFDF0] to-[#FFF9E5] border-[#FCE2A6] hover:border-amber-400 rotate-[4deg] hover:rotate-0",
         ko: { title: "재미가 필요해요" },
         en: { title: "Need Something Fun" },
         ja: { title: "楽しさがほしい" },
@@ -204,7 +204,7 @@
         id: "need_gift",
         icon: "icon-gift.png",
         fallbackEmoji: "🎁",
-        themeStyle: "from-[#FFF0F5] to-[#FFE4E8] border-[#FFC2D1] hover:border-pink-400 rotate-[-1.5deg]",
+        themeStyle: "from-[#FFF0F5] to-[#FFE4E8] border-[#FFC2D1] hover:border-pink-400 rotate-[-2.5deg] hover:rotate-0",
         ko: { title: "선물이 필요해요" },
         en: { title: "Looking for a Gift" },
         ja: { title: "ギフトを探している" },
