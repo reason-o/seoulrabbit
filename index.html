@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>서울래빗 서촌주스랩 - 메뉴 찾기</title>
+  <title>서울래빗 주스랩 - 메뉴 찾기</title>
 
   <!-- 카카오톡 및 SNS 공유(오픈그래프) 설정 -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="서울래빗 서촌주스랩 | 내 몸에 맞는 주스 찾기" />
+  <meta property="og:title" content="서울래빗 주스랩 | 내 몸에 맞는 주스 찾기" />
   <meta property="og:description" content="지금 내 몸 상태와 기분에 딱 맞는 맞춤 주스를 찾아보세요." />
   <meta id="og-image-tag" property="og:image" content="og-image.png" />
   <meta property="og:image:width" content="1200" />
@@ -36,7 +36,7 @@
 <body class="bg-[#FAF7F2] min-h-screen text-stone-800 flex items-center justify-center p-3 sm:p-4 font-sans antialiased">
 
   <!-- 메인 카드 컨테이너 -->
-  <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100/80 overflow-hidden flex flex-col min-h-[620px] relative">
+  <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100/80 overflow-hidden flex flex-col min-h-[640px] relative">
     
     <!-- 언어 선택 바 (첫 화면에서만 표시) -->
     <nav id="lang-bar" class="bg-stone-50/80 border-b border-orange-50 px-3 py-2 flex items-center justify-center gap-1 text-xs">
@@ -74,7 +74,7 @@
         <img src="logo.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-xs font-extrabold tracking-widest text-orange-600 uppercase\'>Seoul Rabbit</span>';" class="h-6 max-w-[140px] object-contain" />
       </div>
       <p id="footer-text" class="text-[11px] text-stone-400 font-medium">
-        서울래빗 서촌주스랩
+        서울래빗 주스랩
       </p>
     </footer>
   </main>
@@ -90,7 +90,8 @@
         headerSub: "오늘 뭐 마실지 고민돼요?",
         headerTitle: "서울래빗이 골라드릴게요.",
         backText: "이전",
-        footerText: "서울래빗 서촌주스랩",
+        footerText: "서울래빗 주스랩",
+        exploreMenuBtn: "서울래빗 메뉴 구경하기",
         recommendBadge: "지금 딱 맞는 추천 메뉴",
         orderBtn: "네이버 주문으로 바로가기",
         restartBtn: "처음부터 다시 찾기",
@@ -101,7 +102,8 @@
         headerSub: "Not sure what to drink today?",
         headerTitle: "Seoul Rabbit has your pick.",
         backText: "Back",
-        footerText: "Seoul Rabbit Seochon Juice Lab",
+        footerText: "Seoul Rabbit Juice Lab",
+        exploreMenuBtn: "Explore Full Menu",
         recommendBadge: "RECOMMENDED FOR YOU",
         orderBtn: "Order on Naver",
         restartBtn: "Start Over",
@@ -112,7 +114,8 @@
         headerSub: "今日何を飲むか迷っていますか？",
         headerTitle: "ソウルラビットが選びます！",
         backText: "戻る",
-        footerText: "ソウルラビット 西村ジュースラボ",
+        footerText: "ソウルラビット ジュースラボ",
+        exploreMenuBtn: "全メニューを見る",
         recommendBadge: "あなたへのおすすめ",
         orderBtn: "Naverで注文する",
         restartBtn: "最初からやり直す",
@@ -123,7 +126,8 @@
         headerSub: "今天不知道喝什么好吗？",
         headerTitle: "首尔兔子为你量身推荐！",
         backText: "返回",
-        footerText: "Seoul Rabbit 西村果汁实验所",
+        footerText: "Seoul Rabbit 果汁实验所",
+        exploreMenuBtn: "查看全部菜单",
         recommendBadge: "为你推荐",
         orderBtn: "前往 Naver 点餐",
         restartBtn: "重新选择",
@@ -134,7 +138,8 @@
         headerSub: "Vous hésitez sur votre boisson ?",
         headerTitle: "Seoul Rabbit choisit pour vous.",
         backText: "Retour",
-        footerText: "Seoul Rabbit Seochon Juice Lab",
+        footerText: "Seoul Rabbit Juice Lab",
+        exploreMenuBtn: "Découvrir tout le menu",
         recommendBadge: "RECOMMANDÉ POUR VOUS",
         orderBtn: "Commander sur Naver",
         restartBtn: "Recommencer",
@@ -391,7 +396,7 @@
       }
     };
 
-    // 12종 메뉴 데이터 & 사용자 맞춤 설명 및 다국어 지원
+    // 12종 메뉴 데이터 & 네이버 주문 링크
     const MENUS = {
       ginger_shot: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/19808240?area=bnq",
@@ -825,9 +830,12 @@
         btnBack.classList.remove("hidden");
       }
 
-      // 1. 홈 화면 (5개 카드)
+      // 1. 홈 화면 (배경 톤 업그레이드 + 아이콘 강조 + 메뉴 구경하기 버튼)
       if (currentView === "home") {
-        let html = `<div class="animate-fade-in grid grid-cols-2 gap-2.5 py-1">`;
+        let html = `
+          <div class="animate-fade-in flex flex-col gap-3 py-1">
+            <div class="grid grid-cols-2 gap-2.5">
+        `;
         
         STATUS_CATEGORIES.forEach((cat, index) => {
           const item = cat[currentLang] || cat["ko"];
@@ -836,18 +844,31 @@
           const gridSpan = isLastItem ? "col-span-2 sm:col-span-1 sm:col-start-1 sm:col-end-3 max-w-[200px] mx-auto w-full" : "w-full";
 
           const iconMarkup = isImageFile
-            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1 leading-none\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-12 h-12 object-contain mb-1 drop-shadow-sm group-hover:scale-105 transition-transform" />`
-            : `<span class="text-3xl mb-1 leading-none">${cat.icon}</span>`;
+            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1.5 leading-none drop-shadow\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-14 h-14 object-contain mb-1.5 drop-shadow-[0_3px_6px_rgba(0,0,0,0.12)] group-hover:scale-105 transition-transform" />`
+            : `<span class="text-3xl mb-1.5 leading-none drop-shadow">${cat.icon}</span>`;
 
           html += `
-            <button onclick="selectStatus('${cat.id}')" class="${gridSpan} p-3 rounded-2xl bg-white hover:bg-orange-50/50 border border-stone-200/80 hover:border-orange-200 active:scale-[0.97] transition-all flex flex-col items-center justify-center text-center group shadow-sm min-h-[110px]">
+            <button onclick="selectStatus('${cat.id}')" class="${gridSpan} p-3 rounded-2xl bg-gradient-to-b from-[#FFFDF9] to-[#F7EFE6] hover:from-orange-50 hover:to-[#F5E6D3] border border-[#EADBCC] active:scale-[0.97] transition-all flex flex-col items-center justify-center text-center group shadow-[0_2px_6px_rgba(180,140,110,0.12)] min-h-[118px]">
               ${iconMarkup}
               <h2 class="text-sm font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
             </button>
           `;
         });
 
-        html += `</div>`;
+        html += `
+            </div>
+
+            <!-- 서울래빗 메뉴 구경하기 링크 버튼 -->
+            <div class="pt-1">
+              <a href="https://m.booking.naver.com/order/bizes/1140512/items/5866364?area=bnq" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-2xl bg-stone-100 hover:bg-stone-200/90 border border-stone-200/80 active:scale-[0.98] transition-all text-stone-700 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm">
+                <span>${i18n.exploreMenuBtn}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-stone-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        `;
         viewContainer.innerHTML = html;
       }
 
@@ -896,7 +917,7 @@
               <p class="text-xs font-semibold text-orange-600 tracking-wide mb-3">
                 ${menu.tag}
               </p>
-              <div class="bg-orange-50/70 p-4 rounded-2xl border border-orange-100 text-stone-700 text-sm leading-relaxed break-keep">
+              <div class="bg-[#FFFDF9] p-4 rounded-2xl border border-[#EADBCC] text-stone-700 text-sm leading-relaxed break-keep shadow-sm">
                 ${menu.desc}
               </div>
             </div>
