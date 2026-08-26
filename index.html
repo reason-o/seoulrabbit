@@ -33,13 +33,13 @@
     }
   </style>
 </head>
-<body class="bg-[#FAF7F2] min-h-screen text-stone-800 flex items-center justify-center p-3 sm:p-4 font-sans antialiased">
+<body class="bg-[#FAF7F2] min-h-screen text-stone-800 flex items-center justify-center p-2.5 sm:p-4 font-sans antialiased">
 
   <!-- 메인 카드 컨테이너 -->
-  <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100/80 overflow-hidden flex flex-col min-h-[640px] relative">
+  <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100/80 overflow-hidden flex flex-col min-h-[580px] relative">
     
     <!-- 언어 선택 바 (첫 화면에서만 표시) -->
-    <nav id="lang-bar" class="bg-stone-50/80 border-b border-orange-50 px-3 py-2 flex items-center justify-center gap-1 text-xs">
+    <nav id="lang-bar" class="bg-stone-50/80 border-b border-orange-50 px-3 py-1.5 flex items-center justify-center gap-1 text-xs">
       <button onclick="setLanguage('ko')" id="lang-ko" class="lang-btn px-2.5 py-1 rounded-full font-bold transition-all bg-orange-500 text-white">한국어</button>
       <button onclick="setLanguage('en')" id="lang-en" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">English</button>
       <button onclick="setLanguage('ja')" id="lang-ja" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">日本語</button>
@@ -48,7 +48,7 @@
     </nav>
 
     <!-- 상단 헤더 -->
-    <header id="main-header" class="p-5 pb-3 relative border-b border-orange-50 text-center">
+    <header id="main-header" class="p-4 pb-3 relative border-b border-orange-50 text-center">
       <!-- 뒤로가기 버튼 -->
       <button id="btn-back" class="hidden absolute left-4 top-4 text-stone-600 hover:text-stone-900 transition-colors flex items-center gap-1 text-xs font-bold bg-stone-100 hover:bg-stone-200 px-2.5 py-1.5 rounded-full" aria-label="Back">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -57,23 +57,25 @@
         <span id="back-text">이전</span>
       </button>
 
-      <!-- 홈 전용 헤더 (가운데 정렬) -->
-      <div id="home-title-box" class="flex flex-col items-center justify-center">
-        <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-3xl mb-1.5\'>🐰</span>';" class="w-14 h-14 object-contain mb-2 drop-shadow-sm" />
-        <p id="header-sub" class="text-xs sm:text-sm font-bold text-orange-600 tracking-tight">오늘 뭐 마실지 고민돼요?</p>
-        <h1 id="header-title" class="text-lg sm:text-xl font-black text-stone-900 tracking-tight leading-snug mt-0.5">서울래빗이 골라드릴게요.</h1>
+      <!-- 홈 전용 헤더 (토끼 왼쪽 + 오른쪽 2줄 문구 / 통째로 가운데 정렬) -->
+      <div id="home-title-box" class="flex items-center justify-center gap-2.5 text-left">
+        <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-3xl\'>🐰</span>';" class="w-11 h-11 sm:w-12 sm:h-12 object-contain shrink-0 drop-shadow-sm" />
+        <div class="flex flex-col justify-center">
+          <p id="header-sub" class="text-xs font-bold text-orange-600 tracking-tight leading-tight">오늘 뭐 마실지 고민돼요?</p>
+          <h1 id="header-title" class="text-base sm:text-lg font-black text-stone-900 tracking-tight leading-tight mt-0.5">서울래빗이 골라드릴게요.</h1>
+        </div>
       </div>
     </header>
 
     <!-- 동적 화면 렌더링 영역 -->
-    <div id="view-container" class="flex-1 p-4 sm:p-5 flex flex-col justify-center"></div>
+    <div id="view-container" class="flex-1 p-3.5 sm:p-4 flex flex-col justify-center"></div>
 
     <!-- 하단 푸터 & 서울래빗 로고 -->
-    <footer class="py-3 text-center bg-stone-50/50 border-t border-stone-100 flex flex-col items-center justify-center gap-1">
+    <footer class="py-2.5 text-center bg-stone-50/50 border-t border-stone-100 flex flex-col items-center justify-center gap-0.5">
       <div id="logo-container" class="flex justify-center items-center">
-        <img src="logo.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-xs font-extrabold tracking-widest text-orange-600 uppercase\'>Seoul Rabbit</span>';" class="h-6 max-w-[140px] object-contain" />
+        <img src="logo.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-xs font-extrabold tracking-widest text-orange-600 uppercase\'>Seoul Rabbit</span>';" class="h-5 max-w-[130px] object-contain" />
       </div>
-      <p id="footer-text" class="text-[11px] text-stone-400 font-medium">
+      <p id="footer-text" class="text-[10px] text-stone-400 font-medium">
         서울래빗 주스랩
       </p>
     </footer>
@@ -148,13 +150,13 @@
       }
     };
 
-    // 1단계 5대 선택지 (각 테마별 맞춤 배지 스타일 설정)
+    // 1단계 5대 선택지 (각도 및 스타일 살짝 업그레이드)
     const STATUS_CATEGORIES = [
       {
         id: "low_energy",
         icon: "icon-red.png",
         fallbackEmoji: "⚡",
-        themeStyle: "from-[#FFF5F2] to-[#FFEBE6] border-[#FFC8BF] hover:border-red-400 rotate-[-1deg]",
+        themeStyle: "from-[#FFF5F2] to-[#FFEBE6] border-[#FFC8BF] hover:border-red-400 rotate-[-2.5deg]",
         ko: { title: "기운이 없어요" },
         en: { title: "Feeling Drained" },
         ja: { title: "元気が出ない" },
@@ -166,7 +168,7 @@
         id: "bloated_stomach",
         icon: "icon-blue.png",
         fallbackEmoji: "🥬",
-        themeStyle: "from-[#F0F8FF] to-[#E6F3FF] border-[#BDE0FE] hover:border-sky-400 rotate-[1.5deg]",
+        themeStyle: "from-[#F0F8FF] to-[#E6F3FF] border-[#BDE0FE] hover:border-sky-400 rotate-[2deg]",
         ko: { title: "속이 더부룩해요" },
         en: { title: "Feeling Bloated" },
         ja: { title: "お腹が重い・もたれる" },
@@ -178,7 +180,7 @@
         id: "care_health",
         icon: "icon-baby.png",
         fallbackEmoji: "🥕",
-        themeStyle: "from-[#F2FAF4] to-[#E5F5E9] border-[#BCE3C9] hover:border-emerald-400 rotate-[-1.5deg]",
+        themeStyle: "from-[#F2FAF4] to-[#E5F5E9] border-[#BCE3C9] hover:border-emerald-400 rotate-[-2deg]",
         ko: { title: "건강해질래요" },
         en: { title: "Want to Be Healthy" },
         ja: { title: "健康になりたい" },
@@ -190,7 +192,7 @@
         id: "need_fun",
         icon: "icon-fun.png",
         fallbackEmoji: "🥥",
-        themeStyle: "from-[#FFFDF0] to-[#FFF9E5] border-[#FCE2A6] hover:border-amber-400 rotate-[1deg]",
+        themeStyle: "from-[#FFFDF0] to-[#FFF9E5] border-[#FCE2A6] hover:border-amber-400 rotate-[2.5deg]",
         ko: { title: "재미가 필요해요" },
         en: { title: "Need Something Fun" },
         ja: { title: "楽しさがほしい" },
@@ -202,7 +204,7 @@
         id: "need_gift",
         icon: "icon-gift.png",
         fallbackEmoji: "🎁",
-        themeStyle: "from-[#FFF0F5] to-[#FFE4E8] border-[#FFC2D1] hover:border-pink-400 rotate-[0deg]",
+        themeStyle: "from-[#FFF0F5] to-[#FFE4E8] border-[#FFC2D1] hover:border-pink-400 rotate-[-1.5deg]",
         ko: { title: "선물이 필요해요" },
         en: { title: "Looking for a Gift" },
         ja: { title: "ギフトを探している" },
@@ -649,7 +651,7 @@
         ja: {
           name: "100% ニンジン",
           tag: "#水も砂糖もゼロ #純粋生搾り #自然な甘み",
-          desc: "水や砂糖は一切不使用！新鮮なニンジンだけを搾った、驚くほど甘く贅沢な栄養原液。"
+          desc: "水や砂糖は一切不使用！新鮮なニンジンだけ를 搾った、驚くほど甘く贅沢な栄養原液。"
         },
         zh: {
           name: "100% 纯胡萝卜汁",
@@ -861,7 +863,7 @@
         langBar.classList.remove("hidden");
         homeTitleBox.classList.remove("hidden");
         mainHeader.classList.remove("hidden");
-        mainHeader.className = "p-5 pb-3 relative border-b border-orange-50 text-center";
+        mainHeader.className = "p-4 pb-3 relative border-b border-orange-50 text-center";
         btnBack.classList.add("hidden");
       } else {
         langBar.classList.add("hidden");
@@ -870,27 +872,27 @@
         btnBack.classList.remove("hidden");
       }
 
-      // 1. 홈 화면 (스티커/배지 느낌의 통통하고 아기자기한 디자인)
+      // 1. 홈 화면 (컴팩트 스티커 디자인 - 스크롤 없이 한 화면에 표시)
       if (currentView === "home") {
         let html = `
-          <div class="animate-fade-in flex flex-col gap-3.5 py-1">
-            <div class="grid grid-cols-2 gap-3">
+          <div class="animate-fade-in flex flex-col gap-2.5 py-0.5">
+            <div class="grid grid-cols-2 gap-2.5">
         `;
         
         STATUS_CATEGORIES.forEach((cat, index) => {
           const item = cat[currentLang] || cat["ko"];
           const isImageFile = cat.icon.includes(".");
           const isLastItem = (index === STATUS_CATEGORIES.length - 1);
-          const gridSpan = isLastItem ? "col-span-2 sm:col-span-1 sm:col-start-1 sm:col-end-3 max-w-[210px] mx-auto w-full" : "w-full";
+          const gridSpan = isLastItem ? "col-span-2 sm:col-span-1 sm:col-start-1 sm:col-end-3 max-w-[190px] mx-auto w-full" : "w-full";
 
           const iconMarkup = isImageFile
-            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1 leading-none drop-shadow\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-13 h-13 sm:w-14 sm:h-14 object-contain mb-1 drop-shadow-[0_4px_8px_rgba(0,0,0,0.1)] group-hover:scale-110 transition-transform" />`
-            : `<span class="text-3xl mb-1 leading-none drop-shadow">${cat.icon}</span>`;
+            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-2.5xl mb-1 leading-none drop-shadow\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-11 h-11 sm:w-12 sm:h-12 object-contain mb-1 drop-shadow-[0_3px_6px_rgba(0,0,0,0.1)] group-hover:scale-110 transition-transform" />`
+            : `<span class="text-2.5xl mb-1 leading-none drop-shadow">${cat.icon}</span>`;
 
           html += `
-            <button onclick="selectStatus('${cat.id}')" class="${gridSpan} ${cat.themeStyle} p-3.5 rounded-[26px] bg-gradient-to-b border-2 active:scale-[0.96] transition-all flex flex-col items-center justify-center text-center group shadow-[0_4px_12px_rgba(180,140,110,0.12)] hover:shadow-[0_6px_16px_rgba(180,140,110,0.2)] min-h-[120px]">
+            <button onclick="selectStatus('${cat.id}')" class="${gridSpan} ${cat.themeStyle} p-2.5 rounded-[22px] bg-gradient-to-b border-2 active:scale-[0.96] transition-all flex flex-col items-center justify-center text-center group shadow-[0_3px_10px_rgba(180,140,110,0.12)] hover:shadow-[0_5px_14px_rgba(180,140,110,0.18)] min-h-[102px]">
               ${iconMarkup}
-              <h2 class="text-sm font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
+              <h2 class="text-xs sm:text-sm font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
             </button>
           `;
         });
@@ -900,7 +902,7 @@
 
             <!-- 서울래빗 메뉴 구경하기 링크 버튼 -->
             <div class="pt-1">
-              <a href="https://m.booking.naver.com/order/bizes/1140512/items/5866364?area=bnq" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-4 rounded-2xl bg-stone-100/90 hover:bg-stone-200/90 border border-stone-200 active:scale-[0.98] transition-all text-stone-700 font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm">
+              <a href="https://m.booking.naver.com/order/bizes/1140512/items/5866364?area=bnq" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-2xl bg-stone-100/90 hover:bg-stone-200/90 border border-stone-200 active:scale-[0.98] transition-all text-stone-700 font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm">
                 <span>${i18n.exploreMenuBtn}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-stone-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
@@ -994,4 +996,3 @@
   </script>
 </body>
 </html>
-
