@@ -41,16 +41,16 @@
     <!-- 언어 선택 바 (첫 화면에서만 표시) -->
     <nav id="lang-bar" class="bg-stone-50/80 border-b border-orange-50 px-3 py-2 flex items-center justify-center gap-1 text-xs">
       <button onclick="setLanguage('ko')" id="lang-ko" class="lang-btn px-2.5 py-1 rounded-full font-bold transition-all bg-orange-500 text-white">한국어</button>
-      <button onclick="setLanguage('en')" id="lang-en" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">English</button>
-      <button onclick="setLanguage('ja')" id="lang-ja" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">日本語</button>
-      <button onclick="setLanguage('zh')" id="lang-zh" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">中文</button>
-      <button onclick="setLanguage('fr')" id="lang-fr" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200">Français</button>
+      <button onclick="setLanguage('en')" id="lang-en" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600">English</button>
+      <button onclick="setLanguage('ja')" id="lang-ja" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600">日本語</button>
+      <button onclick="setLanguage('zh')" id="lang-zh" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600">中文</button>
+      <button onclick="setLanguage('fr')" id="lang-fr" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600">Français</button>
     </nav>
 
-    <!-- 상단 헤더 (초록토끼 좌측 + 2줄 타이틀 우측 중앙 정렬) -->
+    <!-- 상단 헤더 -->
     <header id="main-header" class="p-4 pb-2 relative border-b border-orange-50">
       <!-- 뒤로가기 버튼 -->
-      <button id="btn-back" class="hidden absolute left-4 top-4 text-stone-600 hover:text-stone-900 transition-colors flex items-center gap-1 text-xs font-bold bg-stone-100 hover:bg-stone-200 px-2.5 py-1.5 rounded-full" aria-label="Back">
+      <button id="btn-back" class="hidden absolute left-4 top-4 text-stone-600 transition-colors flex items-center gap-1 text-xs font-bold bg-stone-100 active:bg-stone-200 px-2.5 py-1.5 rounded-full" aria-label="Back">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" />
         </svg>
@@ -150,12 +150,14 @@
       }
     };
 
+    // 1단계 5대 선택지: 개별 컬러 테마 및 강화된 회전 각도 적용
     const STATUS_CATEGORIES = [
       {
         id: "low_energy",
         icon: "icon-red.png",
         fallbackEmoji: "⚡",
-        rotation: "-rotate-2",
+        rotationStyle: "transform: rotate(-4deg);",
+        cardBg: "bg-gradient-to-b from-[#FFF5F2] to-[#FFE8E2] border-[#FBC8BE] text-rose-950 shadow-[0_3px_8px_rgba(244,63,94,0.12)]",
         ko: { title: "기운이 없어요" },
         en: { title: "Feeling Drained" },
         ja: { title: "元気が出ない" },
@@ -167,7 +169,8 @@
         id: "bloated_stomach",
         icon: "icon-blue.png",
         fallbackEmoji: "🥬",
-        rotation: "rotate-2",
+        rotationStyle: "transform: rotate(3.5deg);",
+        cardBg: "bg-gradient-to-b from-[#F0F9FF] to-[#E0F2FE] border-[#BAE6FD] text-sky-950 shadow-[0_3px_8px_rgba(14,165,233,0.12)]",
         ko: { title: "속이 더부룩해요" },
         en: { title: "Feeling Bloated" },
         ja: { title: "お腹が重い・もたれる" },
@@ -179,7 +182,8 @@
         id: "care_health",
         icon: "icon-baby.png",
         fallbackEmoji: "🥕",
-        rotation: "rotate-1",
+        rotationStyle: "transform: rotate(2.8deg);",
+        cardBg: "bg-gradient-to-b from-[#F0FDF4] to-[#DCFCE7] border-[#BBF7D0] text-emerald-950 shadow-[0_3px_8px_rgba(34,197,94,0.12)]",
         ko: { title: "건강해질래요" },
         en: { title: "Want to Be Healthy" },
         ja: { title: "健康になりたい" },
@@ -191,7 +195,8 @@
         id: "need_fun",
         icon: "icon-fun.png",
         fallbackEmoji: "🥥",
-        rotation: "-rotate-2",
+        rotationStyle: "transform: rotate(-3.5deg);",
+        cardBg: "bg-gradient-to-b from-[#FAF5FF] to-[#F3E8FF] border-[#E9D5FF] text-purple-950 shadow-[0_3px_8px_rgba(168,85,247,0.12)]",
         ko: { title: "재미가 필요해요" },
         en: { title: "Need Something Fun" },
         ja: { title: "楽しさがほしい" },
@@ -203,7 +208,8 @@
         id: "need_gift",
         icon: "icon-gift.png",
         fallbackEmoji: "🎁",
-        rotation: "rotate-1",
+        rotationStyle: "transform: rotate(4.2deg);",
+        cardBg: "bg-gradient-to-b from-[#FFFBEB] to-[#FEF3C7] border-[#FDE68A] text-amber-950 shadow-[0_3px_8px_rgba(245,158,11,0.12)]",
         ko: { title: "선물이 필요해요" },
         en: { title: "Looking for a Gift" },
         ja: { title: "ギフトを探している" },
@@ -299,7 +305,7 @@
         questions: {
           ko: { q: "몸을 맑고 가볍게 비워주는 비트 좋아해요?" },
           en: { q: "Do you like revitalizing beetroot that cleanses your body?" },
-          ja: { q: "体をすっきりと軽く整えるビーツは好きですか？" },
+          ja: { q: "体をすっきりと軽く整えるビーツ는 좋아하세요?" },
           zh: { q: "喜欢能让身心轻盈排浊的甜菜根吗？" },
           fr: { q: "Aimez-vous la betterave pour purifier votre corps ?" }
         },
@@ -544,7 +550,7 @@
       currentLang = lang;
 
       document.querySelectorAll(".lang-btn").forEach(btn => {
-        btn.className = "lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600 hover:bg-stone-200";
+        btn.className = "lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600";
       });
       const activeBtn = document.getElementById(`lang-${lang}`);
       if (activeBtn) {
@@ -628,7 +634,7 @@
       if (currentView === "home") {
         let html = `
           <div class="animate-fade-in flex flex-col items-center gap-3 py-1 w-full">
-            <div class="grid grid-cols-2 gap-2.5 w-full">
+            <div class="grid grid-cols-2 gap-3 w-full px-1">
         `;
         
         STATUS_CATEGORIES.forEach((cat, index) => {
@@ -638,13 +644,13 @@
           const gridSpan = isLastItem ? "col-span-2 max-w-[200px] mx-auto w-full" : "w-full";
 
           const iconMarkup = isImageFile
-            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1 leading-none drop-shadow\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-14 h-14 object-contain mb-1 drop-shadow-[0_3px_6px_rgba(0,0,0,0.12)] group-hover:scale-105 transition-transform" />`
+            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1 leading-none drop-shadow\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-14 h-14 object-contain mb-1 drop-shadow-[0_3px_6px_rgba(0,0,0,0.1)]" />`
             : `<span class="text-3xl mb-1 leading-none drop-shadow">${cat.icon}</span>`;
 
           html += `
-            <button onclick="selectStatus('${cat.id}')" class="${gridSpan} ${cat.rotation} hover:rotate-0 p-3 rounded-2xl bg-gradient-to-b from-[#FFFDF9] to-[#F7EFE6] hover:from-orange-50 hover:to-[#F5E6D3] border border-[#EADBCC] active:scale-[0.97] transition-all duration-200 flex flex-col items-center justify-center text-center group shadow-[0_2px_6px_rgba(180,140,110,0.12)] min-h-[114px]">
+            <button onclick="selectStatus('${cat.id}')" style="${cat.rotationStyle}" class="${gridSpan} ${cat.cardBg} p-3 rounded-2xl border active:scale-[0.96] transition-transform duration-100 flex flex-col items-center justify-center text-center min-h-[114px]">
               ${iconMarkup}
-              <h2 class="text-sm font-extrabold text-stone-900 leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
+              <h2 class="text-sm font-extrabold leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
             </button>
           `;
         });
@@ -652,9 +658,9 @@
         html += `
             </div>
 
-            <!-- 산뜻하고 아기자기한 메뉴 구경하기 배지형 링크 버튼 -->
+            <!-- 배지형 전체 메뉴 보기 버튼 -->
             <div class="pt-2 w-full flex justify-center">
-              <a href="https://m.booking.naver.com/order/bizes/1140512/items/5866364?area=bnq" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-orange-50 hover:bg-orange-100 text-orange-700 hover:text-orange-800 border border-orange-200/90 active:scale-95 transition-all text-xs font-black shadow-sm">
+              <a href="https://m.booking.naver.com/order/bizes/1140512/items/5866364?area=bnq" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-orange-50 text-orange-700 border border-orange-200 active:scale-95 transition-transform text-xs font-black shadow-sm">
                 <span>🥕</span>
                 <span>${i18n.exploreMenuBtn}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -695,10 +701,10 @@
             </div>
 
             <div class="grid grid-cols-1 gap-2.5 pt-4">
-              <button onclick="handleAnswer('yes')" class="w-full py-3.5 px-4 rounded-2xl bg-orange-500 hover:bg-orange-600 active:scale-[0.98] transition-all text-white font-bold text-sm shadow-md shadow-orange-500/20 flex items-center justify-center text-center break-keep">
+              <button onclick="handleAnswer('yes')" class="w-full py-3.5 px-4 rounded-2xl bg-orange-500 active:bg-orange-600 active:scale-[0.98] transition-all text-white font-bold text-sm shadow-md shadow-orange-500/20 flex items-center justify-center text-center break-keep">
                 ${yesLabel}
               </button>
-              <button onclick="handleAnswer('no')" class="w-full py-3.5 px-4 rounded-2xl bg-stone-100 hover:bg-stone-200 active:scale-[0.98] transition-all text-stone-700 font-semibold text-sm flex items-center justify-center text-center break-keep">
+              <button onclick="handleAnswer('no')" class="w-full py-3.5 px-4 rounded-2xl bg-stone-100 active:bg-stone-200 active:scale-[0.98] transition-all text-stone-700 font-semibold text-sm flex items-center justify-center text-center break-keep">
                 ${noLabel}
               </button>
             </div>
@@ -730,13 +736,13 @@
             </div>
 
             <div class="flex flex-col gap-2 pt-3">
-              <a href="${targetOrderUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-5 rounded-2xl bg-green-600 hover:bg-green-700 active:scale-[0.98] transition-all text-white font-bold text-sm shadow-md shadow-green-600/20 flex items-center justify-center gap-2">
+              <a href="${targetOrderUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-5 rounded-2xl bg-green-600 active:bg-green-700 active:scale-[0.98] transition-all text-white font-bold text-sm shadow-md shadow-green-600/20 flex items-center justify-center gap-2">
                 <span>${i18n.orderBtn}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </a>
-              <button onclick="resetQuiz()" class="w-full py-2 text-stone-400 hover:text-stone-600 text-xs font-medium transition-colors">
+              <button onclick="resetQuiz()" class="w-full py-2 text-stone-400 active:text-stone-600 text-xs font-medium transition-colors">
                 ${i18n.restartBtn}
               </button>
             </div>
