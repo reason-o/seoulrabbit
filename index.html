@@ -85,7 +85,6 @@
     let currentLang = "ko";
     let currentView = "home";
     let currentSubNode = null;
-    let history = [];
 
     const I18N = {
       ko: {
@@ -150,7 +149,6 @@
       }
     };
 
-    // 1단계 5대 선택지
     const STATUS_CATEGORIES = [
       {
         id: "low_energy",
@@ -270,7 +268,7 @@
         questions: {
           ko: { q: "상큼한 오렌지 좋아해요?" },
           en: { q: "Do you like refreshing orange?" },
-          ja: { q: "爽やかなオレンジは好きですか？" },
+          ja: { q: "爽やかなオレンジ는 좋아하세요?" },
           zh: { q: "喜欢酸甜清爽的香橙吗？" },
           fr: { q: "Aimez-vous l'orange acidulée et fraîche ?" }
         },
@@ -300,7 +298,7 @@
         questions: {
           ko: { q: "몸을 맑고 가볍게 비워주는 비트 좋아해요?" },
           en: { q: "Do you like revitalizing beetroot that cleanses your body?" },
-          ja: { q: "体をすっきりと軽く整えるビーツは好きですか？" },
+          ja: { q: "体をすっきりと軽く整えるビーツ는 좋아하세요?" },
           zh: { q: "喜欢能让身心轻盈排浊的甜菜根吗？" },
           fr: { q: "Aimez-vous la betterave pour purifier votre corps ?" }
         },
@@ -330,7 +328,7 @@
         questions: {
           ko: { q: "몸을 맑고 가볍게 비워주는 비트 좋아해요?" },
           en: { q: "Do you like revitalizing beetroot that cleanses your body?" },
-          ja: { q: "体をすっきりと軽く整えるビーツ는 좋아하세요?" },
+          ja: { q: "体をすっきりと軽く整えるビーツは好きですか？" },
           zh: { q: "喜欢能让身心轻盈排浊的甜菜根吗？" },
           fr: { q: "Aimez-vous la betterave pour purifier votre corps ?" }
         },
@@ -382,7 +380,7 @@
         questions: {
           ko: { q: "열대과일 파인애플 좋아해요?" },
           en: { q: "Do you like tropical pineapple?" },
-          ja: { q: "南国フルーツのパイナップルは好きですか？" },
+          ja: { q: "南国フルーツのパイナップル는 좋아하세요?" },
           zh: { q: "喜欢酸甜多汁的热带菠萝吗？" },
           fr: { q: "Aimez-vous l'ananas tropical ?" }
         },
@@ -509,7 +507,7 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22842456?area=bnq",
         ko: { name: "캐롯콜라다", tag: "#휴양지맛 #열대과일 #상큼청량", desc: "코코넛밀크와 파인애플! 새콤달콤한 열대 과일 향이 어우러져 기분 좋아지는 트로피컬 주스예요." },
         en: { name: "Carrot Colada", tag: "#ResortVibe #TropicalFruits #ZestyCrisp", desc: "Creamy coconut milk & juicy pineapple! An exotic tropical blend that lifts your mood instantly." },
-        ja: { name: "キャロットコラーダ", tag: "#南国リゾート #トロピカル #爽快フルーツ", desc: "ココナッツミルクとパイナップル！南国フルーツ의 甘酸っぱい香りが弾けるご機嫌な一杯。" },
+        ja: { name: "キャロットコラーダ", tag: "#南国リゾート #トロピカル #爽快フルーツ", desc: "ココナッツミルクとパイナップル！南国フルーツの甘酸っぱい香りが弾けるご機嫌な一杯。" },
         zh: { name: "胡萝卜可乐达", tag: "#海岛度假风 #热带菠萝 #清爽解渴", desc: "浓郁椰奶邂逅酸甜菠萝！满溢热带风情与果香，喝一口仿佛置身阳光海岛。" },
         fr: { name: "Carrot Colada", tag: "#GoûtVacances #AnanasTropical #Frais", desc: "Lait de coco et ananas juteux ! Un parfum exotique qui vous transporte en vacances." }
       },
@@ -541,6 +539,18 @@
     const backText = document.getElementById("back-text");
     const footerText = document.getElementById("footer-text");
 
+    // 브라우저 뒤로가기 / 아이폰 쓸어넘기기(Swipe) 지원
+    window.addEventListener("popstate", (event) => {
+      if (event.state) {
+        currentView = event.state.view || "home";
+        currentSubNode = event.state.nodeKey || null;
+      } else {
+        currentView = "home";
+        currentSubNode = null;
+      }
+      render();
+    });
+
     window.setLanguage = function(lang) {
       currentLang = lang;
 
@@ -565,8 +575,6 @@
       const cat = STATUS_CATEGORIES.find(c => c.id === categoryId);
       if (!cat) return;
 
-      history.push({ view: "home" });
-
       if (cat.directResult) {
         currentView = "result";
         currentSubNode = cat.directResult;
@@ -574,14 +582,15 @@
         currentView = "question";
         currentSubNode = cat.nextQuestion;
       }
+
+      // 브라우저 방문 기록에 추가하여 아이폰 쓸어넘기기 활성화
+      window.history.pushState({ view: currentView, nodeKey: currentSubNode }, "");
       render();
     };
 
     window.handleAnswer = function(choice) {
       const node = SUB_QUESTIONS[currentSubNode];
       const nextTarget = node[choice];
-
-      history.push({ view: "question", nodeKey: currentSubNode });
 
       if (typeof nextTarget === "string") {
         currentView = "question";
@@ -590,22 +599,21 @@
         currentView = "result";
         currentSubNode = nextTarget.result;
       }
+
+      // 브라우저 방문 기록에 추가하여 아이폰 쓸어넘기기 활성화
+      window.history.pushState({ view: currentView, nodeKey: currentSubNode }, "");
       render();
     };
 
     btnBack.addEventListener("click", () => {
-      if (history.length > 0) {
-        const prev = history.pop();
-        currentView = prev.view;
-        currentSubNode = prev.nodeKey || null;
-        render();
-      }
+      // 상단 뒤로가기 버튼도 브라우저 히스토리와 완전히 연동
+      window.history.back();
     });
 
     window.resetQuiz = function() {
-      history = [];
       currentView = "home";
       currentSubNode = null;
+      window.history.pushState({ view: "home", nodeKey: null }, "");
       render();
     };
 
@@ -746,6 +754,8 @@
       }
     }
 
+    // 초기 상태 등록
+    window.history.replaceState({ view: "home", nodeKey: null }, "");
     setLanguage("ko");
   </script>
 </body>
