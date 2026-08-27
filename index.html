@@ -150,14 +150,13 @@
       }
     };
 
-    // 1단계 5대 선택지: 개별 컬러 테마 및 강화된 회전 각도 적용
+    // 1단계 5대 선택지: 인라인 스타일로 확실한 파스텔 배경색 & 선명한 회전 각도 적용
     const STATUS_CATEGORIES = [
       {
         id: "low_energy",
         icon: "icon-red.png",
         fallbackEmoji: "⚡",
-        rotationStyle: "transform: rotate(-4deg);",
-        cardBg: "bg-gradient-to-b from-[#FFF5F2] to-[#FFE8E2] border-[#FBC8BE] text-rose-950 shadow-[0_3px_8px_rgba(244,63,94,0.12)]",
+        style: "transform: rotate(-4.5deg); background: linear-gradient(180deg, #FFF0EE 0%, #FFE0DC 100%); border-color: #FFAAA0; color: #881337; box-shadow: 0 4px 10px rgba(244, 63, 94, 0.15);",
         ko: { title: "기운이 없어요" },
         en: { title: "Feeling Drained" },
         ja: { title: "元気が出ない" },
@@ -169,8 +168,7 @@
         id: "bloated_stomach",
         icon: "icon-blue.png",
         fallbackEmoji: "🥬",
-        rotationStyle: "transform: rotate(3.5deg);",
-        cardBg: "bg-gradient-to-b from-[#F0F9FF] to-[#E0F2FE] border-[#BAE6FD] text-sky-950 shadow-[0_3px_8px_rgba(14,165,233,0.12)]",
+        style: "transform: rotate(4deg); background: linear-gradient(180deg, #EDF8FF 0%, #D8EFFF 100%); border-color: #92CEFF; color: #082F49; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.15);",
         ko: { title: "속이 더부룩해요" },
         en: { title: "Feeling Bloated" },
         ja: { title: "お腹が重い・もたれる" },
@@ -182,8 +180,7 @@
         id: "care_health",
         icon: "icon-baby.png",
         fallbackEmoji: "🥕",
-        rotationStyle: "transform: rotate(2.8deg);",
-        cardBg: "bg-gradient-to-b from-[#F0FDF4] to-[#DCFCE7] border-[#BBF7D0] text-emerald-950 shadow-[0_3px_8px_rgba(34,197,94,0.12)]",
+        style: "transform: rotate(3.2deg); background: linear-gradient(180deg, #EEFBF2 0%, #D5F5DF 100%); border-color: #8CE5A5; color: #064E3B; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.15);",
         ko: { title: "건강해질래요" },
         en: { title: "Want to Be Healthy" },
         ja: { title: "健康になりたい" },
@@ -195,8 +192,7 @@
         id: "need_fun",
         icon: "icon-fun.png",
         fallbackEmoji: "🥥",
-        rotationStyle: "transform: rotate(-3.5deg);",
-        cardBg: "bg-gradient-to-b from-[#FAF5FF] to-[#F3E8FF] border-[#E9D5FF] text-purple-950 shadow-[0_3px_8px_rgba(168,85,247,0.12)]",
+        style: "transform: rotate(-4deg); background: linear-gradient(180deg, #F8F0FF 0%, #EBD5FF 100%); border-color: #D3A7FF; color: #3B0764; box-shadow: 0 4px 10px rgba(168, 85, 247, 0.15);",
         ko: { title: "재미가 필요해요" },
         en: { title: "Need Something Fun" },
         ja: { title: "楽しさがほしい" },
@@ -208,8 +204,7 @@
         id: "need_gift",
         icon: "icon-gift.png",
         fallbackEmoji: "🎁",
-        rotationStyle: "transform: rotate(4.2deg);",
-        cardBg: "bg-gradient-to-b from-[#FFFBEB] to-[#FEF3C7] border-[#FDE68A] text-amber-950 shadow-[0_3px_8px_rgba(245,158,11,0.12)]",
+        style: "transform: rotate(4.5deg); background: linear-gradient(180deg, #FFF8E6 0%, #FFE9B8 100%); border-color: #FCD34D; color: #451A03; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.15);",
         ko: { title: "선물이 필요해요" },
         en: { title: "Looking for a Gift" },
         ja: { title: "ギフトを探している" },
@@ -387,7 +382,7 @@
         questions: {
           ko: { q: "열대과일 파인애플 좋아해요?" },
           en: { q: "Do you like tropical pineapple?" },
-          ja: { q: "南国フルーツのパイナップルは好きですか？" },
+          ja: { q: "南国フルーツのパイナップル는 좋아하세요?" },
           zh: { q: "喜欢酸甜多汁的热带菠萝吗？" },
           fr: { q: "Aimez-vous l'ananas tropical ?" }
         },
@@ -515,7 +510,7 @@
         ko: { name: "캐롯콜라다", tag: "#휴양지맛 #열대과일 #상큼청량", desc: "코코넛밀크와 파인애플! 새콤달콤한 열대 과일 향이 어우러져 기분 좋아지는 트로피컬 주스예요." },
         en: { name: "Carrot Colada", tag: "#ResortVibe #TropicalFruits #ZestyCrisp", desc: "Creamy coconut milk & juicy pineapple! An exotic tropical blend that lifts your mood instantly." },
         ja: { name: "キャロットコラーダ", tag: "#南国リゾート #トロピカル #爽快フルーツ", desc: "ココナッツミルクとパイナップル！南国フルーツの甘酸っぱい香りが弾けるご機嫌な一杯。" },
-        zh: { name: "胡萝卜可乐达", tag: "#海岛度假风 #热带菠萝 #清爽解渴", desc: "浓郁椰奶邂逅酸甜菠萝！满溢热带风情与果香，喝一口仿佛置身阳光海岛。" },
+        zh: { name: "胡萝卜可乐达", tag: "#海岛度假风 #热带菠萝 #清爽解渴", desc: "浓郁椰奶邂逅酸甜菠萝！满溢热带风情与果香，喝一口 Fox 仿佛置身阳光海岛。" },
         fr: { name: "Carrot Colada", tag: "#GoûtVacances #AnanasTropical #Frais", desc: "Lait de coco et ananas juteux ! Un parfum exotique qui vous transporte en vacances." }
       },
       carrot_cake: {
@@ -644,13 +639,13 @@
           const gridSpan = isLastItem ? "col-span-2 max-w-[200px] mx-auto w-full" : "w-full";
 
           const iconMarkup = isImageFile
-            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1 leading-none drop-shadow\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-14 h-14 object-contain mb-1 drop-shadow-[0_3px_6px_rgba(0,0,0,0.1)]" />`
+            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1 leading-none drop-shadow\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-14 h-14 object-contain mb-1 drop-shadow-[0_3px_6px_rgba(0,0,0,0.12)]" />`
             : `<span class="text-3xl mb-1 leading-none drop-shadow">${cat.icon}</span>`;
 
           html += `
-            <button onclick="selectStatus('${cat.id}')" style="${cat.rotationStyle}" class="${gridSpan} ${cat.cardBg} p-3 rounded-2xl border active:scale-[0.96] transition-transform duration-100 flex flex-col items-center justify-center text-center min-h-[114px]">
+            <button onclick="selectStatus('${cat.id}')" style="${cat.style}" class="${gridSpan} p-3 rounded-2xl border-2 active:scale-[0.95] transition-transform duration-100 flex flex-col items-center justify-center text-center min-h-[114px]">
               ${iconMarkup}
-              <h2 class="text-sm font-extrabold leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
+              <h2 class="text-sm font-black leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
             </button>
           `;
         });
