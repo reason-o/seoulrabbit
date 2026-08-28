@@ -70,14 +70,15 @@
     <!-- 동적 화면 렌더링 영역 -->
     <div id="view-container" class="flex-1 p-3.5 sm:p-4 flex flex-col justify-center"></div>
 
-    <!-- 하단 푸터 & 서울래빗 로고 -->
+    <!-- 하단 푸터 & 서울래빗 로고 및 슬로건 -->
     <footer class="py-3 text-center bg-stone-50/50 border-t border-stone-100 flex flex-col items-center justify-center gap-1">
       <div id="logo-container" class="flex justify-center items-center">
         <img src="logo.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-xs font-extrabold tracking-widest text-orange-600 uppercase\'>Seoul Rabbit</span>';" class="h-6 max-w-[140px] object-contain" />
       </div>
-      <p id="footer-text" class="text-[11px] text-stone-400 font-medium">
-        서울래빗 주스랩
-      </p>
+      <div id="footer-text" class="text-[11px] text-stone-400 font-medium leading-tight text-center">
+        <p class="font-semibold tracking-wide text-stone-500">Drink different, Seoul Rabbit</p>
+        <p class="text-[10px] text-stone-400">드링크 디퍼런트, 서울래빗</p>
+      </div>
     </footer>
   </main>
 
@@ -91,7 +92,8 @@
         headerSub: "오늘 뭐 마실지 고민돼요?",
         headerTitle: "서울래빗이 골라드릴게요.",
         backText: "이전",
-        footerText: "서울래빗 주스랩",
+        footerEn: "Drink different, Seoul Rabbit",
+        footerKo: "드링크 디퍼런트, 서울래빗",
         exploreMenuBtn: "서울래빗 전체 메뉴 구경하기",
         recommendBadge: "지금 딱 맞는 추천 메뉴",
         orderBtn: "네이버 주문으로 바로가기",
@@ -103,7 +105,8 @@
         headerSub: "Not sure what to drink today?",
         headerTitle: "Seoul Rabbit has your pick.",
         backText: "Back",
-        footerText: "Seoul Rabbit Juice Lab",
+        footerEn: "Drink different, Seoul Rabbit",
+        footerKo: "드링크 디퍼런트, 서울래빗",
         exploreMenuBtn: "Explore Full Menu",
         recommendBadge: "RECOMMENDED FOR YOU",
         orderBtn: "Order on Naver",
@@ -115,7 +118,8 @@
         headerSub: "今日何を飲むか迷っていますか？",
         headerTitle: "ソウルラビットが選びます！",
         backText: "戻る",
-        footerText: "ソウルラビット ジュースラボ",
+        footerEn: "Drink different, Seoul Rabbit",
+        footerKo: "드링크 디퍼런트, 서울래빗",
         exploreMenuBtn: "全メニューを見る",
         recommendBadge: "あなたへのおすすめ",
         orderBtn: "Naverで注文する",
@@ -127,7 +131,8 @@
         headerSub: "今天不知道喝什么好吗？",
         headerTitle: "首尔兔子为你量身推荐！",
         backText: "返回",
-        footerText: "Seoul Rabbit 果汁实验所",
+        footerEn: "Drink different, Seoul Rabbit",
+        footerKo: "드링크 디퍼런트, 서울래빗",
         exploreMenuBtn: "查看全部菜单",
         recommendBadge: "为你推荐",
         orderBtn: "前往 Naver 点餐",
@@ -139,7 +144,8 @@
         headerSub: "Vous hésitez sur votre boisson ?",
         headerTitle: "Seoul Rabbit choisit pour vous.",
         backText: "Retour",
-        footerText: "Seoul Rabbit Juice Lab",
+        footerEn: "Drink different, Seoul Rabbit",
+        footerKo: "드링크 디퍼런트, 서울래빗",
         exploreMenuBtn: "Découvrir tout le menu",
         recommendBadge: "RECOMMANDÉ POUR VOUS",
         orderBtn: "Commander sur Naver",
@@ -213,6 +219,7 @@
     ];
 
     const SUB_QUESTIONS = {
+      // 1. 기운이 없어요 분기
       q_wake_ginger_like: {
         intro: {
           ko: "으랏차차! 힘낼 수 있는 메뉴를 추천할게요!",
@@ -240,9 +247,9 @@
           fr: { q: "Aimez-vous un shot intense citron-curcuma ?" }
         },
         yes: { result: "ginger_shot" },
-        no: "q_wake_like_orange_1"
+        no: "q_wake_like_orange_ginger"
       },
-      q_wake_like_orange_1: {
+      q_wake_like_orange_ginger: {
         questions: {
           ko: { q: "상큼한 오렌지 좋아해요?" },
           en: { q: "Do you like refreshing orange?" },
@@ -255,27 +262,17 @@
       },
       q_wake_need_coffee: {
         questions: {
-          ko: { q: "커피가 필요해요?" },
-          en: { q: "Do you need a coffee fix?" },
-          ja: { q: "珈琲（コーヒー）が必要ですか？" },
-          zh: { q: "现在需要来杯咖啡吗？" },
-          fr: { q: "Avez-vous besoin d'un café ?" }
+          ko: { q: "커피로 빠르게 카페인 충전할까요?" },
+          en: { q: "Would you like a quick caffeine recharge with coffee?" },
+          ja: { q: "珈琲（コーヒー）で素早くカフェインチャージしますか？" },
+          zh: { q: "想来杯咖啡快速补充咖啡因充能吗？" },
+          fr: { q: "Voulez-vous recharger vos batteries avec un bon café ?" }
         },
         yes: { result: "carrot_coffee" },
-        no: "q_wake_like_orange_2"
-      },
-      q_wake_like_orange_2: {
-        questions: {
-          ko: { q: "상큼한 오렌지 좋아해요?" },
-          en: { q: "Do you like refreshing orange?" },
-          ja: { q: "爽やかなオレンジ는 좋아하세요?" },
-          zh: { q: "喜欢酸甜清爽的香橙吗？" },
-          fr: { q: "Aimez-vous l'orange acidulée et fraîche ?" }
-        },
-        yes: { result: "orange_carrot_ginger" },
-        no: { result: "carrot_100" }
+        no: { result: "carrot_apple" }
       },
 
+      // 2. 속이 더부룩해요 분기
       q_bloat_cabbage: {
         intro: {
           ko: "편안한 속을 위해 추천해드릴게요!",
@@ -292,20 +289,21 @@
           fr: { q: "Aimez-vous le chou apaisant pour l'estomac ?" }
         },
         yes: { result: "cca_juice" },
-        no: "q_bloat_beet"
+        no: "q_bloat_ginger_shot"
       },
-      q_bloat_beet: {
+      q_bloat_ginger_shot: {
         questions: {
-          ko: { q: "몸을 맑고 가볍게 비워주는 비트 좋아해요?" },
-          en: { q: "Do you like revitalizing beetroot that cleanses your body?" },
-          ja: { q: "体をすっきりと軽く整えるビーツ는 좋아하세요?" },
-          zh: { q: "喜欢能让身心轻盈排浊的甜菜根吗？" },
-          fr: { q: "Aimez-vous la betterave pour purifier votre corps ?" }
+          ko: { q: "알싸하게 속을 뻥 뚫어주는 생강 샷도 좋아해요?" },
+          en: { q: "Do you also like an intense ginger shot to instantly settle your stomach?" },
+          ja: { q: "ピリッと爽快にお腹をスッキリさせる生姜ショットも好きですか？" },
+          zh: { q: "喜欢能让肠胃瞬间清透畅快的强效生姜生力饮吗？" },
+          fr: { q: "Aimez-vous un shot de gingembre épicé pour soulager l'estomac ?" }
         },
-        yes: { result: "abc_juice" },
-        no: { result: "carrot_100" }
+        yes: { result: "ginger_shot" },
+        no: { result: "abc_juice" }
       },
 
+      // 3. 건강해질래요 분기
       q_health_veggie: {
         intro: {
           ko: "건강한 하루를 위한 추천!",
@@ -328,7 +326,7 @@
         questions: {
           ko: { q: "몸을 맑고 가볍게 비워주는 비트 좋아해요?" },
           en: { q: "Do you like revitalizing beetroot that cleanses your body?" },
-          ja: { q: "体をすっきりと軽く整えるビーツは好きですか？" },
+          ja: { q: "体をすっきりと軽く整えるビーツ는 좋아하세요?" },
           zh: { q: "喜欢能让身心轻盈排浊的甜菜根吗？" },
           fr: { q: "Aimez-vous la betterave pour purifier votre corps ?" }
         },
@@ -347,6 +345,7 @@
         no: { result: "carrot_apple" }
       },
 
+      // 4. 재미가 필요해요 분기
       q_fun_creamy: {
         intro: {
           ko: "상상하지 못한 재미를 드려요!",
@@ -380,7 +379,7 @@
         questions: {
           ko: { q: "열대과일 파인애플 좋아해요?" },
           en: { q: "Do you like tropical pineapple?" },
-          ja: { q: "南国フルーツのパイナップル는 좋아하세요?" },
+          ja: { q: "南国フルーツ의 パイナップル는 좋아하세요?" },
           zh: { q: "喜欢酸甜多汁的热带菠萝吗？" },
           fr: { q: "Aimez-vous l'ananas tropical ?" }
         },
@@ -399,6 +398,7 @@
         no: { result: "carrot_lemon_soda" }
       },
 
+      // 5. 선물이 필요해요 분기
       q_gift_popular: {
         intro: {
           ko: "캐롯보틀로 센스있는 선물!",
@@ -483,17 +483,9 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22835885?area=bnq",
         ko: { name: "CCA주스", tag: "#속편한주스 #양배추당근사과 #가벼운루틴", desc: "당근(Carrot), 양배추(Cabbage), 사과(Apple)의 신선함으로 편안하고 가벼운 하루를 완성합니다." },
         en: { name: "CCA Juice", tag: "#StomachComfort #CabbageCarrotApple #LightRoutine", desc: "Fresh blend of Carrot, Cabbage, and Apple designed for digestive comfort and a light day." },
-        ja: { name: "CCAジュース", tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やかルーティン", desc: "ニンジン・キャベツ・リンゴのやさしい新鮮さで、心地よく軽やかな毎日を。" },
+        ja: { name: "CCAジュース", tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やかルーティン", desc: "ニンジン・キャベツ・リンゴ의 やさしい新鮮さで、心地よく軽やかな毎日を。" },
         zh: { name: "CCA 舒胃果蔬汁", tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #轻盈日常", desc: "新鲜胡萝卜、卷心菜和苹果调配，温和呵护肠胃，带来无负担的轻盈感。" },
         fr: { name: "Jus CCA", tag: "#EstomacLéger #ChouCarottePomme #DigestionFacile", desc: "Carotte, chou et pomme pour apaiser l'estomac et faire du bien à votre corps." }
-      },
-      carrot_100: {
-        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18046068?area=bnq",
-        ko: { name: "100% 당근", tag: "#물설탕0 #순수착즙 #달콤한원액", desc: "물이나 설탕 없이 오직 당근만 착즙했어요. 신선하고 달콤한 당근 본연의 풍부한 영양을 즐겨보세요." },
-        en: { name: "100% Carrot", tag: "#ZeroAddedWater #PureRaw #SweetCarrot", desc: "Cold-pressed pure raw carrot juice with 0% added water or sugar. Naturally sweet & nutrient-dense!" },
-        ja: { name: "100% ニンジン", tag: "#水も砂糖もゼロ #純粋生搾り #自然な甘み", desc: "水や砂糖は一切不使用！新鮮なニンジンだけを搾った、驚くほど甘く贅沢な栄養原液。" },
-        zh: { name: "100% 纯胡萝卜汁", tag: "#不加一滴水和糖 #纯压榨原汁 #自然清甜", desc: "不加水也不加糖，纯粹压榨胡萝卜原汁，尽享来自大自然的甘甜与丰沛营养。" },
-        fr: { name: "100% Carotte", tag: "#SansEauSansSucre #100Carotte #DouceurNaturelle", desc: "100% pur jus de carotte pressé, sans eau ni sucre. Naturellement doux et riche en bienfaits !" }
       },
       coco_carrot: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22842359?area=bnq",
@@ -507,7 +499,7 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22842456?area=bnq",
         ko: { name: "캐롯콜라다", tag: "#휴양지맛 #열대과일 #상큼청량", desc: "코코넛밀크와 파인애플! 새콤달콤한 열대 과일 향이 어우러져 기분 좋아지는 트로피컬 주스예요." },
         en: { name: "Carrot Colada", tag: "#ResortVibe #TropicalFruits #ZestyCrisp", desc: "Creamy coconut milk & juicy pineapple! An exotic tropical blend that lifts your mood instantly." },
-        ja: { name: "キャロットコラーダ", tag: "#南国リゾート #トロピカル #爽快フルーツ", desc: "ココナッツミルクとパイナップル！南国フルーツの甘酸っぱい香りが弾けるご機嫌な一杯。" },
+        ja: { name: "キャロットコラーダ", tag: "#南国リゾート #トロピカル #爽快フルーツ", desc: "ココナッツミルクとパイナップル！南国フルーツ의 甘酸っぱい香りが弾けるご機嫌な一杯。" },
         zh: { name: "胡萝卜可乐达", tag: "#海岛度假风 #热带菠萝 #清爽解渴", desc: "浓郁椰奶邂逅酸甜菠萝！满溢热带风情与果香，喝一口仿佛置身阳光海岛。" },
         fr: { name: "Carrot Colada", tag: "#GoûtVacances #AnanasTropical #Frais", desc: "Lait de coco et ananas juteux ! Un parfum exotique qui vous transporte en vacances." }
       },
@@ -539,7 +531,6 @@
     const backText = document.getElementById("back-text");
     const footerText = document.getElementById("footer-text");
 
-    // 브라우저 뒤로가기 / 아이폰 쓸어넘기기(Swipe) 지원
     window.addEventListener("popstate", (event) => {
       if (event.state) {
         currentView = event.state.view || "home";
@@ -566,7 +557,10 @@
       headerSub.innerText = i18n.headerSub;
       headerTitle.innerText = i18n.headerTitle;
       backText.innerText = i18n.backText;
-      footerText.innerText = i18n.footerText;
+      footerText.innerHTML = `
+        <p class="font-semibold tracking-wide text-stone-500">${i18n.footerEn}</p>
+        <p class="text-[10px] text-stone-400">${i18n.footerKo}</p>
+      `;
 
       render();
     };
@@ -583,7 +577,6 @@
         currentSubNode = cat.nextQuestion;
       }
 
-      // 브라우저 방문 기록에 추가하여 아이폰 쓸어넘기기 활성화
       window.history.pushState({ view: currentView, nodeKey: currentSubNode }, "");
       render();
     };
@@ -600,13 +593,11 @@
         currentSubNode = nextTarget.result;
       }
 
-      // 브라우저 방문 기록에 추가하여 아이폰 쓸어넘기기 활성화
       window.history.pushState({ view: currentView, nodeKey: currentSubNode }, "");
       render();
     };
 
     btnBack.addEventListener("click", () => {
-      // 상단 뒤로가기 버튼도 브라우저 히스토리와 완전히 연동
       window.history.back();
     });
 
@@ -754,7 +745,6 @@
       }
     }
 
-    // 초기 상태 등록
     window.history.replaceState({ view: "home", nodeKey: null }, "");
     setLanguage("ko");
   </script>
