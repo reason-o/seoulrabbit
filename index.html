@@ -244,7 +244,7 @@
         questions: {
           ko: { q: "레몬 강황이 들어간 강렬한 샷도 좋아해요?" },
           en: { q: "Do you also like an intense lemon-turmeric shot?" },
-          ja: { q: "レモンとウコンが入った強烈なショットも好きですか？" },
+          ja: { q: "레몬과 강황이 들어간 강렬한 샷도 좋아하세요?" },
           zh: { q: "喜欢加入柠檬和姜黄的强效生力饮吗？" },
           fr: { q: "Aimez-vous un shot intense citron-curcuma ?" }
         },
@@ -286,7 +286,7 @@
         questions: {
           ko: { q: "위장을 편안하게 달래주는 양배추 좋아해요?" },
           en: { q: "Do you like soothing cabbage that eases your stomach?" },
-          ja: { q: "胃を優しくいたわるキャベツは好きですか？" },
+          ja: { q: "胃를 優しくいたわるキャベツは好きですか？" },
           zh: { q: "喜欢温和舒缓肠胃的卷心菜吗？" },
           fr: { q: "Aimez-vous le chou apaisant pour l'estomac ?" }
         },
@@ -328,7 +328,7 @@
         questions: {
           ko: { q: "몸을 맑고 가볍게 비워주는 비트 좋아해요?" },
           en: { q: "Do you like revitalizing beetroot that cleanses your body?" },
-          ja: { q: "体をすっきりと軽く整えるビーツは好きですか？" },
+          ja: { q: "体をすっきりと軽く整えるビーツ는 좋아하세요?" },
           zh: { q: "喜欢能让身心轻盈排浊的甜菜根吗？" },
           fr: { q: "Aimez-vous la betterave pour purifier votre corps ?" }
         },
@@ -339,7 +339,7 @@
         questions: {
           ko: { q: "코코넛밀크 좋아해요?" },
           en: { q: "Do you like silky coconut milk?" },
-          ja: { q: "まろやかなココナッツミルクは好きですか？" },
+          ja: { q: "まろやかなココナッツミルク는 좋아하세요?" },
           zh: { q: "喜欢香醇丝滑的椰奶吗？" },
           fr: { q: "Aimez-vous la douceur du lait de coco ?" }
         },
@@ -412,7 +412,7 @@
         questions: {
           ko: { q: "누구나 좋아하는 맛을 원하시나요?" },
           en: { q: "Looking for a crowd-pleaser that anyone will love?" },
-          ja: { q: "誰にでも喜ばれる定番の味をお探しですか？" },
+          ja: { q: "誰にでも喜ばれる定番의 味をお探しですか？" },
           zh: { q: "想要大家都喜欢的百搭经典风味吗？" },
           fr: { q: "Cherchez-vous un goût universellement adoré ?" }
         },
@@ -753,7 +753,7 @@
         `;
       }
 
-      // 3. 결과 화면 (인라인 px 스타일로 html2canvas 왜곡/벗어남 원천 차단)
+      // 3. 결과 화면 (주황색 배지 flex 정렬 및 line-height 보정으로 텍스트 이탈 방지)
       else if (currentView === "result") {
         const menuObj = MENUS[currentSubNode];
         const menu = menuObj[currentLang] || menuObj["ko"];
@@ -763,19 +763,20 @@
           <div class="animate-fade-in flex flex-col justify-between h-full py-1">
             
             <!-- 폴라로이드 사진 프레임: 세로 비율 대폭 확보 및 인라인 픽셀 지정 -->
-            <div id="polaroid-frame" style="width: 100%; max-width: 320px; background-color: #ffffff; padding: 16px 16px 28px 16px; border-radius: 18px; border: 1px solid #E5E7EB; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08); margin: auto auto; display: flex; flex-direction: column; align-items: center;">
+            <div id="polaroid-frame" style="width: 100%; max-width: 320px; background-color: #ffffff; padding: 16px 16px 28px 16px; border-radius: 18px; border: 1px solid #E5E7EB; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08); margin: auto auto; display: flex; flex-direction: column; align-items: center; box-sizing: border-box;">
               
               <!-- 폴라로이드 사진 내부 컨텐츠 박스 -->
-              <div style="width: 100%; background-color: #FCF9F5; border: 1px solid #FEEAD8; border-radius: 14px; padding: 16px 12px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+              <div style="width: 100%; background-color: #FCF9F5; border: 1px solid #FEEAD8; border-radius: 14px; padding: 16px 12px; display: flex; flex-direction: column; align-items: center; text-align: center; box-sizing: border-box;">
                 
                 <!-- 상단 토끼 캐릭터 -->
-                <div style="width: 52px; height: 52px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center;">
+                <div style="width: 52px; height: 52px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center;">
                   <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span style=\\'font-size:36px;\\'>🐰</span>';" style="width: 52px; height: 52px; object-fit: contain;" />
                 </div>
 
-                <span style="display: inline-block; padding: 3px 10px; background-color: #F97316; color: #ffffff; font-size: 10px; font-weight: 800; border-radius: 9999px; margin-bottom: 8px; letter-spacing: -0.2px;">
+                <!-- 오늘의 건강한 선택 배지: flex 수직 중앙 정렬 & 여유 있는 패딩으로 이탈 방지 -->
+                <div style="display: inline-flex; align-items: center; justify-content: center; padding: 6px 16px; background-color: #F97316; color: #ffffff; font-size: 11px; font-weight: 800; border-radius: 9999px; margin-bottom: 10px; letter-spacing: -0.2px; line-height: 1; box-sizing: border-box;">
                   ${i18n.recommendBadge}
-                </span>
+                </div>
 
                 <h2 style="font-size: 20px; font-weight: 900; color: #1C1917; margin: 0 0 4px 0; letter-spacing: -0.5px; line-height: 1.2;">
                   ${menu.name}
@@ -785,7 +786,7 @@
                   ${menu.tag}
                 </p>
 
-                <!-- 설명 박스: 픽셀 단위 폰트 및 라인하이트로 렌더링 고정 -->
+                <!-- 설명 박스 -->
                 <div style="width: 100%; background-color: rgba(255, 255, 255, 0.95); padding: 10px 10px; border-radius: 10px; border: 1px solid #E7E5E4; box-sizing: border-box;">
                   <p style="margin: 0; color: #44403C; font-size: 10.5px; line-height: 1.45; word-break: keep-all; letter-spacing: -0.2px; text-align: center;">
                     ${menu.desc}
