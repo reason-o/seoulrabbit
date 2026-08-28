@@ -34,11 +34,6 @@
     .animate-fade-in {
       animation: fadeIn 0.2s ease-out forwards;
     }
-    /* 폴라로이드 하단 텍스트용 감성 폰트 스타일 */
-    .polaroid-caption {
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      letter-spacing: -0.01em;
-    }
   </style>
 </head>
 <body class="bg-[#FAF7F2] min-h-screen text-stone-800 flex items-center justify-center p-3 sm:p-4 font-sans antialiased">
@@ -78,15 +73,14 @@
     <!-- 동적 화면 렌더링 영역 -->
     <div id="view-container" class="flex-1 p-3.5 sm:p-4 flex flex-col justify-center"></div>
 
-    <!-- 하단 푸터 & 서울래빗 로고 및 슬로건 (홈/질문 화면에서만 표시) -->
+    <!-- 하단 푸터 & 서울래빗 로고 -->
     <footer id="main-footer" class="py-3 text-center bg-stone-50/50 border-t border-stone-100 flex flex-col items-center justify-center gap-1">
       <div id="logo-container" class="flex justify-center items-center">
         <img src="logo.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-xs font-extrabold tracking-widest text-orange-600 uppercase\'>Seoul Rabbit</span>';" class="h-6 max-w-[140px] object-contain" />
       </div>
-      <div id="footer-text" class="text-[11px] text-stone-400 font-medium leading-tight text-center">
-        <p class="font-semibold tracking-wide text-stone-500">Drink different, Seoul Rabbit</p>
-        <p class="text-[10px] text-stone-400">드링크 디퍼런트, 서울래빗</p>
-      </div>
+      <p id="footer-text" class="text-[11px] text-stone-400 font-medium">
+        서울래빗 주스랩
+      </p>
     </footer>
   </main>
 
@@ -100,11 +94,10 @@
         headerSub: "오늘 뭐 마실지 고민돼요?",
         headerTitle: "서울래빗이 골라드릴게요.",
         backText: "이전",
-        footerEn: "Drink different, Seoul Rabbit",
-        footerKo: "드링크 디퍼런트, 서울래빗",
+        footerText: "서울래빗 주스랩",
         exploreMenuBtn: "서울래빗 전체 메뉴 구경하기",
-        recommendBadge: "MY CUSTOM JUICE",
-        saveImgBtn: "폴라로이드 사진 저장하기 📸",
+        recommendBadge: "오늘의 건강한 선택!",
+        saveImgBtn: "이미지 저장",
         orderBtn: "네이버 주문으로 바로가기",
         restartBtn: "처음으로",
         defaultYes: "YES (좋아요)",
@@ -114,11 +107,10 @@
         headerSub: "Not sure what to drink today?",
         headerTitle: "Seoul Rabbit has your pick.",
         backText: "Back",
-        footerEn: "Drink different, Seoul Rabbit",
-        footerKo: "드링크 디퍼런트, 서울래빗",
+        footerText: "Seoul Rabbit Juice Lab",
         exploreMenuBtn: "Explore Full Menu",
-        recommendBadge: "MY CUSTOM JUICE",
-        saveImgBtn: "Save Polaroid Image 📸",
+        recommendBadge: "Healthy Choice of the Day!",
+        saveImgBtn: "Save Image",
         orderBtn: "Order on Naver",
         restartBtn: "Home",
         defaultYes: "YES",
@@ -128,11 +120,10 @@
         headerSub: "今日何を飲むか迷っていますか？",
         headerTitle: "ソウルラビットが選びます！",
         backText: "戻る",
-        footerEn: "Drink different, Seoul Rabbit",
-        footerKo: "드링크 디퍼런트, 서울래빗",
+        footerText: "ソウルラビット ジュースラボ",
         exploreMenuBtn: "全メニューを見る",
-        recommendBadge: "MY CUSTOM JUICE",
-        saveImgBtn: "ポラロイド画像を保存 📸",
+        recommendBadge: "今日の健康的な選択！",
+        saveImgBtn: "画像を保存",
         orderBtn: "Naverで注文する",
         restartBtn: "最初に戻る",
         defaultYes: "YES (はい)",
@@ -142,11 +133,10 @@
         headerSub: "今天不知道喝什么好吗？",
         headerTitle: "首尔兔子为你量身推荐！",
         backText: "返回",
-        footerEn: "Drink different, Seoul Rabbit",
-        footerKo: "드링크 디퍼런트, 서울래빗",
+        footerText: "Seoul Rabbit 果汁实验所",
         exploreMenuBtn: "查看全部菜单",
-        recommendBadge: "MY CUSTOM JUICE",
-        saveImgBtn: "保存拍立得卡片 📸",
+        recommendBadge: "今日健康之选！",
+        saveImgBtn: "保存图片",
         orderBtn: "前往 Naver 点餐",
         restartBtn: "回到首页",
         defaultYes: "YES (是的)",
@@ -156,11 +146,10 @@
         headerSub: "Vous hésitez sur votre boisson ?",
         headerTitle: "Seoul Rabbit choisit pour vous.",
         backText: "Retour",
-        footerEn: "Drink different, Seoul Rabbit",
-        footerKo: "드링크 디퍼런트, 서울래빗",
+        footerText: "Seoul Rabbit Juice Lab",
         exploreMenuBtn: "Découvrir tout le menu",
-        recommendBadge: "MY CUSTOM JUICE",
-        saveImgBtn: "Enregistrer le Polaroid 📸",
+        recommendBadge: "Le Choix Sain du Jour !",
+        saveImgBtn: "Enregistrer l'image",
         orderBtn: "Commander sur Naver",
         restartBtn: "Accueil",
         defaultYes: "OUI",
@@ -350,7 +339,7 @@
         questions: {
           ko: { q: "코코넛밀크 좋아해요?" },
           en: { q: "Do you like silky coconut milk?" },
-          ja: { q: "まろやかなココナッツミルクは好きですか？" },
+          ja: { q: "まろやかなココナッツミルク는 좋아하세요?" },
           zh: { q: "喜欢香醇丝滑的椰奶吗？" },
           fr: { q: "Aimez-vous la douceur du lait de coco ?" }
         },
@@ -571,10 +560,7 @@
       headerSub.innerText = i18n.headerSub;
       headerTitle.innerText = i18n.headerTitle;
       backText.innerText = i18n.backText;
-      footerText.innerHTML = `
-        <p class="font-semibold tracking-wide text-stone-500">${i18n.footerEn}</p>
-        <p class="text-[10px] text-stone-400">${i18n.footerKo}</p>
-      `;
+      footerText.innerText = i18n.footerText;
 
       render();
     };
@@ -628,8 +614,8 @@
       if (!card) return;
 
       const saveBtn = document.getElementById("btn-save-image");
-      const originalText = saveBtn.innerText;
-      saveBtn.innerText = "폴라로이드 인화 중... ⏳";
+      const originalHtml = saveBtn.innerHTML;
+      saveBtn.innerHTML = `<span>저장 중... ⏳</span>`;
       saveBtn.disabled = true;
 
       html2canvas(card, {
@@ -638,16 +624,16 @@
         useCORS: true
       }).then(canvas => {
         const link = document.createElement("a");
-        link.download = `서울래빗-폴라로이드-${Date.now()}.png`;
+        link.download = `서울래빗-오늘의주스-${Date.now()}.png`;
         link.href = canvas.toDataURL("image/png");
         link.click();
 
-        saveBtn.innerText = originalText;
+        saveBtn.innerHTML = originalHtml;
         saveBtn.disabled = false;
       }).catch(err => {
         console.error("이미지 저장 오류:", err);
         alert("이미지 저장 중 오류가 발생했습니다.");
-        saveBtn.innerText = originalText;
+        saveBtn.innerHTML = originalHtml;
         saveBtn.disabled = false;
       });
     };
@@ -673,7 +659,6 @@
         homeTitleBox.classList.add("hidden");
         mainHeader.className = "p-3 text-center relative border-b border-stone-100 min-h-[44px]";
         btnBack.classList.remove("hidden");
-        // 결과 화면에서는 폴라로이드 자체에 슬로건이 들어가므로 외부 푸터 숨김
         mainFooter.classList.add("hidden");
       }
 
@@ -759,7 +744,7 @@
         `;
       }
 
-      // 3. 결과 화면 (폴라로이드 디자인 적용)
+      // 3. 결과 화면 (수정된 폴라로이드 디자인 + 화이트 이미지 저장 버튼)
       else if (currentView === "result") {
         const menuObj = MENUS[currentSubNode];
         const menu = menuObj[currentLang] || menuObj["ko"];
@@ -769,7 +754,7 @@
           <div class="animate-fade-in flex flex-col justify-between h-full py-1">
             
             <!-- 폴라로이드 사진 프레임 (캡처 대상) -->
-            <div id="polaroid-frame" class="bg-white p-4 pb-6 rounded-2xl shadow-xl shadow-stone-900/10 border border-stone-200 mx-auto w-full max-w-[340px] my-auto flex flex-col items-center">
+            <div id="polaroid-frame" class="bg-white p-4 pb-7 rounded-2xl shadow-xl shadow-stone-900/10 border border-stone-200 mx-auto w-full max-w-[340px] my-auto flex flex-col items-center">
               
               <!-- 폴라로이드 사진 내부 컨텐츠 박스 -->
               <div class="w-full bg-[#FCF9F5] border border-orange-100/90 rounded-xl p-4 flex flex-col items-center text-center">
@@ -779,7 +764,7 @@
                   <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-5xl\\'>🐰</span>';" class="w-16 h-16 object-contain drop-shadow-sm" />
                 </div>
 
-                <span class="inline-block px-2.5 py-0.5 bg-orange-500 text-white text-[10px] font-black tracking-widest rounded-full mb-2 uppercase">
+                <span class="inline-block px-3 py-1 bg-orange-500 text-white text-[11px] font-black tracking-wide rounded-full mb-2">
                   ${i18n.recommendBadge}
                 </span>
 
@@ -791,42 +776,32 @@
                   ${menu.tag}
                 </p>
 
-                <div class="bg-white/80 p-3 rounded-xl border border-stone-200/60 text-stone-700 text-xs leading-relaxed break-keep text-center w-full shadow-inner">
+                <div class="bg-white/90 p-3.5 rounded-xl border border-stone-200/60 text-stone-700 text-xs leading-relaxed break-keep text-center w-full shadow-inner">
                   ${menu.desc}
                 </div>
-              </div>
-
-              <!-- 폴라로이드 하단 여백: 2줄 슬로건 -->
-              <div class="w-full pt-4 pb-1 text-center polaroid-caption">
-                <p class="text-xs font-black tracking-wide text-stone-800 leading-tight">
-                  Drink different,
-                </p>
-                <p class="text-xs font-black tracking-wider text-orange-600 leading-tight uppercase">
-                  Seoul Rabbit
-                </p>
               </div>
             </div>
 
             <!-- 하단 액션 버튼 그룹 -->
             <div class="flex flex-col gap-2 pt-3 w-full max-w-[340px] mx-auto">
-              <!-- 이미지 저장하기 버튼 -->
-              <button id="btn-save-image" onclick="saveResultImage()" class="w-full py-3.5 px-5 rounded-2xl bg-stone-900 active:bg-black active:scale-[0.98] transition-all text-white font-bold text-sm shadow-md flex items-center justify-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span>${i18n.saveImgBtn}</span>
-              </button>
-
-              <!-- 네이버 주문하기 버튼 -->
-              <a href="${targetOrderUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-5 rounded-2xl bg-green-600 active:bg-green-700 active:scale-[0.98] transition-all text-white font-black text-sm shadow-md shadow-green-600/20 flex items-center justify-center gap-2">
+              <!-- 네이버 주문하기 버튼 (가장 눈에 띔) -->
+              <a href="${targetOrderUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-5 rounded-2xl bg-green-600 active:bg-green-700 active:scale-[0.98] transition-all text-white font-black text-base shadow-md shadow-green-600/25 flex items-center justify-center gap-2">
                 <span>${i18n.orderBtn}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </a>
 
+              <!-- 이미지 저장 버튼 (화이트 배경으로 서브 역할) -->
+              <button id="btn-save-image" onclick="saveResultImage()" class="w-full py-3 px-5 rounded-2xl bg-white border border-stone-300 active:bg-stone-50 active:scale-[0.98] transition-all text-stone-700 font-bold text-sm shadow-sm flex items-center justify-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span>${i18n.saveImgBtn}</span>
+              </button>
+
               <!-- 처음으로 버튼 -->
-              <button onclick="resetQuiz()" class="w-full py-2 text-stone-400 active:text-stone-700 text-xs font-bold transition-colors">
+              <button onclick="resetQuiz()" class="w-full py-1.5 text-stone-400 active:text-stone-700 text-xs font-bold transition-colors">
                 ${i18n.restartBtn}
               </button>
             </div>
