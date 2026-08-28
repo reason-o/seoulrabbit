@@ -23,6 +23,9 @@
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- html2canvas (이미지 캡처 및 다운로드 라이브러리) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
   <style>
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
@@ -96,6 +99,7 @@
         footerKo: "드링크 디퍼런트, 서울래빗",
         exploreMenuBtn: "서울래빗 전체 메뉴 구경하기",
         recommendBadge: "지금 딱 맞는 추천 메뉴",
+        saveImgBtn: "결과 이미지 저장하기 📸",
         orderBtn: "네이버 주문으로 바로가기",
         restartBtn: "처음으로",
         defaultYes: "YES (좋아요)",
@@ -109,6 +113,7 @@
         footerKo: "드링크 디퍼런트, 서울래빗",
         exploreMenuBtn: "Explore Full Menu",
         recommendBadge: "RECOMMENDED FOR YOU",
+        saveImgBtn: "Save Result Image 📸",
         orderBtn: "Order on Naver",
         restartBtn: "Home",
         defaultYes: "YES",
@@ -122,6 +127,7 @@
         footerKo: "드링크 디퍼런트, 서울래빗",
         exploreMenuBtn: "全メニューを見る",
         recommendBadge: "あなたへのおすすめ",
+        saveImgBtn: "結果画像を保存する 📸",
         orderBtn: "Naverで注文する",
         restartBtn: "最初に戻る",
         defaultYes: "YES (はい)",
@@ -135,6 +141,7 @@
         footerKo: "드링크 디퍼런트, 서울래빗",
         exploreMenuBtn: "查看全部菜单",
         recommendBadge: "为你推荐",
+        saveImgBtn: "保存推荐图片 📸",
         orderBtn: "前往 Naver 点餐",
         restartBtn: "回到首页",
         defaultYes: "YES (是的)",
@@ -148,6 +155,7 @@
         footerKo: "드링크 디퍼런트, 서울래빗",
         exploreMenuBtn: "Découvrir tout le menu",
         recommendBadge: "RECOMMANDÉ POUR VOUS",
+        saveImgBtn: "Enregistrer l'image 📸",
         orderBtn: "Commander sur Naver",
         restartBtn: "Accueil",
         defaultYes: "OUI",
@@ -326,7 +334,7 @@
         questions: {
           ko: { q: "몸을 맑고 가볍게 비워주는 비트 좋아해요?" },
           en: { q: "Do you like revitalizing beetroot that cleanses your body?" },
-          ja: { q: "体をすっきりと軽く整えるビーツ는 좋아하세요?" },
+          ja: { q: "体をすっきりと軽く整えるビーツは好きですか？" },
           zh: { q: "喜欢能让身心轻盈排浊的甜菜根吗？" },
           fr: { q: "Aimez-vous la betterave pour purifier votre corps ?" }
         },
@@ -608,6 +616,36 @@
       render();
     };
 
+    // 이미지 저장 기능
+    window.saveResultImage = function() {
+      const card = document.getElementById("result-capture-card");
+      if (!card) return;
+
+      const saveBtn = document.getElementById("btn-save-image");
+      const originalText = saveBtn.innerText;
+      saveBtn.innerText = "이미지 생성 중... ⏳";
+      saveBtn.disabled = true;
+
+      html2canvas(card, {
+        scale: 3, // 고화질 캡처
+        backgroundColor: "#FFFFFF",
+        useCORS: true
+      }).then(canvas => {
+        const link = document.createElement("a");
+        link.download = `서울래빗-추천주스-${Date.now()}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+
+        saveBtn.innerText = originalText;
+        saveBtn.disabled = false;
+      }).catch(err => {
+        console.error("이미지 저장 오류:", err);
+        alert("이미지 저장 중 오류가 발생했습니다.");
+        saveBtn.innerText = originalText;
+        saveBtn.disabled = false;
+      });
+    };
+
     function render() {
       const i18n = I18N[currentLang];
 
@@ -706,7 +744,7 @@
         `;
       }
 
-      // 3. 결과 화면
+      // 3. 결과 화면 (캐릭터 상단 배치 + 캡처 카드 + 이미지 저장 버튼 추가)
       else if (currentView === "result") {
         const menuObj = MENUS[currentSubNode];
         const menu = menuObj[currentLang] || menuObj["ko"];
@@ -714,29 +752,48 @@
 
         viewContainer.innerHTML = `
           <div class="animate-fade-in flex flex-col justify-between h-full text-center py-1">
-            <div class="my-auto py-2">
-              <span class="inline-block px-3 py-1 bg-orange-100 text-orange-700 text-xs font-extrabold rounded-full mb-3">
+            
+            <!-- 캡처 대상 영역 (캐릭터 + 주스 정보) -->
+            <div id="result-capture-card" class="bg-white p-3 rounded-2xl my-auto">
+              <!-- 맨 처음 캐릭터 아이콘 -->
+              <div class="flex justify-center mb-2">
+                <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-5xl\\'>🐰</span>';" class="w-16 h-16 object-contain drop-shadow-md" />
+              </div>
+
+              <span class="inline-block px-3 py-1 bg-orange-100 text-orange-700 text-xs font-extrabold rounded-full mb-2.5">
                 ${i18n.recommendBadge}
               </span>
-              <h2 class="text-2xl font-extrabold text-stone-900 tracking-tight mb-2">
+              <h2 class="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight mb-1.5">
                 ${menu.name}
               </h2>
-              <p class="text-xs font-semibold text-orange-600 tracking-wide mb-3">
+              <p class="text-xs font-bold text-orange-600 tracking-wide mb-3">
                 ${menu.tag}
               </p>
-              <div class="bg-[#FFFDF9] p-4 rounded-2xl border border-[#EADBCC] text-stone-700 text-sm leading-relaxed break-keep shadow-sm">
+              <div class="bg-[#FFFDF9] p-4 rounded-2xl border border-[#EADBCC] text-stone-700 text-sm leading-relaxed break-keep shadow-sm text-center">
                 ${menu.desc}
               </div>
             </div>
 
-            <div class="flex flex-col gap-2.5 pt-3">
-              <a href="${targetOrderUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-4 px-5 rounded-2xl bg-green-600 active:bg-green-700 active:scale-[0.98] transition-all text-white font-black text-base shadow-md shadow-green-600/20 flex items-center justify-center gap-2">
+            <!-- 하단 액션 버튼 그룹 -->
+            <div class="flex flex-col gap-2 pt-2">
+              <!-- 이미지 저장하기 버튼 -->
+              <button id="btn-save-image" onclick="saveResultImage()" class="w-full py-3 px-5 rounded-2xl bg-stone-800 active:bg-stone-900 active:scale-[0.98] transition-all text-white font-bold text-sm shadow-md flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span>${i18n.saveImgBtn}</span>
+              </button>
+
+              <!-- 네이버 주문하기 버튼 -->
+              <a href="${targetOrderUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-5 rounded-2xl bg-green-600 active:bg-green-700 active:scale-[0.98] transition-all text-white font-black text-base shadow-md shadow-green-600/20 flex items-center justify-center gap-2">
                 <span>${i18n.orderBtn}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </a>
-              <button onclick="resetQuiz()" class="w-full py-2.5 text-stone-500 active:text-stone-800 text-sm font-bold transition-colors">
+
+              <!-- 처음으로 버튼 -->
+              <button onclick="resetQuiz()" class="w-full py-2 text-stone-500 active:text-stone-800 text-sm font-bold transition-colors">
                 ${i18n.restartBtn}
               </button>
             </div>
