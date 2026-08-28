@@ -23,9 +23,6 @@
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- html2canvas (이미지 캡처 및 다운로드 라이브러리) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
   <style>
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
@@ -83,6 +80,25 @@
       </p>
     </footer>
   </main>
+
+  <!-- 아이폰/모바일 길게 눌러 저장용 모달 팝업 -->
+  <div id="image-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex-col items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-4 max-w-xs w-full flex flex-col items-center shadow-2xl animate-fade-in relative">
+      <button onclick="closeImageModal()" class="absolute right-3 top-3 p-1.5 text-stone-400 hover:text-stone-700 bg-stone-100 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <p class="text-xs font-bold text-orange-600 mb-1">📸 갤러리 저장 방법</p>
+      <h3 class="text-sm font-black text-stone-900 mb-3 text-center">아래 이미지를 꾹 눌러<br><span class="text-orange-600">[사진 앱에 저장]</span>을 선택하세요</h3>
+      <img id="modal-img-preview" src="" alt="추천 결과" class="w-full rounded-2xl border border-stone-200 shadow-sm mb-3" />
+      <button onclick="closeImageModal()" class="w-full py-2.5 bg-stone-100 active:bg-stone-200 rounded-xl font-bold text-xs text-stone-700">
+        닫기
+      </button>
+    </div>
+  </div>
+
+  <canvas id="hidden-render-canvas" style="display: none;"></canvas>
 
   <script>
     let currentLang = "ko";
@@ -221,7 +237,6 @@
     ];
 
     const SUB_QUESTIONS = {
-      // 1. 기운이 없어요 분기
       q_wake_ginger_like: {
         intro: {
           ko: "으랏차차! 힘낼 수 있는 메뉴를 추천할게요!",
@@ -244,8 +259,8 @@
         questions: {
           ko: { q: "레몬 강황이 들어간 강렬한 샷도 좋아해요?" },
           en: { q: "Do you also like an intense lemon-turmeric shot?" },
-          ja: { q: "レモンとウコンが入った強烈なショットも好きですか？" },
-          zh: { q: "喜欢加入柠檬和姜黄的强效生力饮吗？" },
+          ja: { q: "레몬과 강황이 들어간 강렬한 샷도 좋아하세요?" },
+          zh: { q: "喜欢加入柠檬和姜黄의 强效生力饮吗？" },
           fr: { q: "Aimez-vous un shot intense citron-curcuma ?" }
         },
         yes: { result: "ginger_shot" },
@@ -256,7 +271,7 @@
           ko: { q: "상큼한 오렌지 좋아해요?" },
           en: { q: "Do you like refreshing orange?" },
           ja: { q: "爽やかなオレンジは好きですか？" },
-          zh: { q: "喜欢酸甜清爽的香橙吗？" },
+          zh: { q: "喜欢酸甜清爽의 香橙吗？" },
           fr: { q: "Aimez-vous l'orange acidulée et fraîche ?" }
         },
         yes: { result: "orange_carrot_ginger" },
@@ -274,20 +289,19 @@
         no: { result: "carrot_apple" }
       },
 
-      // 2. 속이 더부룩해요 분기
       q_bloat_cabbage: {
         intro: {
           ko: "편안한 속을 위해 추천해드릴게요!",
           en: "Here are our gentle picks for digestive comfort!",
           ja: "お腹をスッキリ整えるおすすめの一杯をご提案！",
-          zh: "为你推荐温和舒适、轻盈舒胃的饮品！",
+          zh: "为你推荐温和舒适、轻盈舒胃의 饮品！",
           fr: "Nos meilleures suggestions pour apaiser votre estomac !"
         },
         questions: {
           ko: { q: "위장을 편안하게 달래주는 양배추 좋아해요?" },
           en: { q: "Do you like soothing cabbage that eases your stomach?" },
           ja: { q: "胃を優しくいたわるキャベツは好きですか？" },
-          zh: { q: "喜欢温和舒缓肠胃的卷心菜吗？" },
+          zh: { q: "喜欢温和舒缓肠胃의 卷心菜吗？" },
           fr: { q: "Aimez-vous le chou apaisant pour l'estomac ?" }
         },
         yes: { result: "cca_juice" },
@@ -305,7 +319,6 @@
         no: { result: "abc_juice" }
       },
 
-      // 3. 건강해질래요 분기
       q_health_veggie: {
         intro: {
           ko: "건강한 하루를 위한 추천!",
@@ -318,7 +331,7 @@
           ko: { q: "채소 가득 주스 좋아해요?" },
           en: { q: "Do you enjoy a veggie-packed nutrient juice?" },
           ja: { q: "野菜たっぷりの本格ジュースは好きですか？" },
-          zh: { q: "喜欢果蔬满满的纯正天然果汁吗？" },
+          zh: { q: "喜欢果蔬满满의 纯正天然果汁吗？" },
           fr: { q: "Aimez-vous les jus riches en légumes ?" }
         },
         yes: "q_health_beet",
@@ -328,8 +341,8 @@
         questions: {
           ko: { q: "몸을 맑고 가볍게 비워주는 비트 좋아해요?" },
           en: { q: "Do you like revitalizing beetroot that cleanses your body?" },
-          ja: { q: "体をすっきりと軽く整えるビーツは好きですか？" },
-          zh: { q: "喜欢能让身心轻盈排浊的甜菜根吗？" },
+          ja: { q: "体をすっきりと軽く整えるビーツ는 좋아하세요?" },
+          zh: { q: "喜欢能让身心轻盈排浊의 甜菜根吗？" },
           fr: { q: "Aimez-vous la betterave pour purifier votre corps ?" }
         },
         yes: { result: "abc_juice" },
@@ -339,15 +352,14 @@
         questions: {
           ko: { q: "코코넛밀크 좋아해요?" },
           en: { q: "Do you like silky coconut milk?" },
-          ja: { q: "まろやかなココナッツミルクは好きですか？" },
-          zh: { q: "喜欢香醇丝滑的椰奶吗？" },
+          ja: { q: "まろやかなココナッツミルク는 좋아하세요?" },
+          zh: { q: "喜欢香醇丝滑의 椰奶吗？" },
           fr: { q: "Aimez-vous la douceur du lait de coco ?" }
         },
         yes: { result: "coco_carrot" },
         no: { result: "carrot_apple" }
       },
 
-      // 4. 재미가 필요해요 분기
       q_fun_creamy: {
         intro: {
           ko: "상상하지 못한 재미를 드려요!",
@@ -360,7 +372,7 @@
           ko: { q: "부드럽고 크리미한 맛이 좋아요?" },
           en: { q: "Do you prefer a smooth, creamy and rich taste?" },
           ja: { q: "濃厚でクリーミーな味わいはお好きですか？" },
-          zh: { q: "喜欢丝滑醇厚、奶香满满的口感吗？" },
+          zh: { q: "喜欢丝滑醇厚、奶香满满의 口感吗？" },
           fr: { q: "Préférez-vous une texture douce et crémeuse ?" }
         },
         yes: "q_fun_coconut_aroma",
@@ -381,8 +393,8 @@
         questions: {
           ko: { q: "열대과일 파인애플 좋아해요?" },
           en: { q: "Do you like tropical pineapple?" },
-          ja: { q: "南国フルーツのパイナップルは好きですか？" },
-          zh: { q: "喜欢酸甜多汁的热带菠萝吗？" },
+          ja: { q: "南国フルーツ의 パイナップル는 좋아하세요?" },
+          zh: { q: "喜欢酸甜多汁의 热带菠萝吗？" },
           fr: { q: "Aimez-vous l'ananas tropical ?" }
         },
         yes: { result: "carrot_colada" },
@@ -400,7 +412,6 @@
         no: { result: "carrot_lemon_soda" }
       },
 
-      // 5. 선물이 필요해요 분기
       q_gift_popular: {
         intro: {
           ko: "캐롯보틀로 센스있는 선물!",
@@ -412,7 +423,7 @@
         questions: {
           ko: { q: "누구나 좋아하는 맛을 원하시나요?" },
           en: { q: "Looking for a crowd-pleaser that anyone will love?" },
-          ja: { q: "誰にでも喜ばれる定番の味をお探しですか？" },
+          ja: { q: "誰にでも喜ばれる定番의 味をお探しですか？" },
           zh: { q: "想要大家都喜欢的百搭经典风味吗？" },
           fr: { q: "Cherchez-vous un goût universellement adoré ?" }
         },
@@ -453,7 +464,7 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18262909?area=bnq",
         ko: { name: "당근생강", tag: "#알싸한생강 #환상조합", desc: "달달한 당근에 은은하게 퍼지는 알싸한 생강! 깔끔한 뒷맛!" },
         en: { name: "Carrot Ginger", tag: "#SpicyGinger #PerfectDuo", desc: "Sweet carrot blended with the warm spice of ginger. Wonderfully clean finish!" },
-        ja: { name: "キャロットジンジャー", tag: "#ピリッと生姜 #黄金コンビ", desc: "甘いニンジンにじんわり広がる生姜의 アクセント！後味もすっきり爽やか！" },
+        ja: { name: "キャロットジンジャー", tag: "#ピリッと生姜 #黄金コンビ", desc: "甘いニンジン에 じんわり広がる生姜의 アクセント！後味도 すっきり爽やか！" },
         zh: { name: "胡萝卜生姜汁", tag: "#温润生姜 #绝妙搭配", desc: "清甜胡萝卜中融入温润辛香의 生姜，回味格外清爽！" },
         fr: { name: "Carotte Gingembre", tag: "#GingembreÉpicé #DuoParfait", desc: "Carotte douce relevée d'une touche de gingembre pour une fin de bouche très nette !" }
       },
@@ -469,7 +480,7 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18262733?area=bnq",
         ko: { name: "당근사과", tag: "#달콤상큼 #실패없는맛 #인기1위", desc: "사과의 달콤함과 당근이 만났어요. 누구나 다 좋아하는 꿀조합 베스트셀러 주스예요." },
         en: { name: "Carrot Apple", tag: "#SweetCrisp #NeverFails #No1Popular", desc: "Crisp sweet apples harmoniously blended with fresh carrots. Our all-time #1 bestseller!" },
-        ja: { name: "キャロットアップル", tag: "#甘酸っぱい #大人気 #不動のNo1", desc: "甘酸っぱいリンゴと新鮮なニンジンが出会った、誰もが大好きな人気No.1ベストセラー！" },
+        ja: { name: "キャロットアップル", tag: "#甘酸っぱい #大人気 #不動のNo1", desc: "甘酸っぱいリンゴ와 新鮮なニンジン이 出会った、誰もが大好きな人気No.1ベストセラー！" },
         zh: { name: "苹果胡萝卜汁", tag: "#酸甜可口 #经典百搭 #人气第一", desc: "清甜苹果遇上鲜嫩胡萝卜，人手一杯、绝不踩雷的高人气镇店之宝。" },
         fr: { name: "Carotte Pomme", tag: "#DouxEtFrais #Incontournable #TopVente", desc: "La pomme croquante mariée à la carotte douce. Le best-seller n°1 adoré de tous !" }
       },
@@ -509,7 +520,7 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/23041516?area=bnq",
         ko: { name: "마시는 당근케이크", tag: "#달콤디저트 #케이크맛 #달달한행복", desc: "진짜 당근 케이크를 마시는 듯 단짠단짠! 부드러운 행복을 주는 프리미엄 디저트 주스예요. 당근주스와 치즈폼, 시나몬 톡톡!" },
         en: { name: "Drinking Carrot Cake", tag: "#SweetDessert #CakeFlavored #PureHappiness", desc: "Like drinking real carrot cake with a sweet & savory twist! Fresh carrot juice topped with rich cheese foam and cinnamon." },
-        ja: { name: "飲むキャロットケーキ", tag: "#飲むスイーツ #あまじょっぱい #至福のデザート", desc: "まるで本物のキャロットケーキを飲んでいるような甘じょっぱさ！特製チーズフォームとシナモンが香る贅沢デザート。" },
+        ja: { name: "飲むキャロットケーキ", tag: "#飲むスイーツ #あまじょっぱい #至福のデザート", desc: "まるで本物のキャロットケーキを飲んでいるような甘じょっぱさ！特製チーズフォーム과 シナモン이 香る贅沢デザート。" },
         zh: { name: "可以喝的胡萝卜蛋糕", tag: "#甜品特饮 #咸甜蛋糕风味 #治愈幸福感", desc: "宛如喝得到的咸甜胡萝卜蛋糕！清甜胡萝卜汁融入醇厚芝士奶盖，撒上肉桂香气，一口治愈。" },
         fr: { name: "Drinking Carrot Cake", tag: "#DessertGourmand #GoûtGâteau #MousseFromage", desc: "Un vrai gâteau à la carotte à boire ! Jus de carotte doux surmonté d'une mousse fromage onctueuse et d'une touche de cannelle." }
       },
@@ -608,42 +619,213 @@
       render();
     };
 
-    // 이미지 저장 기능 (html2canvas baseline 보정 렌더러)
-    window.saveResultImage = function() {
-      const card = document.getElementById("polaroid-frame");
-      if (!card) return;
+    function closeImageModal() {
+      document.getElementById("image-modal").classList.add("hidden");
+      document.getElementById("image-modal").classList.remove("flex");
+    }
 
+    function drawRoundRect(ctx, x, y, width, height, radius, fillStyle, strokeStyle, lineWidth) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+      if (fillStyle) {
+        ctx.fillStyle = fillStyle;
+        ctx.fill();
+      }
+      if (strokeStyle) {
+        ctx.strokeStyle = strokeStyle;
+        ctx.lineWidth = lineWidth || 1;
+        ctx.stroke();
+      }
+    }
+
+    function drawWrapText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(" ");
+      let line = "";
+      let lines = [];
+
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + " ";
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          lines.push(line.trim());
+          line = words[n] + " ";
+        } else {
+          line = testLine;
+        }
+      }
+      lines.push(line.trim());
+
+      const startY = y - ((lines.length - 1) * lineHeight) / 2;
+      for (let k = 0; k < lines.length; k++) {
+        ctx.fillText(lines[k], x, startY + k * lineHeight);
+      }
+    }
+
+    // 아이폰 갤러리 저장 및 Web Share API 연동
+    window.saveResultImage = function() {
       const saveBtn = document.getElementById("btn-save-image");
       const originalHtml = saveBtn.innerHTML;
-      saveBtn.innerHTML = `<span>저장 중... ⏳</span>`;
+      saveBtn.innerHTML = `<span>생성 중... ⏳</span>`;
       saveBtn.disabled = true;
 
-      html2canvas(card, {
-        scale: 3,
-        backgroundColor: "#FFFFFF",
-        useCORS: true,
-        logging: false,
-        onclone: (clonedDoc) => {
-          // html2canvas가 한글 baseline을 강제로 내리는 버그를 원천 차단하기 위해 캡처 복제본에서 미세 보정 적용
-          const badgeText = clonedDoc.getElementById("badge-text-box");
-          if (badgeText) {
-            badgeText.style.transform = "translateY(-1.5px)";
-          }
-        }
-      }).then(canvas => {
-        const link = document.createElement("a");
-        link.download = `Seoul Rabbit.png`;
-        link.href = canvas.toDataURL("image/png");
-        link.click();
+      const canvas = document.getElementById("hidden-render-canvas");
+      const ctx = canvas.getContext("2d");
 
-        saveBtn.innerHTML = originalHtml;
-        saveBtn.disabled = false;
-      }).catch(err => {
-        console.error("이미지 저장 오류:", err);
-        alert("이미지 저장 중 오류가 발생했습니다.");
-        saveBtn.innerHTML = originalHtml;
-        saveBtn.disabled = false;
-      });
+      const width = 800;
+      const height = 940;
+      canvas.width = width;
+      canvas.height = height;
+
+      // 1. 외부 폴라로이드
+      drawRoundRect(ctx, 0, 0, width, height, 48, "#FFFFFF", "#E5E7EB", 3);
+
+      // 2. 내부 사진 박스
+      const innerX = 44;
+      const innerY = 44;
+      const innerW = 712;
+      const innerH = 710;
+      drawRoundRect(ctx, innerX, innerY, innerW, innerH, 32, "#FCF9F5", "#FEEAD8", 2.5);
+
+      const menuObj = MENUS[currentSubNode];
+      const menu = menuObj[currentLang] || menuObj["ko"];
+      const i18n = I18N[currentLang];
+
+      const rabbitImg = new Image();
+      rabbitImg.crossOrigin = "anonymous";
+      rabbitImg.src = "icon-green.png";
+
+      const renderCanvasContent = () => {
+        // 3. 토끼 아이콘
+        const iconSize = 140;
+        const iconX = (width - iconSize) / 2;
+        const iconY = innerY + 45;
+
+        if (rabbitImg.complete && rabbitImg.naturalWidth !== 0) {
+          ctx.drawImage(rabbitImg, iconX, iconY, iconSize, iconSize);
+        } else {
+          ctx.font = "85px sans-serif";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("🐰", width / 2, iconY + iconSize / 2);
+        }
+
+        // 4. 주황색 배지
+        const badgeW = 310;
+        const badgeH = 54;
+        const badgeX = (width - badgeW) / 2;
+        const badgeY = iconY + iconSize + 30;
+        drawRoundRect(ctx, badgeX, badgeY, badgeW, badgeH, badgeH / 2, "#F97316");
+
+        ctx.fillStyle = "#FFFFFF";
+        ctx.font = "bold 23px -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(i18n.recommendBadge, width / 2, badgeY + badgeH / 2 + 1);
+
+        // 5. 메뉴명
+        ctx.fillStyle = "#1C1917";
+        ctx.font = "900 44px -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(menu.name, width / 2, badgeY + badgeH + 48);
+
+        // 6. 해시태그
+        ctx.fillStyle = "#EA580C";
+        ctx.font = "bold 23px -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif";
+        ctx.fillText(menu.tag, width / 2, badgeY + badgeH + 96);
+
+        // 7. 설명 박스
+        const descBoxW = 630;
+        const descBoxH = 150;
+        const descBoxX = (width - descBoxW) / 2;
+        const descBoxY = badgeY + badgeH + 128;
+        drawRoundRect(ctx, descBoxX, descBoxY, descBoxW, descBoxH, 20, "#FFFFFF", "#E7E5E4", 2);
+
+        ctx.fillStyle = "#44403C";
+        ctx.font = "500 22px -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        drawWrapText(ctx, menu.desc, width / 2, descBoxY + descBoxH / 2, descBoxW - 50, 36);
+
+        // 8. 하단 슬로건
+        const footerY = innerY + innerH + 52;
+        ctx.fillStyle = "#44403C";
+        ctx.font = "bold 25px -apple-system, BlinkMacSystemFont, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("Drink different,", width / 2, footerY);
+
+        ctx.fillStyle = "#EA580C";
+        ctx.font = "900 27px -apple-system, BlinkMacSystemFont, sans-serif";
+        ctx.fillText("SEOUL RABBIT", width / 2, footerY + 36);
+
+        // 9. 이미지 Blob 생성 및 아이폰 분기 처리
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            saveBtn.innerHTML = originalHtml;
+            saveBtn.disabled = false;
+            return;
+          }
+
+          const file = new File([blob], "Seoul Rabbit.png", { type: "image/png" });
+          const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+          // iOS 사파리 Web Share API 지원 시 -> 공유창에서 즉시 [이미지 저장] 가능
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            navigator.share({
+              files: [file],
+              title: "서울래빗 추천 주스",
+              text: "서울래빗이 추천해준 맞춤 주스!"
+            }).then(() => {
+              saveBtn.innerHTML = originalHtml;
+              saveBtn.disabled = false;
+            }).catch((err) => {
+              if (err.name !== 'AbortError') {
+                showModalFallback(canvas.toDataURL("image/png"));
+              }
+              saveBtn.innerHTML = originalHtml;
+              saveBtn.disabled = false;
+            });
+          } else if (isIOS) {
+            // iOS 인앱 브라우저 등에서 share 미지원 시 길게 누르는 모달 제공
+            showModalFallback(canvas.toDataURL("image/png"));
+            saveBtn.innerHTML = originalHtml;
+            saveBtn.disabled = false;
+          } else {
+            // PC / 안드로이드 일반 다운로드
+            const link = document.createElement("a");
+            link.download = "Seoul Rabbit.png";
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+            saveBtn.innerHTML = originalHtml;
+            saveBtn.disabled = false;
+          }
+        }, "image/png");
+      };
+
+      function showModalFallback(dataUrl) {
+        const modal = document.getElementById("image-modal");
+        const previewImg = document.getElementById("modal-img-preview");
+        previewImg.src = dataUrl;
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+
+      if (rabbitImg.complete) {
+        renderCanvasContent();
+      } else {
+        rabbitImg.onload = renderCanvasContent;
+        rabbitImg.onerror = renderCanvasContent;
+      }
     };
 
     function render() {
@@ -698,7 +880,6 @@
         html += `
             </div>
 
-            <!-- 배지형 전체 메뉴 보기 버튼 -->
             <div class="pt-2 w-full flex justify-center">
               <a href="https://m.booking.naver.com/order/bizes/1140512/items/5866364?area=bnq" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-orange-50 text-orange-700 border border-orange-200 active:scale-95 transition-transform text-xs font-black shadow-sm">
                 <span>🥕</span>
@@ -752,7 +933,7 @@
         `;
       }
 
-      // 3. 결과 화면 (고정 높이 및 정중앙 절대 렌더링)
+      // 3. 결과 화면
       else if (currentView === "result") {
         const menuObj = MENUS[currentSubNode];
         const menu = menuObj[currentLang] || menuObj["ko"];
@@ -761,46 +942,42 @@
         viewContainer.innerHTML = `
           <div class="animate-fade-in flex flex-col justify-between h-full py-1">
             
-            <!-- 폴라로이드 사진 프레임 -->
-            <div id="polaroid-frame" style="width: 100%; max-width: 320px; background-color: #ffffff; padding: 18px 16px 28px 16px; border-radius: 18px; border: 1px solid #E5E7EB; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08); margin: auto auto; display: flex; flex-direction: column; align-items: center; box-sizing: border-box;">
+            <!-- 폴라로이드 사진 프레임 (화면 UI) -->
+            <div class="w-full max-w-[320px] bg-white p-4 pb-7 rounded-2xl border border-stone-200 shadow-xl shadow-stone-900/10 mx-auto my-auto flex flex-col items-center">
               
-              <!-- 폴라로이드 사진 내부 컨텐츠 박스 -->
-              <div style="width: 100%; background-color: #FCF9F5; border: 1px solid #FEEAD8; border-radius: 14px; padding: 16px 12px; display: flex; flex-direction: column; align-items: center; text-align: center; box-sizing: border-box;">
+              <!-- 폴라로이드 내부 박스 -->
+              <div class="w-full bg-[#FCF9F5] border border-orange-100/90 rounded-2xl p-4 flex flex-col items-center text-center">
                 
                 <!-- 상단 토끼 캐릭터 -->
-                <div style="width: 52px; height: 52px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center;">
-                  <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span style=\\'font-size:36px;\\'>🐰</span>';" style="width: 52px; height: 52px; object-fit: contain;" />
+                <div class="w-14 h-14 mb-2.5 flex items-center justify-center">
+                  <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-4xl\\'>🐰</span>';" class="w-14 h-14 object-contain drop-shadow-sm" />
                 </div>
 
-                <!-- 주황색 캡슐 배지: 고정 높이 26px + table 셀 정렬로 상하 완전 중앙 고정 -->
-                <div style="display: table; background-color: #F97316; border-radius: 13px; height: 26px; padding: 0 14px; margin-bottom: 12px; box-sizing: border-box;">
-                  <div id="badge-text-box" style="display: table-cell; vertical-align: middle; height: 26px; text-align: center; color: #ffffff; font-size: 11px; font-weight: 800; letter-spacing: -0.2px; line-height: 1;">
-                    ${i18n.recommendBadge}
-                  </div>
+                <!-- 오늘의 건강한 선택 캡슐 배지 -->
+                <div class="inline-flex items-center justify-center px-4 py-1.5 bg-orange-500 text-white text-xs font-black tracking-tight rounded-full mb-2">
+                  ${i18n.recommendBadge}
                 </div>
 
-                <h2 style="font-size: 20px; font-weight: 900; color: #1C1917; margin: 0 0 4px 0; letter-spacing: -0.5px; line-height: 1.2;">
+                <h2 class="text-2xl font-black text-stone-900 tracking-tight mb-1">
                   ${menu.name}
                 </h2>
 
-                <p style="font-size: 11px; font-weight: 700; color: #EA580C; margin: 0 0 10px 0; letter-spacing: -0.3px; line-height: 1.2;">
+                <p class="text-xs font-bold text-orange-600 tracking-tight mb-2.5">
                   ${menu.tag}
                 </p>
 
                 <!-- 설명 박스 -->
-                <div style="width: 100%; background-color: rgba(255, 255, 255, 0.95); padding: 12px 10px; border-radius: 10px; border: 1px solid #E7E5E4; box-sizing: border-box;">
-                  <p style="margin: 0; color: #44403C; font-size: 10.5px; line-height: 1.5; word-break: keep-all; letter-spacing: -0.2px; text-align: center;">
-                    ${menu.desc}
-                  </p>
+                <div class="w-full bg-white/95 p-3 rounded-xl border border-stone-200/70 text-stone-700 text-xs leading-relaxed break-keep text-center shadow-inner min-h-[58px] flex items-center justify-center">
+                  ${menu.desc}
                 </div>
               </div>
 
-              <!-- 폴라로이드 하단 여백: 2줄 슬로건 -->
-              <div style="width: 100%; padding-top: 14px; text-align: center;">
-                <p style="margin: 0; font-size: 11.5px; font-weight: 700; color: #44403C; line-height: 1.2; letter-spacing: -0.2px;">
+              <!-- 폴라로이드 하단 2줄 슬로건 -->
+              <div class="w-full pt-4 text-center">
+                <p class="text-xs font-bold tracking-tight text-stone-700 leading-tight">
                   Drink different,
                 </p>
-                <p style="margin: 2px 0 0 0; font-size: 11.5px; font-weight: 900; color: #EA580C; line-height: 1.2; letter-spacing: 0.5px; text-transform: uppercase;">
+                <p class="text-xs font-black tracking-wider text-orange-600 leading-tight uppercase mt-0.5">
                   Seoul Rabbit
                 </p>
               </div>
