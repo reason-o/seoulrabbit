@@ -34,6 +34,9 @@
     .animate-fade-in {
       animation: fadeIn 0.2s ease-out forwards;
     }
+    .polaroid-caption {
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
   </style>
 </head>
 <body class="bg-[#FAF7F2] min-h-screen text-stone-800 flex items-center justify-center p-3 sm:p-4 font-sans antialiased">
@@ -73,7 +76,7 @@
     <!-- 동적 화면 렌더링 영역 -->
     <div id="view-container" class="flex-1 p-3.5 sm:p-4 flex flex-col justify-center"></div>
 
-    <!-- 하단 푸터 & 서울래빗 로고 -->
+    <!-- 하단 푸터 & 서울래빗 로고 (홈/질문 화면에서만 표시) -->
     <footer id="main-footer" class="py-3 text-center bg-stone-50/50 border-t border-stone-100 flex flex-col items-center justify-center gap-1">
       <div id="logo-container" class="flex justify-center items-center">
         <img src="logo.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-xs font-extrabold tracking-widest text-orange-600 uppercase\'>Seoul Rabbit</span>';" class="h-6 max-w-[140px] object-contain" />
@@ -244,7 +247,7 @@
         questions: {
           ko: { q: "레몬 강황이 들어간 강렬한 샷도 좋아해요?" },
           en: { q: "Do you also like an intense lemon-turmeric shot?" },
-          ja: { q: "レモンとウコンが入った強烈なショットも好きですか？" },
+          ja: { q: "레몬과 강황이 들어간 강렬한 샷도 좋아하세요?" },
           zh: { q: "喜欢加入柠檬和姜黄的强效生力饮吗？" },
           fr: { q: "Aimez-vous un shot intense citron-curcuma ?" }
         },
@@ -486,7 +489,7 @@
         ko: { name: "CCA주스", tag: "#속편한주스 #양배추당근사과 #가벼운루틴", desc: "당근(Carrot), 양배추(Cabbage), 사과(Apple)의 신선함으로 편안하고 가벼운 하루를 완성합니다." },
         en: { name: "CCA Juice", tag: "#StomachComfort #CabbageCarrotApple #LightRoutine", desc: "Fresh blend of Carrot, Cabbage, and Apple designed for digestive comfort and a light day." },
         ja: { name: "CCAジュース", tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やかルーティン", desc: "ニンジン・キャベツ・リンゴ의 やさしい新鮮さで、心地よく軽やかな毎日を。" },
-        zh: { name: "CCA 舒胃果蔬汁", tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #轻盈日常", desc: "新鲜胡萝卜、卷心菜和苹果调配，温和呵护肠胃，带来无负担的轻盈感。" },
+        zh: { name: "CCA 舒胃果蔬汁", tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #轻盈日常", desc: "新鲜胡萝卜、卷心菜和苹果调配，温和呵护肠胃，带来无负担의 轻盈感。" },
         fr: { name: "Jus CCA", tag: "#EstomacLéger #ChouCarottePomme #DigestionFacile", desc: "Carotte, chou et pomme pour apaiser l'estomac et faire du bien à votre corps." }
       },
       coco_carrot: {
@@ -624,7 +627,7 @@
         useCORS: true
       }).then(canvas => {
         const link = document.createElement("a");
-        link.download = `서울래빗-오늘의주스-${Date.now()}.png`;
+        link.download = `서울래빗-폴라로이드-${Date.now()}.png`;
         link.href = canvas.toDataURL("image/png");
         link.click();
 
@@ -744,7 +747,7 @@
         `;
       }
 
-      // 3. 결과 화면 (수정된 폴라로이드 디자인 + 화이트 이미지 저장 버튼)
+      // 3. 결과 화면 (설명 텍스트 크기 최적화 + 2줄 슬로건 폴라로이드)
       else if (currentView === "result") {
         const menuObj = MENUS[currentSubNode];
         const menu = menuObj[currentLang] || menuObj["ko"];
@@ -754,17 +757,17 @@
           <div class="animate-fade-in flex flex-col justify-between h-full py-1">
             
             <!-- 폴라로이드 사진 프레임 (캡처 대상) -->
-            <div id="polaroid-frame" class="bg-white p-4 pb-7 rounded-2xl shadow-xl shadow-stone-900/10 border border-stone-200 mx-auto w-full max-w-[340px] my-auto flex flex-col items-center">
+            <div id="polaroid-frame" class="bg-white p-4 pb-5 rounded-2xl shadow-xl shadow-stone-900/10 border border-stone-200 mx-auto w-full max-w-[340px] my-auto flex flex-col items-center">
               
               <!-- 폴라로이드 사진 내부 컨텐츠 박스 -->
-              <div class="w-full bg-[#FCF9F5] border border-orange-100/90 rounded-xl p-4 flex flex-col items-center text-center">
+              <div class="w-full bg-[#FCF9F5] border border-orange-100/90 rounded-xl p-3.5 flex flex-col items-center text-center">
                 
                 <!-- 상단 토끼 캐릭터 -->
-                <div class="w-16 h-16 mb-2 flex items-center justify-center">
-                  <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-5xl\\'>🐰</span>';" class="w-16 h-16 object-contain drop-shadow-sm" />
+                <div class="w-14 h-14 mb-1.5 flex items-center justify-center">
+                  <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-4xl\\'>🐰</span>';" class="w-14 h-14 object-contain drop-shadow-sm" />
                 </div>
 
-                <span class="inline-block px-3 py-1 bg-orange-500 text-white text-[11px] font-black tracking-wide rounded-full mb-2">
+                <span class="inline-block px-2.5 py-0.5 bg-orange-500 text-white text-[10.5px] font-black tracking-wide rounded-full mb-1.5">
                   ${i18n.recommendBadge}
                 </span>
 
@@ -772,19 +775,30 @@
                   ${menu.name}
                 </h2>
 
-                <p class="text-[11px] font-bold text-orange-600 tracking-tight mb-2.5">
+                <p class="text-[11px] font-bold text-orange-600 tracking-tight mb-2">
                   ${menu.tag}
                 </p>
 
-                <div class="bg-white/90 p-3.5 rounded-xl border border-stone-200/60 text-stone-700 text-xs leading-relaxed break-keep text-center w-full shadow-inner">
+                <!-- 설명 텍스트 (줄간격과 폰트 크기 미세 조절로 깔끔한 여백 확보) -->
+                <div class="bg-white/90 p-3 rounded-xl border border-stone-200/60 text-stone-700 text-[11.5px] leading-relaxed break-keep text-center w-full shadow-inner">
                   ${menu.desc}
                 </div>
+              </div>
+
+              <!-- 폴라로이드 하단 여백: 콤마 기준 2줄 슬로건 -->
+              <div class="w-full pt-3.5 pb-0.5 text-center polaroid-caption">
+                <p class="text-[11.5px] font-bold tracking-tight text-stone-700 leading-tight">
+                  Drink different,
+                </p>
+                <p class="text-[12px] font-black tracking-wider text-orange-600 leading-tight uppercase">
+                  Seoul Rabbit
+                </p>
               </div>
             </div>
 
             <!-- 하단 액션 버튼 그룹 -->
             <div class="flex flex-col gap-2 pt-3 w-full max-w-[340px] mx-auto">
-              <!-- 네이버 주문하기 버튼 (가장 눈에 띔) -->
+              <!-- 네이버 주문하기 버튼 (메인 강조) -->
               <a href="${targetOrderUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-5 rounded-2xl bg-green-600 active:bg-green-700 active:scale-[0.98] transition-all text-white font-black text-base shadow-md shadow-green-600/25 flex items-center justify-center gap-2">
                 <span>${i18n.orderBtn}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -792,7 +806,7 @@
                 </svg>
               </a>
 
-              <!-- 이미지 저장 버튼 (화이트 배경으로 서브 역할) -->
+              <!-- 이미지 저장 버튼 (화이트 서브 버튼) -->
               <button id="btn-save-image" onclick="saveResultImage()" class="w-full py-3 px-5 rounded-2xl bg-white border border-stone-300 active:bg-stone-50 active:scale-[0.98] transition-all text-stone-700 font-bold text-sm shadow-sm flex items-center justify-center gap-1.5">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
