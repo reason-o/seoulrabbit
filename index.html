@@ -247,7 +247,7 @@
         questions: {
           ko: { q: "레몬 강황이 들어간 강렬한 샷도 좋아해요?" },
           en: { q: "Do you also like an intense lemon-turmeric shot?" },
-          ja: { q: "레몬과 강황이 들어간 강렬한 샷도 좋아하세요?" },
+          ja: { q: "レモンとウコンが入った強烈なショットも好きですか？" },
           zh: { q: "喜欢加入柠檬和姜黄的强效生力饮吗？" },
           fr: { q: "Aimez-vous un shot intense citron-curcuma ?" }
         },
@@ -331,7 +331,7 @@
         questions: {
           ko: { q: "몸을 맑고 가볍게 비워주는 비트 좋아해요?" },
           en: { q: "Do you like revitalizing beetroot that cleanses your body?" },
-          ja: { q: "体をすっきりと軽く整えるビーツ는 좋아하세요?" },
+          ja: { q: "体をすっきりと軽く整えるビーツは好きですか？" },
           zh: { q: "喜欢能让身心轻盈排浊的甜菜根吗？" },
           fr: { q: "Aimez-vous la betterave pour purifier votre corps ?" }
         },
@@ -342,7 +342,7 @@
         questions: {
           ko: { q: "코코넛밀크 좋아해요?" },
           en: { q: "Do you like silky coconut milk?" },
-          ja: { q: "まろやかなココナッツミルク는 좋아하세요?" },
+          ja: { q: "まろやかなココナッツミルクは好きですか？" },
           zh: { q: "喜欢香醇丝滑的椰奶吗？" },
           fr: { q: "Aimez-vous la douceur du lait de coco ?" }
         },
@@ -384,7 +384,7 @@
         questions: {
           ko: { q: "열대과일 파인애플 좋아해요?" },
           en: { q: "Do you like tropical pineapple?" },
-          ja: { q: "南国フルーツ의 パイナップル는 좋아하세요?" },
+          ja: { q: "南国フルーツのパイナップル는 좋아하세요?" },
           zh: { q: "喜欢酸甜多汁的热带菠萝吗？" },
           fr: { q: "Aimez-vous l'ananas tropical ?" }
         },
@@ -449,7 +449,7 @@
         ko: { name: "오렌지당근생강", tag: "#상큼오렌지 #기분전환", desc: "상큼한 오렌지 뒤에 은은한 생강 맛이 싹 돌아서 마시자마자 기분이 산뜻해져요." },
         en: { name: "Orange Carrot Ginger", tag: "#FreshOrange #RefreshingMood", desc: "Zesty fresh orange with a subtle warm twist for a bright, uplifting feeling right away." },
         ja: { name: "オレンジキャロット生姜", tag: "#爽やかオレンジ #気分転換", desc: "爽やかなオレンジの後にほんのり生姜が広がり、飲んだ瞬間気分がすっきり晴れやかに。" },
-        zh: { name: "香橙胡萝卜生姜汁", tag: "#鲜橙果香 #焕新心情", desc: "清甜鲜橙伴随着若隐若现的温润姜香，入口瞬间身心舒畅。" },
+        zh: { name: "香橙胡萝卜生姜汁", tag: "#鲜橙果香 #焕新心情", desc: "清甜鲜橙伴随着若隐若现의 温润姜香，入口瞬间身心舒畅。" },
         fr: { name: "Orange Carotte Gingembre", tag: "#OrangeFraîche #NouvelleÉnergie", desc: "L'orange acidulée suivie d'une douce note de gingembre pour un coup d'éclat immédiat." }
       },
       carrot_ginger: {
@@ -465,7 +465,7 @@
         ko: { name: "당근커피", tag: "#카페인충전 #시그니처커피 #은은한단맛", desc: "당근의 달달함에 콜드브루커피가 더해진 서울래빗만의 특별한 시그니처 커피예요." },
         en: { name: "Carrot Coffee", tag: "#CaffeineFix #SignatureCoffee #SubtleSweet", desc: "Sweet cold-pressed carrot meets smooth cold brew coffee. Seoul Rabbit's iconic creation!" },
         ja: { name: "キャロットコーヒー", tag: "#カフェイン補給 #名物珈琲 #優しい甘み", desc: "ニンジンの自然な甘みにコールドブリュー珈琲を合わせたソウルラビット名物の一杯。" },
-        zh: { name: "胡萝卜咖啡", tag: "#咖啡因充能 #招牌咖啡 #自然回甘", desc: "自然清甜的胡萝卜原汁融入顺滑冷萃咖啡，首尔兔子独家招牌特调。" },
+        zh: { name: "胡萝卜咖啡", tag: "#咖啡因充能 #招牌咖啡 #自然回甘", desc: "自然清甜의 胡萝卜原汁融入顺滑冷萃咖啡，首尔兔子独家招牌特调。" },
         fr: { name: "Carrot Coffee", tag: "#CaféOriginal #ColdBrew #Signature", desc: "La douceur de la carotte alliée à un cold brew aromatique. Notre signature exclusive !" }
       },
       carrot_apple: {
@@ -611,7 +611,7 @@
       render();
     };
 
-    // 폴라로이드 사진 이미지 저장
+    // 폴라로이드 사진 이미지 저장 (파일명: Seoul Rabbit.png)
     window.saveResultImage = function() {
       const card = document.getElementById("polaroid-frame");
       if (!card) return;
@@ -627,7 +627,7 @@
         useCORS: true
       }).then(canvas => {
         const link = document.createElement("a");
-        link.download = `서울래빗-폴라로이드-${Date.now()}.png`;
+        link.download = `Seoul Rabbit.png`;
         link.href = canvas.toDataURL("image/png");
         link.click();
 
@@ -747,7 +747,7 @@
         `;
       }
 
-      // 3. 결과 화면 (설명 텍스트 크기 최적화 + 2줄 슬로건 폴라로이드)
+      // 3. 결과 화면 (폰트 크기 및 여백 미세 조절 완료)
       else if (currentView === "result") {
         const menuObj = MENUS[currentSubNode];
         const menu = menuObj[currentLang] || menuObj["ko"];
@@ -757,47 +757,47 @@
           <div class="animate-fade-in flex flex-col justify-between h-full py-1">
             
             <!-- 폴라로이드 사진 프레임 (캡처 대상) -->
-            <div id="polaroid-frame" class="bg-white p-4 pb-5 rounded-2xl shadow-xl shadow-stone-900/10 border border-stone-200 mx-auto w-full max-w-[340px] my-auto flex flex-col items-center">
+            <div id="polaroid-frame" class="bg-white p-3.5 pb-4 rounded-2xl shadow-xl shadow-stone-900/10 border border-stone-200 mx-auto w-full max-w-[325px] my-auto flex flex-col items-center">
               
               <!-- 폴라로이드 사진 내부 컨텐츠 박스 -->
-              <div class="w-full bg-[#FCF9F5] border border-orange-100/90 rounded-xl p-3.5 flex flex-col items-center text-center">
+              <div class="w-full bg-[#FCF9F5] border border-orange-100/90 rounded-xl p-3 flex flex-col items-center text-center">
                 
                 <!-- 상단 토끼 캐릭터 -->
-                <div class="w-14 h-14 mb-1.5 flex items-center justify-center">
-                  <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-4xl\\'>🐰</span>';" class="w-14 h-14 object-contain drop-shadow-sm" />
+                <div class="w-12 h-12 mb-1 flex items-center justify-center">
+                  <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl\\'>🐰</span>';" class="w-12 h-12 object-contain drop-shadow-sm" />
                 </div>
 
-                <span class="inline-block px-2.5 py-0.5 bg-orange-500 text-white text-[10.5px] font-black tracking-wide rounded-full mb-1.5">
+                <span class="inline-block px-2.5 py-0.5 bg-orange-500 text-white text-[10px] font-black tracking-wide rounded-full mb-1">
                   ${i18n.recommendBadge}
                 </span>
 
-                <h2 class="text-2xl font-black text-stone-900 tracking-tight mb-1">
+                <h2 class="text-xl font-black text-stone-900 tracking-tight mb-0.5">
                   ${menu.name}
                 </h2>
 
-                <p class="text-[11px] font-bold text-orange-600 tracking-tight mb-2">
+                <p class="text-[10.5px] font-bold text-orange-600 tracking-tight mb-2">
                   ${menu.tag}
                 </p>
 
-                <!-- 설명 텍스트 (줄간격과 폰트 크기 미세 조절로 깔끔한 여백 확보) -->
-                <div class="bg-white/90 p-3 rounded-xl border border-stone-200/60 text-stone-700 text-[11.5px] leading-relaxed break-keep text-center w-full shadow-inner">
+                <!-- 최적화된 설명 텍스트 (작고 단정한 폰트 & 정돈된 박스 크기) -->
+                <div class="bg-white/95 px-3 py-2 rounded-lg border border-stone-200/60 text-stone-700 text-[10.5px] leading-relaxed tracking-tight break-keep text-center w-full shadow-inner">
                   ${menu.desc}
                 </div>
               </div>
 
               <!-- 폴라로이드 하단 여백: 콤마 기준 2줄 슬로건 -->
-              <div class="w-full pt-3.5 pb-0.5 text-center polaroid-caption">
-                <p class="text-[11.5px] font-bold tracking-tight text-stone-700 leading-tight">
+              <div class="w-full pt-3 pb-0.5 text-center polaroid-caption">
+                <p class="text-[11px] font-bold tracking-tight text-stone-700 leading-tight">
                   Drink different,
                 </p>
-                <p class="text-[12px] font-black tracking-wider text-orange-600 leading-tight uppercase">
+                <p class="text-[11px] font-black tracking-wider text-orange-600 leading-tight uppercase">
                   Seoul Rabbit
                 </p>
               </div>
             </div>
 
             <!-- 하단 액션 버튼 그룹 -->
-            <div class="flex flex-col gap-2 pt-3 w-full max-w-[340px] mx-auto">
+            <div class="flex flex-col gap-2 pt-2.5 w-full max-w-[325px] mx-auto">
               <!-- 네이버 주문하기 버튼 (메인 강조) -->
               <a href="${targetOrderUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-5 rounded-2xl bg-green-600 active:bg-green-700 active:scale-[0.98] transition-all text-white font-black text-base shadow-md shadow-green-600/25 flex items-center justify-center gap-2">
                 <span>${i18n.orderBtn}</span>
@@ -815,7 +815,7 @@
               </button>
 
               <!-- 처음으로 버튼 -->
-              <button onclick="resetQuiz()" class="w-full py-1.5 text-stone-400 active:text-stone-700 text-xs font-bold transition-colors">
+              <button onclick="resetQuiz()" class="w-full py-1 text-stone-400 active:text-stone-700 text-xs font-bold transition-colors">
                 ${i18n.restartBtn}
               </button>
             </div>
