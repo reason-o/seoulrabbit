@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>서울래빗 주스랩 - 메뉴 찾기</title>
+
+  <!-- 카카오톡 및 SNS 공유(오픈그래프) 설정 -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="서울래빗 주스랩 | 내 몸에 맞는 주스 찾기" />
+  <meta property="og:description" content="지금 내 몸 상태와 기분에 딱 맞는 맞춤 주스를 찾아보세요." />
+  <meta id="og-image-tag" property="og:image" content="og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script>
+    const ogImg = document.getElementById('og-image-tag');
+    if (ogImg && !ogImg.content.startsWith('http')) {
+      ogImg.content = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + 'og-image.png';
+    }
+  </script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.2s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="bg-[#FAF7F2] min-h-screen text-stone-800 flex items-center justify-center p-3 sm:p-4 font-sans antialiased">
+
+  <!-- 메인 카드 컨테이너 -->
+  <main class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-orange-950/5 border border-orange-100/80 overflow-hidden flex flex-col min-h-[640px] relative">
+    
+    <!-- 언어 선택 바 (첫 화면에서만 표시) -->
+    <nav id="lang-bar" class="bg-stone-50/80 border-b border-orange-50 px-3 py-2 flex items-center justify-center gap-1 text-xs">
+      <button onclick="setLanguage('ko')" id="lang-ko" class="lang-btn px-2.5 py-1 rounded-full font-bold transition-all bg-orange-500 text-white">한국어</button>
+      <button onclick="setLanguage('en')" id="lang-en" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600">English</button>
+      <button onclick="setLanguage('ja')" id="lang-ja" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600">日本語</button>
+      <button onclick="setLanguage('zh')" id="lang-zh" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600">中文</button>
+      <button onclick="setLanguage('fr')" id="lang-fr" class="lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600">Français</button>
+    </nav>
+
+    <!-- 상단 헤더 -->
+    <header id="main-header" class="p-4 pb-2 relative border-b border-orange-50">
+      <!-- 뒤로가기 버튼 -->
+      <button id="btn-back" class="hidden absolute left-4 top-4 text-stone-600 transition-colors flex items-center gap-1 text-xs font-bold bg-stone-100 active:bg-stone-200 px-2.5 py-1.5 rounded-full z-10" aria-label="Back">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span id="back-text">이전</span>
+      </button>
+
+      <!-- 홈 전용 헤더 -->
+      <div id="home-title-box" class="flex items-center justify-center gap-2.5 py-1">
+        <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-4xl\'>🐰</span>';" class="w-14 h-14 object-contain drop-shadow-sm flex-shrink-0" />
+        <div class="flex flex-col text-left">
+          <p id="header-sub" class="text-xs font-bold text-orange-600 tracking-tight leading-none mb-1">오늘 뭐 마실지 고민돼요?</p>
+          <h1 id="header-title" class="text-lg font-black text-stone-900 tracking-tight leading-snug">서울래빗이 골라드릴게요.</h1>
+        </div>
+      </div>
+    </header>
+
+    <!-- 동적 화면 렌더링 영역 -->
+    <div id="view-container" class="flex-1 p-3.5 sm:p-4 flex flex-col justify-center"></div>
+
+    <!-- 하단 푸터 & 서울래빗 로고 (홈/질문 화면에서만 표시) -->
+    <footer id="main-footer" class="py-3 text-center bg-stone-50/50 border-t border-stone-100 flex flex-col items-center justify-center gap-1">
+      <div id="logo-container" class="flex justify-center items-center">
+        <img src="logo.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\'text-xs font-extrabold tracking-widest text-orange-600 uppercase\'>Seoul Rabbit</span>';" class="h-6 max-w-[140px] object-contain" />
+      </div>
+      <p id="footer-text" class="text-[11px] text-stone-400 font-medium">
+        서울래빗 주스랩
+      </p>
+    </footer>
+  </main>
+
+  <!-- 아이폰/모바일 길게 눌러 저장용 모달 팝업 -->
+  <div id="image-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex-col items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-4 max-w-xs w-full flex flex-col items-center shadow-2xl animate-fade-in relative">
+      <button onclick="closeImageModal()" class="absolute right-3 top-3 p-1.5 text-stone-400 hover:text-stone-700 bg-stone-100 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <p class="text-xs font-bold text-orange-600 mb-1">📸 갤러리 저장 방법</p>
+      <h3 class="text-sm font-black text-stone-900 mb-3 text-center">아래 이미지를 꾹 눌러<br><span class="text-orange-600">[사진 앱에 저장]</span>을 선택하세요</h3>
+      <img id="modal-img-preview" src="" alt="추천 결과" class="w-full rounded-2xl border border-stone-200 shadow-sm mb-3" />
+      <button onclick="closeImageModal()" class="w-full py-2.5 bg-stone-100 active:bg-stone-200 rounded-xl font-bold text-xs text-stone-700">
+        닫기
+      </button>
+    </div>
+  </div>
+
+  <canvas id="hidden-render-canvas" style="display: none;"></canvas>
+
+  <script>
+    let currentLang = "ko";
+    let currentView = "home";
+    let currentSubNode = null;
+
+    const I18N = {
+      ko: {
+        headerSub: "오늘 뭐 마실지 고민돼요?",
+        headerTitle: "서울래빗이 골라드릴게요.",
+        backText: "이전",
+        footerText: "서울래빗 주스랩",
+        exploreMenuBtn: "서울래빗 전체 메뉴 구경하기",
+        recommendBadge: "오늘의 건강한 선택!",
+        saveImgBtn: "이미지 저장",
+        orderBtn: "네이버 주문으로 바로가기",
+        restartBtn: "처음으로",
+        defaultYes: "YES (좋아요)",
+        defaultNo: "NO (다른 게 좋아요)"
+      },
+      en: {
+        headerSub: "Not sure what to drink today?",
+        headerTitle: "Seoul Rabbit has your pick.",
+        backText: "Back",
+        footerText: "Seoul Rabbit Juice Lab",
+        exploreMenuBtn: "Explore Full Menu",
+        recommendBadge: "Healthy Choice of the Day!",
+        saveImgBtn: "Save Image",
+        orderBtn: "Order on Naver",
+        restartBtn: "Home",
+        defaultYes: "YES",
+        defaultNo: "NO"
+      },
+      ja: {
+        headerSub: "今日何を飲むか迷っていますか？",
+        headerTitle: "ソウルラビットが選びます！",
+        backText: "戻る",
+        footerText: "ソウルラビット ジュースラボ",
+        exploreMenuBtn: "全メニューを見る",
+        recommendBadge: "今日の健康的な選択！",
+        saveImgBtn: "画像を保存",
+        orderBtn: "Naverで注文する",
+        restartBtn: "最初に戻る",
+        defaultYes: "YES (はい)",
+        defaultNo: "NO (いいえ)"
+      },
+      zh: {
+        headerSub: "今天不知道喝什么好吗？",
+        headerTitle: "首尔兔子为你量身推荐！",
+        backText: "返回",
+        footerText: "Seoul Rabbit 果汁实验所",
+        exploreMenuBtn: "查看全部菜单",
+        recommendBadge: "今日健康之选！",
+        saveImgBtn: "保存图片",
+        orderBtn: "前往 Naver 点餐",
+        restartBtn: "回到首页",
+        defaultYes: "YES (是的)",
+        defaultNo: "NO (换一个)"
+      },
+      fr: {
+        headerSub: "Vous hésitez sur votre boisson ?",
+        headerTitle: "Seoul Rabbit choisit pour vous.",
+        backText: "Retour",
+        footerText: "Seoul Rabbit Juice Lab",
+        exploreMenuBtn: "Découvrir tout le menu",
+        recommendBadge: "Le Choix Sain du Jour !",
+        saveImgBtn: "Enregistrer l'image",
+        orderBtn: "Commander sur Naver",
+        restartBtn: "Accueil",
+        defaultYes: "OUI",
+        defaultNo: "NON"
+      }
+    };
+
+    const STATUS_CATEGORIES = [
+      {
+        id: "low_energy",
+        icon: "icon-red.png",
+        fallbackEmoji: "⚡",
+        style: "transform: rotate(-4.5deg); background: linear-gradient(180deg, #FFF0EE 0%, #FFE0DC 100%); border-color: #FFAAA0; color: #881337; box-shadow: 0 4px 10px rgba(244, 63, 94, 0.15);",
+        ko: { title: "기운이 없어요" },
+        en: { title: "Feeling Drained" },
+        ja: { title: "元気が出ない" },
+        zh: { title: "浑身没力气" },
+        fr: { title: "Manque d'Énergie" },
+        nextQuestion: "q_wake_ginger_like"
+      },
+      {
+        id: "bloated_stomach",
+        icon: "icon-blue.png",
+        fallbackEmoji: "🥬",
+        style: "transform: rotate(4deg); background: linear-gradient(180deg, #EDF8FF 0%, #D8EFFF 100%); border-color: #92CEFF; color: #082F49; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.15);",
+        ko: { title: "속이 더부룩해요" },
+        en: { title: "Feeling Bloated" },
+        ja: { title: "お腹が重い・もたれる" },
+        zh: { title: "肠胃发胀发闷" },
+        fr: { title: "Estomac Lourd" },
+        nextQuestion: "q_bloat_cabbage"
+      },
+      {
+        id: "care_health",
+        icon: "icon-baby.png",
+        fallbackEmoji: "🥕",
+        style: "transform: rotate(3.2deg); background: linear-gradient(180deg, #EEFBF2 0%, #D5F5DF 100%); border-color: #8CE5A5; color: #064E3B; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.15);",
+        ko: { title: "건강해질래요" },
+        en: { title: "Want to Be Healthy" },
+        ja: { title: "健康になりたい" },
+        zh: { title: "想要健康活力" },
+        fr: { title: "Vivre Sainement" },
+        nextQuestion: "q_health_veggie"
+      },
+      {
+        id: "need_fun",
+        icon: "icon-fun.png",
+        fallbackEmoji: "🥥",
+        style: "transform: rotate(-4deg); background: linear-gradient(180deg, #F8F0FF 0%, #EBD5FF 100%); border-color: #D3A7FF; color: #3B0764; box-shadow: 0 4px 10px rgba(168, 85, 247, 0.15);",
+        ko: { title: "재미가 필요해요" },
+        en: { title: "Need Something Fun" },
+        ja: { title: "楽しさがほしい" },
+        zh: { title: "想要新鲜有趣" },
+        fr: { title: "Envie de Plaisir" },
+        nextQuestion: "q_fun_creamy"
+      },
+      {
+        id: "need_gift",
+        icon: "icon-gift.png",
+        fallbackEmoji: "🎁",
+        style: "transform: rotate(4.5deg); background: linear-gradient(180deg, #FFF8E6 0%, #FFE9B8 100%); border-color: #FCD34D; color: #451A03; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.15);",
+        ko: { title: "선물이 필요해요" },
+        en: { title: "Looking for a Gift" },
+        ja: { title: "ギフトを探している" },
+        zh: { title: "需要贴心好礼" },
+        fr: { title: "Idée Cadeau" },
+        nextQuestion: "q_gift_popular"
+      }
+    ];
+
+    const SUB_QUESTIONS = {
+      q_wake_ginger_like: {
+        intro: {
+          ko: "으랏차차! 힘낼 수 있는 메뉴를 추천할게요!",
+          en: "Power up! Here is a drink to recharge your energy!",
+          ja: "エイエイオー！元気が湧いてくるおすすめメニューをご提案！",
+          zh: "加满元气！为你推荐能瞬间恢复精力的特色饮品！",
+          fr: "Plein d'énergie ! Voici une boisson pour recharger vos batteries !"
+        },
+        questions: {
+          ko: { q: "알싸한 생강 좋아해요?" },
+          en: { q: "Do you like the spicy kick of ginger?" },
+          ja: { q: "ピリッとした生姜は好きですか？" },
+          zh: { q: "喜欢生姜特有的微辣口感吗？" },
+          fr: { q: "Aimez-vous le goût épicé du gingembre ?" }
+        },
+        yes: "q_wake_intense_shot",
+        no: "q_wake_need_coffee"
+      },
+      q_wake_intense_shot: {
+        questions: {
+          ko: { q: "레몬 강황이 들어간 강렬한 샷도 좋아해요?" },
+          en: { q: "Do you also like an intense lemon-turmeric shot?" },
+          ja: { q: "レモンとウコンが入った強烈なショットも好きですか？" },
+          zh: { q: "喜欢加入柠檬和姜黄的强效生力饮吗？" },
+          fr: { q: "Aimez-vous un shot intense citron-curcuma ?" }
+        },
+        yes: { result: "ginger_shot" },
+        no: "q_wake_like_orange_ginger"
+      },
+      q_wake_like_orange_ginger: {
+        questions: {
+          ko: { q: "상큼한 오렌지 좋아해요?" },
+          en: { q: "Do you like refreshing orange?" },
+          ja: { q: "爽やかなオレンジは好きですか？" },
+          zh: { q: "喜欢酸甜清爽的香橙吗？" },
+          fr: { q: "Aimez-vous l'orange acidulée et fraîche ?" }
+        },
+        yes: { result: "orange_carrot_ginger" },
+        no: { result: "carrot_ginger" }
+      },
+      q_wake_need_coffee: {
+        questions: {
+          ko: { q: "커피로 빠르게 카페인 충전할까요?" },
+          en: { q: "Would you like a quick caffeine recharge with coffee?" },
+          ja: { q: "珈琲（コーヒー）で素早くカフェインチャージしますか？" },
+          zh: { q: "想来杯咖啡快速补充咖啡因充能吗？" },
+          fr: { q: "Voulez-vous recharger vos batteries avec un bon café ?" }
+        },
+        yes: { result: "carrot_coffee" },
+        no: { result: "carrot_apple" }
+      },
+
+      q_bloat_cabbage: {
+        intro: {
+          ko: "편안한 속을 위해 추천해드릴게요!",
+          en: "Here are our gentle picks for digestive comfort!",
+          ja: "お腹をスッキリ整えるおすすめの一杯をご提案！",
+          zh: "为你推荐温和舒适、轻盈舒胃的饮品！",
+          fr: "Nos meilleures suggestions pour apaiser votre estomac !"
+        },
+        questions: {
+          ko: { q: "위장을 편안하게 달래주는 양배추 좋아해요?" },
+          en: { q: "Do you like soothing cabbage that eases your stomach?" },
+          ja: { q: "胃を優しくいたわるキャベツは好きですか？" },
+          zh: { q: "喜欢温和舒缓肠胃的卷心菜吗？" },
+          fr: { q: "Aimez-vous le chou apaisant pour l'estomac ?" }
+        },
+        yes: { result: "cca_juice" },
+        no: "q_bloat_ginger_shot"
+      },
+      q_bloat_ginger_shot: {
+        questions: {
+          ko: { q: "알싸하게 속을 뻥 뚫어주는 생강 샷도 좋아해요?" },
+          en: { q: "Do you also like an intense ginger shot to instantly settle your stomach?" },
+          ja: { q: "ピリッと爽快にお腹をスッキリさせる生姜ショットも好きですか？" },
+          zh: { q: "喜欢能让肠胃瞬间清透畅快的强效生姜生力饮吗？" },
+          fr: { q: "Aimez-vous un shot de gingembre épicé pour soulager l'estomac ?" }
+        },
+        yes: { result: "ginger_shot" },
+        no: { result: "abc_juice" }
+      },
+
+      q_health_veggie: {
+        intro: {
+          ko: "건강한 하루를 위한 추천!",
+          en: "Fresh picks for your healthy and vibrant day!",
+          ja: "すこやかな毎日のための元気チャージ！",
+          zh: "为你推荐开启健康元气一天的营养之选！",
+          fr: "Une sélection bienfaisante pour une journée saine !"
+        },
+        questions: {
+          ko: { q: "채소 가득 주스 좋아해요?" },
+          en: { q: "Do you enjoy a veggie-packed nutrient juice?" },
+          ja: { q: "野菜たっぷりの本格ジュースは好きですか？" },
+          zh: { q: "喜欢蔬菜满满的果汁吗？" },
+          fr: { q: "Aimez-vous les jus riches en légumes ?" }
+        },
+        yes: "q_health_beet",
+        no: "q_health_coco"
+      },
+      q_health_beet: {
+        questions: {
+          ko: { q: "몸을 맑고 가볍게 비워주는 비트 좋아해요?" },
+          en: { q: "Do you like revitalizing beetroot that cleanses your body?" },
+          ja: { q: "体をすっきりと軽く整えるビーツは好きですか？" },
+          zh: { q: "喜欢能让身心轻盈排浊的甜菜根吗？" },
+          fr: { q: "Aimez-vous la betterave pour purifier votre corps ?" }
+        },
+        yes: { result: "abc_juice" },
+        no: { result: "cca_juice" }
+      },
+      q_health_coco: {
+        questions: {
+          ko: { q: "코코넛밀크 좋아해요?" },
+          en: { q: "Do you like silky coconut milk?" },
+          ja: { q: "まろやかなココナッツミルクは好きですか？" },
+          zh: { q: "喜欢香醇丝滑的椰奶吗？" },
+          fr: { q: "Aimez-vous la douceur du lait de coco ?" }
+        },
+        yes: { result: "coco_carrot" },
+        no: { result: "carrot_apple" }
+      },
+
+      q_fun_creamy: {
+        intro: {
+          ko: "상상하지 못한 재미를 드려요!",
+          en: "Get ready for delightful, unexpected fun flavors!",
+          ja: "想像を超えるワクワク楽しい美味しさをお届け！",
+          zh: "带给你意想不到的惊喜与新奇美味！",
+          fr: "Préparez-vous à une expérience savoureuse et surprenante !"
+        },
+        questions: {
+          ko: { q: "부드럽고 크리미한 맛이 좋아요?" },
+          en: { q: "Do you prefer a smooth, creamy and rich taste?" },
+          ja: { q: "濃厚でクリーミーな味わいはお好きですか？" },
+          zh: { q: "喜欢丝滑醇厚、奶香满满的口感吗？" },
+          fr: { q: "Préférez-vous une texture douce et crémeuse ?" }
+        },
+        yes: "q_fun_coconut_aroma",
+        no: "q_fun_coffee_lover"
+      },
+      q_fun_coconut_aroma: {
+        questions: {
+          ko: { q: "코코넛의 이국적인 향을 좋아하세요?" },
+          en: { q: "Do you enjoy the exotic aroma of coconut?" },
+          ja: { q: "ココナッツのエキゾチックな香りは好きですか？" },
+          zh: { q: "喜欢椰香独特的异国风味吗？" },
+          fr: { q: "Aimez-vous le parfum exotique de la noix de coco ?" }
+        },
+        yes: "q_fun_pineapple",
+        no: { result: "carrot_cake" }
+      },
+      q_fun_pineapple: {
+        questions: {
+          ko: { q: "열대과일 파인애플 좋아해요?" },
+          en: { q: "Do you like tropical pineapple?" },
+          ja: { q: "南国フルーツのパイナップルは好きですか？" },
+          zh: { q: "喜欢酸甜多汁的热带菠萝吗？" },
+          fr: { q: "Aimez-vous l'ananas tropical ?" }
+        },
+        yes: { result: "carrot_colada" },
+        no: { result: "coco_carrot" }
+      },
+      q_fun_coffee_lover: {
+        questions: {
+          ko: { q: "'커피 없으면 못 살아' 인가요?" },
+          en: { q: "Are you a 'Can't live without coffee' person?" },
+          ja: { q: "「コーヒーなしでは生きられない」タイプですか？" },
+          zh: { q: "你是「没有咖啡就活不下去」的星人吗？" },
+          fr: { q: "Êtes-vous du genre « Jamais sans mon café » ?" }
+        },
+        yes: { result: "carrot_coffee" },
+        no: { result: "carrot_lemon_soda" }
+      },
+
+      q_gift_popular: {
+        intro: {
+          ko: "캐롯보틀로 센스있는 선물!",
+          en: "Thoughtful & stylish gifts with Carrot Bottles!",
+          ja: "キャロットボトルでセンスあふれる特別なギフト！",
+          zh: "胡萝卜随行瓶，送礼贴心又有品位！",
+          fr: "Un cadeau raffiné et plein d'attentions en bouteille carotte !"
+        },
+        questions: {
+          ko: { q: "누구나 좋아하는 맛을 원하시나요?" },
+          en: { q: "Looking for a crowd-pleaser that anyone will love?" },
+          ja: { q: "誰にでも喜ばれる定番の味をお探しですか？" },
+          zh: { q: "想要大家都喜欢的百搭经典风味吗？" },
+          fr: { q: "Cherchez-vous un goût universellement adoré ?" }
+        },
+        yes: { result: "carrot_apple" },
+        no: "q_gift_cleanse_routine"
+      },
+      q_gift_cleanse_routine: {
+        questions: {
+          ko: { q: "몸을 맑고 가볍게 비우는 루틴을 선물할까요?" },
+          en: { q: "Would you like to gift a revitalizing daily cleanse routine?" },
+          ja: { q: "体をすっきりと軽く整えるルーティンを贈りますか？" },
+          zh: { q: "想要送一份清盈调理、焕发光彩的排浊好礼吗？" },
+          fr: { q: "Préférez-vous offrir une cure détox légère et vivifiante ?" }
+        },
+        yes: { result: "abc_juice" },
+        no: { result: "ginger_shot" }
+      }
+    };
+
+    const MENUS = {
+      ginger_shot: {
+        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/19808240?area=bnq",
+        ko: { name: "서울진저샷", tag: "#에너지충전 #초강력활력 #리프레시", desc: "나른할 때 원샷! 눈이 번쩍 뜨이고 정신이 맑아지는 강력한 생강 에너지 샷이에요." },
+        en: { name: "Seoul Ginger Shot", tag: "#EnergyBoost #RawVitality #Focus", desc: "Take a shot to instantly energize your day and awaken your senses with pure ginger power!" },
+        ja: { name: "ソウルジンジャーショット", tag: "#元気チャージ #超強力 #目覚まし", desc: "ひと口でシャキッと！活力とパワーがみなぎる超濃厚生姜ショットです。" },
+        zh: { name: "首尔生姜生力饮", tag: "#一秒醒脑 #强效元气 #清醒提神", desc: "困倦时一口饮尽！瞬间清醒、驱散疲劳的高浓度生姜能量饮。" },
+        fr: { name: "Seoul Ginger Shot", tag: "#CoupDeFouet #ÉnergiePure #Tonus", desc: "À boire d'un trait pour réveiller votre esprit et faire le plein d'énergie vive !" }
+      },
+      orange_carrot_ginger: {
+        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18262957?area=bnq",
+        ko: { name: "오렌지당근생강", tag: "#상큼오렌지 #기분전환", desc: "상큼한 오렌지 뒤에 은은한 생강 맛이 싹 돌아서 마시자마자 기분이 산뜻해져요." },
+        en: { name: "Orange Carrot Ginger", tag: "#Orange #RefreshingMood", desc: "Zesty orange with a subtle warm twist for a bright, uplifting feeling right away." },
+        ja: { name: "オレンジキャロット生姜", tag: "#爽やかオレンジ #気分転換", desc: "爽やかなオレンジの後にほんのり生姜が広がり、飲んだ瞬間気分がすっきり晴れやかに。" },
+        zh: { name: "香橙胡萝卜生姜汁", tag: "#鲜橙果香 #焕新心情", desc: "甜橙伴随着若隐若现的温润姜香，入口瞬间身心舒畅。" },
+        fr: { name: "Orange Carotte Gingembre", tag: "#OrangeFraîche #NouvelleÉnergie", desc: "L'orange acidulée suivie d'une douce note de gingembre pour un coup d'éclat immédiat." }
+      },
+      carrot_ginger: {
+        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18262909?area=bnq",
+        ko: { name: "당근생강", tag: "#알싸한생강 #환상조합", desc: "달달한 당근에 은은하게 퍼지는 알싸한 생강! 깔끔한 뒷맛!" },
+        en: { name: "Carrot Ginger", tag: "#SpicyGinger #PerfectDuo", desc: "Sweet carrot blended with the warm spice of ginger. Wonderfully clean finish!" },
+        ja: { name: "キャロットジンジャー", tag: "#ピリッと生姜 #黄金コンビ", desc: "甘いニンジンにじんわり広がる生姜のアクセント！後味もすっきり爽やか！" },
+        zh: { name: "胡萝卜生姜汁", tag: "#温润生姜 #绝妙搭配", desc: "清甜胡萝卜中融入温润辛香的生姜，回味格外清爽！" },
+        fr: { name: "Carotte Gingembre", tag: "#GingembreÉpicé #DuoParfait", desc: "Carotte douce relevée d'une touche de gingembre pour une fin de bouche très nette !" }
+      },
+      carrot_coffee: {
+        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/17245869?area=bnq",
+        ko: { name: "당근커피", tag: "#카페인충전 #시그니처커피 #은은한단맛", desc: "당근의 달달함에 콜드브루커피가 더해진 서울래빗만의 특별한 시그니처 커피예요." },
+        en: { name: "Carrot Coffee", tag: "#CaffeineFix #SignatureCoffee #SubtleSweet", desc: "Sweet carrot meets smooth cold brew coffee. Seoul Rabbit's iconic creation!" },
+        ja: { name: "キャロットコーヒー", tag: "#カフェイン補給 #名物珈琲 #優しい甘み", desc: "ニンジンの甘みにコールドブリュー珈琲を合わせたソウルラビット名物の一杯。" },
+        zh: { name: "胡萝卜咖啡", tag: "#咖啡因充能 #招牌咖啡 #自然回甘", desc: "清甜胡萝卜融入顺滑冷萃咖啡，首尔兔子独家招牌特调。" },
+        fr: { name: "Carrot Coffee", tag: "#CaféOriginal #ColdBrew #Signature", desc: "La douceur de la carotte alliée à un cold brew aromatique. Notre signature exclusive !" }
+      },
+      carrot_apple: {
+        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18262733?area=bnq",
+        ko: { name: "당근사과", tag: "#달콤상큼 #실패없는맛 #인기1위", desc: "사과의 달콤함과 당근이 만났어요. 누구나 다 좋아하는 꿀조합 베스트셀러 주스예요." },
+        en: { name: "Carrot Apple", tag: "#SweetCrisp #NeverFails #No1Popular", desc: "Crisp sweet apples harmoniously blended with carrot. Our all-time #1 bestseller!" },
+        ja: { name: "キャロットアップル", tag: "#甘酸っぱい #大人気 #不動のNo1", desc: "甘酸っぱいリンゴとニンジンが出会った、誰もが大好きな人気No.1ベストセラー！" },
+        zh: { name: "苹果胡萝卜汁", tag: "#酸甜可口 #经典百搭 #人气第一", desc: "清甜苹果遇上胡萝卜，人手一杯、绝不踩雷的高人气镇店之宝。" },
+        fr: { name: "Carotte Pomme", tag: "#DouxEtFrais #Incontournable #TopVente", desc: "La pomme croquante mariée à la carotte douce. Le best-seller n°1 adoré de tous !" }
+      },
+      abc_juice: {
+        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22835851?area=bnq",
+        ko: { name: "ABC주스", tag: "#몸이가벼워지는 #사과비트당근 #생기충전", desc: "사과(Apple), 비트(Beet), 당근(Carrot)의 꿀조합! 몸에 기분 좋은 생기와 활력을 선물합니다." },
+        en: { name: "ABC Juice", tag: "#FeelLight #AppleBeetCarrot #DailyGlow", desc: "Apple, Beet, and Carrot golden blend! Brings natural vitality and lightness to your daily routine." },
+        ja: { name: "ABCジュース", tag: "#体が軽くなる #リンゴビーツニンジン #元気チャージ", desc: "リンゴ・ビーツ・ニンジンの黄金比！内側から輝くような活力を届けます。" },
+        zh: { name: "ABC 活力果蔬汁", tag: "#身体变轻盈 #苹果甜菜根胡萝卜 #气色红润", desc: "苹果、甜菜根、胡萝卜经典黄金配比，为身体注入满满元气与轻盈活力。" },
+        fr: { name: "Jus ABC", tag: "#CorpsLéger #PommeBetteraveCarotte #Vitalité", desc: "L'accord parfait pomme-betterave-carotte pour retrouver tonus et légèreté au quotidien." }
+      },
+      cca_juice: {
+        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22835885?area=bnq",
+        ko: { name: "CCA주스", tag: "#속편한주스 #양배추당근사과 #가벼운루틴", desc: "당근(Carrot), 양배추(Cabbage), 사과(Apple)의 신선함으로 편안하고 가벼운 하루를 완성합니다." },
+        en: { name: "CCA Juice", tag: "#StomachComfort #CabbageCarrotApple #LightRoutine", desc: "Blend of Carrot, Cabbage, and Apple designed for digestive comfort and a light day." },
+        ja: { name: "CCAジュース", tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やかルーティン", desc: "ニンジン・キャベツ・リンゴのやさしさで、心地よく軽やかな毎日を。" },
+        zh: { name: "CCA 舒胃果蔬汁", tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #轻盈日常", desc: "胡萝卜、卷心菜和苹果调配，温和呵护肠胃，带来无负担的轻盈感。" },
+        fr: { name: "Jus CCA", tag: "#EstomacLéger #ChouCarottePomme #DigestionFacile", desc: "Carotte, chou et pomme pour apaiser l'estomac et faire du bien à votre corps." }
+      },
+      coco_carrot: {
+        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22842359?area=bnq",
+        ko: { name: "코코캐롯", tag: "#코코넛밀크 #부드러운맛 #고소달달", desc: "고소한 코코넛 밀크가 들어가서 부드럽고 달콤하게 넘어가는 이색 블렌딩 주스예요. 가벼운 포만감도 느껴보세요." },
+        en: { name: "Coco Carrot", tag: "#CoconutMilk #SmoothTaste #GentleFullness", desc: "Nutty coconut milk paired with sweet carrot for a smooth, velvety sip. Offers a gentle, satisfying fullness." },
+        ja: { name: "ココキャロット", tag: "#ココナッツミルク #まろやか #ほどよい満足感", desc: "香ばしいココナッツミルク入りでまろやか＆クリーミー！軽やかな満足感も楽しめます。" },
+        zh: { name: "椰香胡萝卜", tag: "#香浓椰奶 #丝滑回甘 #轻盈饱腹", desc: "浓醇椰奶与胡萝卜美妙交融，口感顺滑丝甜，还能带来适度的满足感。" },
+        fr: { name: "Coco Carrot", tag: "#LaitDeCoco #TextureSoyeuse #LégèreSatiété", desc: "Lait de coco onctueux marié à la carotte douce. Velouté et délicatement rassasiant." }
+      },
+      carrot_colada: {
+        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22842456?area=bnq",
+        ko: { name: "캐롯콜라다", tag: "#휴양지맛 #열대과일 #상큼청량", desc: "코코넛밀크와 파인애플! 새콤달콤한 열대 과일 향이 어우러져 기분 좋아지는 트로피컬 주스예요." },
+        en: { name: "Carrot Colada", tag: "#ResortVibe #TropicalFruits #ZestyCrisp", desc: "Creamy coconut milk & juicy pineapple! An exotic tropical blend that lifts your mood instantly." },
+        ja: { name: "キャロットコラーダ", tag: "#南国リゾート #トロピカル #爽快フルーツ", desc: "ココナッツミルクとパイナップル！南国フルーツの甘酸っぱい香りが弾けるご機嫌な一杯。" },
+        zh: { name: "胡萝卜可乐达", tag: "#海岛度假风 #热带菠萝 #清爽解渴", desc: "浓郁椰奶邂逅菠萝！满溢热带风情与果香，喝一口仿佛置身阳光海岛。" },
+        fr: { name: "Carrot Colada", tag: "#GoûtVacances #AnanasTropical #Frais", desc: "Lait de coco et ananas juteux ! Un parfum exotique qui vous transporte en vacances." }
+      },
+      carrot_cake: {
+        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/23041516?area=bnq",
+        ko: { name: "마시는 당근케이크", tag: "#달콤디저트 #케이크맛 #달달한행복", desc: "진짜 당근 케이크를 마시는 듯 단짠단짠! 부드러운 행복을 주는 프리미엄 디저트 주스예요. 당근주스와 치즈폼, 시나몬 톡톡!" },
+        en: { name: "Drinking Carrot Cake", tag: "#SweetDessert #CakeFlavored #PureHappiness", desc: "Like drinking real carrot cake with a sweet & savory twist! Carrot juice topped with rich cheese foam and cinnamon." },
+        ja: { name: "飲むキャロットケーキ", tag: "#飲むスイーツ #あまじょっぱい #至福のデザート", desc: "まるで本物のキャロットケーキを飲んでいるような甘じょっぱさ！キャロットジュースに特製チーズフォームとシナモンが香る贅沢デザート。" },
+        zh: { name: "可以喝的胡萝卜蛋糕", tag: "#甜品特饮 #咸甜蛋糕风味 #治愈幸福感", desc: "宛如喝得到的咸甜胡萝卜蛋糕！胡萝卜汁融入醇厚芝士奶盖，撒上肉桂香气，一口治愈。" },
+        fr: { name: "Drinking Carrot Cake", tag: "#DessertGourmand #GoûtGâteau #MousseFromage", desc: "Un vrai gâteau à la carotte à boire ! Jus de carotte surmonté d'une mousse fromage onctueuse et d'une touche de cannelle." }
+      },
+      carrot_lemon_soda: {
+        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/23049055?area=bnq",
+        ko: { name: "당근레몬소다", tag: "#청량탄산 #상큼톡톡 #갈증해소", desc: "달콤한 당근과 상큼한 레몬, 톡 쏘는 탄산수가 만나 시원하고 짜릿하게 즐기는 스파클링 에이드예요." },
+        en: { name: "Carrot Lemon Soda", tag: "#Sparkling #Lemon #ThirstQuencher", desc: "Sweet carrot, lemon, and crisp sparkling water combined for an ultra-refreshing fizzy thirst quencher!" },
+        ja: { name: "당근레몬소다", tag: "#シュワッと炭酸 #爽快レモン #喉ごし最高", desc: "甘いニンジンとレモンに炭酸水が弾ける、すっきり爽快なスパークリングエード！" },
+        zh: { name: "胡萝卜柠檬气泡饮", tag: "#清爽气泡 #鲜柠酸甜 #畅爽解渴", desc: "胡萝卜、柠檬与气泡水碰撞，冰爽过瘾，瞬间驱散燥热与口渴！" },
+        fr: { name: "Carrot Lemon Soda", tag: "#Pétillant #CitronTonique #Désaltérant", desc: "Carotte douce, citron et eau pétillante pour une boisson gazeuse ultra-fraîche et désaltérante !" }
+      }
+    };
+
+    const viewContainer = document.getElementById("view-container");
+    const langBar = document.getElementById("lang-bar");
+    const mainHeader = document.getElementById("main-header");
+    const homeTitleBox = document.getElementById("home-title-box");
+    const headerSub = document.getElementById("header-sub");
+    const headerTitle = document.getElementById("header-title");
+    const btnBack = document.getElementById("btn-back");
+    const backText = document.getElementById("back-text");
+    const mainFooter = document.getElementById("main-footer");
+    const footerText = document.getElementById("footer-text");
+
+    window.addEventListener("popstate", (event) => {
+      if (event.state) {
+        currentView = event.state.view || "home";
+        currentSubNode = event.state.nodeKey || null;
+      } else {
+        currentView = "home";
+        currentSubNode = null;
+      }
+      render();
+    });
+
+    window.setLanguage = function(lang) {
+      currentLang = lang;
+
+      document.querySelectorAll(".lang-btn").forEach(btn => {
+        btn.className = "lang-btn px-2.5 py-1 rounded-full font-semibold transition-all text-stone-600";
+      });
+      const activeBtn = document.getElementById(`lang-${lang}`);
+      if (activeBtn) {
+        activeBtn.className = "lang-btn px-2.5 py-1 rounded-full font-bold transition-all bg-orange-500 text-white";
+      }
+
+      const i18n = I18N[currentLang];
+      headerSub.innerText = i18n.headerSub;
+      headerTitle.innerText = i18n.headerTitle;
+      backText.innerText = i18n.backText;
+      footerText.innerText = i18n.footerText;
+
+      render();
+    };
+
+    window.selectStatus = function(categoryId) {
+      const cat = STATUS_CATEGORIES.find(c => c.id === categoryId);
+      if (!cat) return;
+
+      if (cat.directResult) {
+        currentView = "result";
+        currentSubNode = cat.directResult;
+      } else if (cat.nextQuestion) {
+        currentView = "question";
+        currentSubNode = cat.nextQuestion;
+      }
+
+      window.history.pushState({ view: currentView, nodeKey: currentSubNode }, "");
+      render();
+    };
+
+    window.handleAnswer = function(choice) {
+      const node = SUB_QUESTIONS[currentSubNode];
+      const nextTarget = node[choice];
+
+      if (typeof nextTarget === "string") {
+        currentView = "question";
+        currentSubNode = nextTarget;
+      } else if (nextTarget && nextTarget.result) {
+        currentView = "result";
+        currentSubNode = nextTarget.result;
+      }
+
+      window.history.pushState({ view: currentView, nodeKey: currentSubNode }, "");
+      render();
+    };
+
+    btnBack.addEventListener("click", () => {
+      window.history.back();
+    });
+
+    window.resetQuiz = function() {
+      currentView = "home";
+      currentSubNode = null;
+      window.history.pushState({ view: "home", nodeKey: null }, "");
+      render();
+    };
+
+    function closeImageModal() {
+      document.getElementById("image-modal").classList.add("hidden");
+      document.getElementById("image-modal").classList.remove("flex");
+    }
+
+    function drawRoundRect(ctx, x, y, width, height, radius, fillStyle, strokeStyle, lineWidth) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+      if (fillStyle) {
+        ctx.fillStyle = fillStyle;
+        ctx.fill();
+      }
+      if (strokeStyle) {
+        ctx.strokeStyle = strokeStyle;
+        ctx.lineWidth = lineWidth || 1;
+        ctx.stroke();
+      }
+    }
+
+    function drawWrapText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(" ");
+      let line = "";
+      let lines = [];
+
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + " ";
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          lines.push(line.trim());
+          line = words[n] + " ";
+        } else {
+          line = testLine;
+        }
+      }
+      lines.push(line.trim());
+
+      const startY = y - ((lines.length - 1) * lineHeight) / 2;
+      for (let k = 0; k < lines.length; k++) {
+        ctx.fillText(lines[k], x, startY + k * lineHeight);
+      }
+    }
+
+    // 아이폰 갤러리 저장 및 Web Share API 연동
+    window.saveResultImage = function() {
+      const saveBtn = document.getElementById("btn-save-image");
+      const originalHtml = saveBtn.innerHTML;
+      saveBtn.innerHTML = `<span>생성 중... ⏳</span>`;
+      saveBtn.disabled = true;
+
+      const canvas = document.getElementById("hidden-render-canvas");
+      const ctx = canvas.getContext("2d");
+
+      const width = 800;
+      const height = 940;
+      canvas.width = width;
+      canvas.height = height;
+
+      // 1. 외부 폴라로이드
+      drawRoundRect(ctx, 0, 0, width, height, 48, "#FFFFFF", "#E5E7EB", 3);
+
+      // 2. 내부 사진 박스
+      const innerX = 44;
+      const innerY = 44;
+      const innerW = 712;
+      const innerH = 710;
+      drawRoundRect(ctx, innerX, innerY, innerW, innerH, 32, "#FCF9F5", "#FEEAD8", 2.5);
+
+      const menuObj = MENUS[currentSubNode];
+      const menu = menuObj[currentLang] || menuObj["ko"];
+      const i18n = I18N[currentLang];
+
+      const rabbitImg = new Image();
+      rabbitImg.crossOrigin = "anonymous";
+      rabbitImg.src = "icon-green.png";
+
+      const renderCanvasContent = () => {
+        // 3. 토끼 아이콘
+        const iconSize = 140;
+        const iconX = (width - iconSize) / 2;
+        const iconY = innerY + 45;
+
+        if (rabbitImg.complete && rabbitImg.naturalWidth !== 0) {
+          ctx.drawImage(rabbitImg, iconX, iconY, iconSize, iconSize);
+        } else {
+          ctx.font = "85px sans-serif";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("🐰", width / 2, iconY + iconSize / 2);
+        }
+
+        // 4. 주황색 배지
+        const badgeW = 310;
+        const badgeH = 54;
+        const badgeX = (width - badgeW) / 2;
+        const badgeY = iconY + iconSize + 30;
+        drawRoundRect(ctx, badgeX, badgeY, badgeW, badgeH, badgeH / 2, "#F97316");
+
+        ctx.fillStyle = "#FFFFFF";
+        ctx.font = "bold 23px -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(i18n.recommendBadge, width / 2, badgeY + badgeH / 2 + 1);
+
+        // 5. 메뉴명
+        ctx.fillStyle = "#1C1917";
+        ctx.font = "900 44px -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(menu.name, width / 2, badgeY + badgeH + 48);
+
+        // 6. 해시태그
+        ctx.fillStyle = "#EA580C";
+        ctx.font = "bold 23px -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif";
+        ctx.fillText(menu.tag, width / 2, badgeY + badgeH + 96);
+
+        // 7. 설명 박스
+        const descBoxW = 630;
+        const descBoxH = 150;
+        const descBoxX = (width - descBoxW) / 2;
+        const descBoxY = badgeY + badgeH + 128;
+        drawRoundRect(ctx, descBoxX, descBoxY, descBoxW, descBoxH, 20, "#FFFFFF", "#E7E5E4", 2);
+
+        ctx.fillStyle = "#44403C";
+        ctx.font = "500 22px -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        drawWrapText(ctx, menu.desc, width / 2, descBoxY + descBoxH / 2, descBoxW - 50, 36);
+
+        // 8. 하단 슬로건
+        const footerY = innerY + innerH + 52;
+        ctx.fillStyle = "#44403C";
+        ctx.font = "bold 25px -apple-system, BlinkMacSystemFont, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("Drink different,", width / 2, footerY);
+
+        ctx.fillStyle = "#EA580C";
+        ctx.font = "900 27px -apple-system, BlinkMacSystemFont, sans-serif";
+        ctx.fillText("SEOUL RABBIT", width / 2, footerY + 36);
+
+        // 9. 이미지 Blob 생성 및 아이폰/갤럭시 분기 처리
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            saveBtn.innerHTML = originalHtml;
+            saveBtn.disabled = false;
+            return;
+          }
+
+          const file = new File([blob], "Seoul Rabbit.png", { type: "image/png" });
+          const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            navigator.share({
+              files: [file],
+              title: "서울래빗 추천 주스",
+              text: "서울래빗이 추천해준 맞춤 주스!"
+            }).then(() => {
+              saveBtn.innerHTML = originalHtml;
+              saveBtn.disabled = false;
+            }).catch((err) => {
+              if (err.name !== 'AbortError') {
+                showModalFallback(canvas.toDataURL("image/png"));
+              }
+              saveBtn.innerHTML = originalHtml;
+              saveBtn.disabled = false;
+            });
+          } else if (isIOS) {
+            showModalFallback(canvas.toDataURL("image/png"));
+            saveBtn.innerHTML = originalHtml;
+            saveBtn.disabled = false;
+          } else {
+            const link = document.createElement("a");
+            link.download = "Seoul Rabbit.png";
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+            saveBtn.innerHTML = originalHtml;
+            saveBtn.disabled = false;
+          }
+        }, "image/png");
+      };
+
+      function showModalFallback(dataUrl) {
+        const modal = document.getElementById("image-modal");
+        const previewImg = document.getElementById("modal-img-preview");
+        previewImg.src = dataUrl;
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+
+      if (rabbitImg.complete) {
+        renderCanvasContent();
+      } else {
+        rabbitImg.onload = renderCanvasContent;
+        rabbitImg.onerror = renderCanvasContent;
+      }
+    };
+
+    function render() {
+      const i18n = I18N[currentLang];
+
+      if (currentView === "home") {
+        langBar.classList.remove("hidden");
+        homeTitleBox.classList.remove("hidden");
+        mainHeader.classList.remove("hidden");
+        mainHeader.className = "p-4 pb-2 relative border-b border-orange-50";
+        btnBack.classList.add("hidden");
+        mainFooter.classList.remove("hidden");
+      } else if (currentView === "question") {
+        langBar.classList.add("hidden");
+        homeTitleBox.classList.add("hidden");
+        mainHeader.className = "p-3 text-center relative border-b border-stone-100 min-h-[44px]";
+        btnBack.classList.remove("hidden");
+        mainFooter.classList.remove("hidden");
+      } else if (currentView === "result") {
+        langBar.classList.add("hidden");
+        homeTitleBox.classList.add("hidden");
+        mainHeader.className = "p-3 text-center relative border-b border-stone-100 min-h-[44px]";
+        btnBack.classList.remove("hidden");
+        mainFooter.classList.add("hidden");
+      }
+
+      // 1. 홈 화면
+      if (currentView === "home") {
+        let html = `
+          <div class="animate-fade-in flex flex-col items-center gap-3 py-1 w-full">
+            <div class="grid grid-cols-2 gap-3 w-full px-1">
+        `;
+        
+        STATUS_CATEGORIES.forEach((cat, index) => {
+          const item = cat[currentLang] || cat["ko"];
+          const isImageFile = cat.icon.includes(".");
+          const isLastItem = (index === STATUS_CATEGORIES.length - 1);
+          const gridSpan = isLastItem ? "col-span-2 max-w-[200px] mx-auto w-full" : "w-full";
+
+          const iconMarkup = isImageFile
+            ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1 leading-none drop-shadow\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-14 h-14 object-contain mb-1 drop-shadow-[0_3px_6px_rgba(0,0,0,0.12)]" />`
+            : `<span class="text-3xl mb-1 leading-none drop-shadow">${cat.icon}</span>`;
+
+          html += `
+            <button onclick="selectStatus('${cat.id}')" style="${cat.style}" class="${gridSpan} p-3 rounded-2xl border-2 active:scale-[0.95] transition-transform duration-100 flex flex-col items-center justify-center text-center min-h-[114px]">
+              ${iconMarkup}
+              <h2 class="text-sm font-black leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
+            </button>
+          `;
+        });
+
+        html += `
+            </div>
+
+            <div class="pt-2 w-full flex justify-center">
+              <a href="https://m.booking.naver.com/order/bizes/1140512/items/5866364?area=bnq" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-orange-50 text-orange-700 border border-orange-200 active:scale-95 transition-transform text-xs font-black shadow-sm">
+                <span>🥕</span>
+                <span>${i18n.exploreMenuBtn}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        `;
+        viewContainer.innerHTML = html;
+      }
+
+      // 2. 질문 화면
+      else if (currentView === "question") {
+        const node = SUB_QUESTIONS[currentSubNode];
+        const qData = node.questions[currentLang] || node.questions["ko"];
+        const yesLabel = qData.yesText || i18n.defaultYes;
+        const noLabel = qData.noText || i18n.defaultNo;
+
+        let introBanner = "";
+        if (node.intro) {
+          const introText = node.intro[currentLang] || node.intro["ko"];
+          introBanner = `
+            <div class="mb-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-orange-100/90 text-orange-700 border border-orange-200 text-xs font-black shadow-sm break-keep">
+              <span>🐰</span>
+              <span>${introText}</span>
+            </div>
+          `;
+        }
+
+        viewContainer.innerHTML = `
+          <div class="animate-fade-in flex flex-col justify-between h-full py-2">
+            <div class="my-auto text-center py-4">
+              ${introBanner}
+              <h2 class="text-xl sm:text-2xl font-black text-stone-900 leading-snug break-keep">
+                ${qData.q}
+              </h2>
+            </div>
+
+            <div class="grid grid-cols-1 gap-2.5 pt-4">
+              <button onclick="handleAnswer('yes')" class="w-full py-3.5 px-4 rounded-2xl bg-orange-500 active:bg-orange-600 active:scale-[0.98] transition-all text-white font-bold text-sm shadow-md shadow-orange-500/20 flex items-center justify-center text-center break-keep">
+                ${yesLabel}
+              </button>
+              <button onclick="handleAnswer('no')" class="w-full py-3.5 px-4 rounded-2xl bg-stone-100 active:bg-stone-200 active:scale-[0.98] transition-all text-stone-700 font-semibold text-sm flex items-center justify-center text-center break-keep">
+                ${noLabel}
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      // 3. 결과 화면
+      else if (currentView === "result") {
+        const menuObj = MENUS[currentSubNode];
+        const menu = menuObj[currentLang] || menuObj["ko"];
+        const targetOrderUrl = menuObj.orderUrl;
+
+        viewContainer.innerHTML = `
+          <div class="animate-fade-in flex flex-col justify-between h-full py-1">
+            
+            <!-- 폴라로이드 사진 프레임 (화면 UI) -->
+            <div class="w-full max-w-[320px] bg-white p-4 pb-7 rounded-2xl border border-stone-200 shadow-xl shadow-stone-900/10 mx-auto my-auto flex flex-col items-center">
+              
+              <!-- 폴라로이드 내부 박스 -->
+              <div class="w-full bg-[#FCF9F5] border border-orange-100/90 rounded-2xl p-4 flex flex-col items-center text-center">
+                
+                <!-- 상단 토끼 캐릭터 -->
+                <div class="w-14 h-14 mb-2.5 flex items-center justify-center">
+                  <img src="icon-green.png" alt="Seoul Rabbit" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-4xl\\'>🐰</span>';" class="w-14 h-14 object-contain drop-shadow-sm" />
+                </div>
+
+                <!-- 오늘의 건강한 선택 캡슐 배지 -->
+                <div class="inline-flex items-center justify-center px-4 py-1.5 bg-orange-500 text-white text-xs font-black tracking-tight rounded-full mb-2">
+                  ${i18n.recommendBadge}
+                </div>
+
+                <h2 class="text-2xl font-black text-stone-900 tracking-tight mb-1">
+                  ${menu.name}
+                </h2>
+
+                <p class="text-xs font-bold text-orange-600 tracking-tight mb-2.5">
+                  ${menu.tag}
+                </p>
+
+                <!-- 설명 박스 -->
+                <div class="w-full bg-white/95 p-3 rounded-xl border border-stone-200/70 text-stone-700 text-xs leading-relaxed break-keep text-center shadow-inner min-h-[58px] flex items-center justify-center">
+                  ${menu.desc}
+                </div>
+              </div>
+
+              <!-- 폴라로이드 하단 2줄 슬로건 -->
+              <div class="w-full pt-4 text-center">
+                <p class="text-xs font-bold tracking-tight text-stone-700 leading-tight">
+                  Drink different,
+                </p>
+                <p class="text-xs font-black tracking-wider text-orange-600 leading-tight uppercase mt-0.5">
+                  Seoul Rabbit
+                </p>
+              </div>
+            </div>
+
+            <!-- 하단 액션 버튼 그룹 -->
+            <div class="flex flex-col gap-2 pt-2.5 w-full max-w-[320px] mx-auto">
+              <!-- 네이버 주문하기 버튼 (메인 강조) -->
+              <a href="${targetOrderUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-5 rounded-2xl bg-green-600 active:bg-green-700 active:scale-[0.98] transition-all text-white font-black text-base shadow-md shadow-green-600/25 flex items-center justify-center gap-2">
+                <span>${i18n.orderBtn}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+
+              <!-- 이미지 저장 버튼 (화이트 서브 버튼) -->
+              <button id="btn-save-image" onclick="saveResultImage()" class="w-full py-3 px-5 rounded-2xl bg-white border border-stone-300 active:bg-stone-50 active:scale-[0.98] transition-all text-stone-700 font-bold text-sm shadow-sm flex items-center justify-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span>${i18n.saveImgBtn}</span>
+              </button>
+
+              <!-- 처음으로 버튼 -->
+              <button onclick="resetQuiz()" class="w-full py-1 text-stone-400 active:text-stone-700 text-xs font-bold transition-colors">
+                ${i18n.restartBtn}
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    window.history.replaceState({ view: "home", nodeKey: null }, "");
+    setLanguage("ko");
+  </script>
+</body>
+</html>
