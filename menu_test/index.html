@@ -173,18 +173,18 @@
       }
     };
 
-    // 2x3 정갈한 대칭 그리드
+    // 2x3 대칭 그리드 (첫 번째: icon-halloween.png 적용 및 '따뜻한 게 좋아요')
     const STATUS_CATEGORIES = [
       {
         id: "feel_chilly",
-        icon: "☕",
+        icon: "icon-halloween.png",
         fallbackEmoji: "☕",
         style: "transform: rotate(-2deg); background: linear-gradient(180deg, #FFF7ED 0%, #FFEDD5 100%); border-color: #FDBA74; color: #9A3412; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.15);",
-        ko: { title: "몸이 으슬으슬해요" },
-        en: { title: "Feeling Chilly" },
-        ja: { title: "体が冷える・寒い" },
-        zh: { title: "身体发冷微寒" },
-        fr: { title: "Un Peu Frileux" },
+        ko: { title: "따뜻한 게 좋아요" },
+        en: { title: "Want Something Warm" },
+        ja: { title: "温かいのが飲みたい" },
+        zh: { title: "想要一杯热饮" },
+        fr: { title: "Envie de Chaud" },
         nextQuestion: "q_warm_start"
       },
       {
@@ -250,7 +250,7 @@
     ];
 
     const SUB_QUESTIONS = {
-      // 0. 몸이 으슬으슬해요 (따뜻한 주스 전용 라우팅)
+      // 0. 따뜻한 게 좋아요 (전용 분기)
       q_warm_start: {
         intro: {
           ko: "추운 날씨, 따뜻한 온기로 몸을 녹여드릴게요!",
@@ -294,7 +294,7 @@
           ko: { q: "레몬 강황이 들어간 강렬한 샷도 좋아해요?" },
           en: { q: "Do you also like an intense lemon-turmeric shot?" },
           ja: { q: "レモンとウコンが入った強烈なショットも好きですか？" },
-          zh: { q: "喜欢加入柠檬和姜黄의 强效生力饮吗？" },
+          zh: { q: "喜欢加入柠檬和姜黄的强效生力饮吗？" },
           fr: { q: "Aimez-vous un shot intense citron-curcuma ?" }
         },
         yes: { result: "ginger_shot" },
@@ -305,7 +305,7 @@
           ko: { q: "상큼한 오렌지 좋아해요?" },
           en: { q: "Do you like refreshing orange?" },
           ja: { q: "爽やかなオレンジは好きですか？" },
-          zh: { q: "喜欢酸甜清爽의 香橙吗？" },
+          zh: { q: "喜欢酸甜清爽的香橙吗？" },
           fr: { q: "Aimez-vous l'orange acidulée et fraîche ?" }
         },
         yes: "q_wake_warm_orange_ginger",
@@ -351,14 +351,14 @@
           ko: "편안한 속을 위해 추천해드릴게요!",
           en: "Here are our gentle picks for digestive comfort!",
           ja: "お腹をスッキリ整えるおすすめの一杯をご提案！",
-          zh: "为你推荐温和舒适、轻盈舒胃의 饮品！",
+          zh: "为你推荐温和舒适、轻盈舒胃的饮品！",
           fr: "Nos meilleures suggestions pour apaiser votre estomac !"
         },
         questions: {
           ko: { q: "위장을 편안하게 달래주는 양배추 좋아해요?" },
           en: { q: "Do you like soothing cabbage that eases your stomach?" },
           ja: { q: "胃を優しくいたわるキャベツは好きですか？" },
-          zh: { q: "喜欢温和舒缓肠胃의 卷心菜吗？" },
+          zh: { q: "喜欢温和舒缓肠胃的卷心菜吗？" },
           fr: { q: "Aimez-vous le chou apaisant pour l'estomac ?" }
         },
         yes: { result: "cca_juice" },
@@ -368,7 +368,7 @@
         questions: {
           ko: { q: "알싸하게 속을 뻥 뚫어주는 생강 샷도 좋아해요?" },
           en: { q: "Do you also like an intense ginger shot to instantly settle your stomach?" },
-          ja: { q: "ピリッと爽快にお腹를 스ッキリさせる生姜ショットも好きですか？" },
+          ja: { q: "ピリッと爽快にお腹をスッキリさせる生姜ショットも好きですか？" },
           zh: { q: "喜欢能让肠胃瞬间清透畅快的强效生姜生力饮吗？" },
           fr: { q: "Aimez-vous un shot de gingembre épicé pour soulager l'estomac ?" }
         },
@@ -389,7 +389,7 @@
           ko: { q: "채소 가득 주스 좋아해요?" },
           en: { q: "Do you enjoy a veggie-packed nutrient juice?" },
           ja: { q: "野菜たっぷりの本格ジュースは好きですか？" },
-          zh: { q: "喜欢蔬菜满满의 果汁吗？" },
+          zh: { q: "喜欢蔬菜满满的果汁吗？" },
           fr: { q: "Aimez-vous les jus riches en légumes ?" }
         },
         yes: "q_health_beet",
@@ -399,8 +399,8 @@
         questions: {
           ko: { q: "몸을 맑고 가볍게 비워주는 비트 좋아해요?" },
           en: { q: "Do you like revitalizing beetroot that cleanses your body?" },
-          ja: { q: "体をすっきりと軽く整えるビーツ는 좋아하세요?" },
-          zh: { q: "喜欢能让身心轻盈排浊의 甜菜根吗？" },
+          ja: { q: "体をすっきりと軽く整えるビーツは好きですか？" },
+          zh: { q: "喜欢能让身心轻盈排浊的甜菜根吗？" },
           fr: { q: "Aimez-vous la betterave pour purifier votre corps ?" }
         },
         yes: { result: "abc_juice" },
@@ -410,8 +410,8 @@
         questions: {
           ko: { q: "코코넛밀크 좋아해요?" },
           en: { q: "Do you like silky coconut milk?" },
-          ja: { q: "まろやかなココナッツミルク는 좋아하세요?" },
-          zh: { q: "喜欢香醇丝滑의 椰奶吗？" },
+          ja: { q: "まろやかなココナッツミルクは好きですか？" },
+          zh: { q: "喜欢香醇丝滑的椰奶吗？" },
           fr: { q: "Aimez-vous la douceur du lait de coco ?" }
         },
         yes: { result: "coco_carrot" },
@@ -431,7 +431,7 @@
           ko: { q: "부드럽고 크리미한 맛이 좋아요?" },
           en: { q: "Do you prefer a smooth, creamy and rich taste?" },
           ja: { q: "濃厚でクリーミーな味わいはお好きですか？" },
-          zh: { q: "喜欢丝滑醇厚、奶香满满의 口感吗？" },
+          zh: { q: "喜欢丝滑醇厚、奶香满满的口感吗？" },
           fr: { q: "Préférez-vous une texture douce et crémeuse ?" }
         },
         yes: "q_fun_coconut_aroma",
@@ -452,8 +452,8 @@
         questions: {
           ko: { q: "열대과일 파인애플 좋아해요?" },
           en: { q: "Do you like tropical pineapple?" },
-          ja: { q: "南国フルーツ의 パイナップル는 좋아하세요?" },
-          zh: { q: "喜欢酸甜多汁의 热带菠萝吗？" },
+          ja: { q: "南国フルーツのパイナップルは好きですか？" },
+          zh: { q: "喜欢酸甜多汁的热带菠萝吗？" },
           fr: { q: "Aimez-vous l'ananas tropical ?" }
         },
         yes: { result: "carrot_colada" },
@@ -464,7 +464,7 @@
           ko: { q: "'커피 없으면 못 살아' 인가요?" },
           en: { q: "Are you a 'Can't live without coffee' person?" },
           ja: { q: "「コーヒーなしでは生きられない」タイプですか？" },
-          zh: { q: "你是「没有咖啡就活不下去」의 星人吗？" },
+          zh: { q: "你是「没有咖啡就活不下去」的星人吗？" },
           fr: { q: "Êtes-vous du genre « Jamais sans mon café » ?" }
         },
         yes: { result: "carrot_coffee" },
@@ -483,7 +483,7 @@
         questions: {
           ko: { q: "누구나 좋아하는 맛을 원하시나요?" },
           en: { q: "Looking for a crowd-pleaser that anyone will love?" },
-          ja: { q: "誰にでも喜ばれる定番의 味をお探しですか？" },
+          ja: { q: "誰にでも喜ばれる定番の味をお探しですか？" },
           zh: { q: "想要大家都喜欢的百搭经典风味吗？" },
           fr: { q: "Cherchez-vous un goût universellement adoré ?" }
         },
@@ -495,7 +495,7 @@
           ko: { q: "몸을 맑고 가볍게 비우는 루틴을 선물할까요?" },
           en: { q: "Would you like to gift a revitalizing daily cleanse routine?" },
           ja: { q: "体をすっきりと軽く整えるルーティンを贈りますか？" },
-          zh: { q: "想要送一份清盈调理、焕发光彩의 排浊好礼吗？" },
+          zh: { q: "想要送一份清盈调理、焕发光彩的排浊好礼吗？" },
           fr: { q: "Préférez-vous offrir une cure détox légère et vivifiante ?" }
         },
         yes: { result: "abc_juice" },
