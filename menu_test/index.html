@@ -173,12 +173,25 @@
       }
     };
 
+    // 2x3 정갈한 대칭 그리드
     const STATUS_CATEGORIES = [
+      {
+        id: "feel_chilly",
+        icon: "☕",
+        fallbackEmoji: "☕",
+        style: "transform: rotate(-2deg); background: linear-gradient(180deg, #FFF7ED 0%, #FFEDD5 100%); border-color: #FDBA74; color: #9A3412; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.15);",
+        ko: { title: "몸이 으슬으슬해요" },
+        en: { title: "Feeling Chilly" },
+        ja: { title: "体が冷える・寒い" },
+        zh: { title: "身体发冷微寒" },
+        fr: { title: "Un Peu Frileux" },
+        nextQuestion: "q_warm_start"
+      },
       {
         id: "low_energy",
         icon: "icon-red.png",
         fallbackEmoji: "⚡",
-        style: "transform: rotate(-4.5deg); background: linear-gradient(180deg, #FFF0EE 0%, #FFE0DC 100%); border-color: #FFAAA0; color: #881337; box-shadow: 0 4px 10px rgba(244, 63, 94, 0.15);",
+        style: "transform: rotate(2deg); background: linear-gradient(180deg, #FFF0EE 0%, #FFE0DC 100%); border-color: #FFAAA0; color: #881337; box-shadow: 0 4px 10px rgba(244, 63, 94, 0.15);",
         ko: { title: "기운이 없어요" },
         en: { title: "Feeling Drained" },
         ja: { title: "元気が出ない" },
@@ -190,7 +203,7 @@
         id: "bloated_stomach",
         icon: "icon-blue.png",
         fallbackEmoji: "🥬",
-        style: "transform: rotate(4deg); background: linear-gradient(180deg, #EDF8FF 0%, #D8EFFF 100%); border-color: #92CEFF; color: #082F49; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.15);",
+        style: "transform: rotate(-2deg); background: linear-gradient(180deg, #EDF8FF 0%, #D8EFFF 100%); border-color: #92CEFF; color: #082F49; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.15);",
         ko: { title: "속이 더부룩해요" },
         en: { title: "Feeling Bloated" },
         ja: { title: "お腹が重い・もたれる" },
@@ -202,7 +215,7 @@
         id: "care_health",
         icon: "icon-baby.png",
         fallbackEmoji: "🥕",
-        style: "transform: rotate(3.2deg); background: linear-gradient(180deg, #EEFBF2 0%, #D5F5DF 100%); border-color: #8CE5A5; color: #064E3B; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.15);",
+        style: "transform: rotate(2deg); background: linear-gradient(180deg, #EEFBF2 0%, #D5F5DF 100%); border-color: #8CE5A5; color: #064E3B; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.15);",
         ko: { title: "건강해질래요" },
         en: { title: "Want to Be Healthy" },
         ja: { title: "健康になりたい" },
@@ -214,7 +227,7 @@
         id: "need_fun",
         icon: "icon-fun.png",
         fallbackEmoji: "🥥",
-        style: "transform: rotate(-4deg); background: linear-gradient(180deg, #F8F0FF 0%, #EBD5FF 100%); border-color: #D3A7FF; color: #3B0764; box-shadow: 0 4px 10px rgba(168, 85, 247, 0.15);",
+        style: "transform: rotate(-2deg); background: linear-gradient(180deg, #F8F0FF 0%, #EBD5FF 100%); border-color: #D3A7FF; color: #3B0764; box-shadow: 0 4px 10px rgba(168, 85, 247, 0.15);",
         ko: { title: "재미가 필요해요" },
         en: { title: "Need Something Fun" },
         ja: { title: "楽しさがほしい" },
@@ -226,7 +239,7 @@
         id: "need_gift",
         icon: "icon-gift.png",
         fallbackEmoji: "🎁",
-        style: "transform: rotate(4.5deg); background: linear-gradient(180deg, #FFF8E6 0%, #FFE9B8 100%); border-color: #FCD34D; color: #451A03; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.15);",
+        style: "transform: rotate(2deg); background: linear-gradient(180deg, #FFF8E6 0%, #FFE9B8 100%); border-color: #FCD34D; color: #451A03; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.15);",
         ko: { title: "선물이 필요해요" },
         en: { title: "Looking for a Gift" },
         ja: { title: "ギフトを探している" },
@@ -237,6 +250,27 @@
     ];
 
     const SUB_QUESTIONS = {
+      // 0. 몸이 으슬으슬해요 (따뜻한 주스 전용 라우팅)
+      q_warm_start: {
+        intro: {
+          ko: "추운 날씨, 따뜻한 온기로 몸을 녹여드릴게요!",
+          en: "Cold day? Let us warm you up with gentle heat!",
+          ja: "寒い日は、心と体をじんわり温める一杯をどうぞ！",
+          zh: "天气转凉，为你推荐温润暖胃的温暖特调！",
+          fr: "Par temps froid, réchauffez votre corps tout en douceur !"
+        },
+        questions: {
+          ko: { q: "알싸한 생강과 상큼한 오렌지로 감기 기운을 확 날려볼까요?" },
+          en: { q: "Shall we boost immunity with spicy ginger and zesty orange?" },
+          ja: { q: "ピリッと生姜と爽やかオレンジで風邪気味の体を温めますか？" },
+          zh: { q: "想用微辣生姜与鲜橙香气快速驱寒、提振暖意吗？" },
+          fr: { q: "Voulez-vous chasser le froid avec du gingembre épicé et de l'orange ?" }
+        },
+        yes: { result: "warm_orange_carrot_ginger" },
+        no: { result: "warm_carrot_apple" }
+      },
+
+      // 1. 기운이 없어요 분기
       q_wake_ginger_like: {
         intro: {
           ko: "으랏차차! 힘낼 수 있는 메뉴를 추천할게요!",
@@ -260,7 +294,7 @@
           ko: { q: "레몬 강황이 들어간 강렬한 샷도 좋아해요?" },
           en: { q: "Do you also like an intense lemon-turmeric shot?" },
           ja: { q: "レモンとウコンが入った強烈なショットも好きですか？" },
-          zh: { q: "喜欢加入柠檬和姜黄的强效生力饮吗？" },
+          zh: { q: "喜欢加入柠檬和姜黄의 强效生力饮吗？" },
           fr: { q: "Aimez-vous un shot intense citron-curcuma ?" }
         },
         yes: { result: "ginger_shot" },
@@ -271,11 +305,22 @@
           ko: { q: "상큼한 오렌지 좋아해요?" },
           en: { q: "Do you like refreshing orange?" },
           ja: { q: "爽やかなオレンジは好きですか？" },
-          zh: { q: "喜欢酸甜清爽的香橙吗？" },
+          zh: { q: "喜欢酸甜清爽의 香橙吗？" },
           fr: { q: "Aimez-vous l'orange acidulée et fraîche ?" }
         },
-        yes: { result: "orange_carrot_ginger" },
+        yes: "q_wake_warm_orange_ginger",
         no: { result: "carrot_ginger" }
+      },
+      q_wake_warm_orange_ginger: {
+        questions: {
+          ko: { q: "찬 음료보다 따뜻하게 몸을 녹이고 싶나요?" },
+          en: { q: "Would you prefer a warm, comforting drink to cozy up?" },
+          ja: { q: "冷たいものより、温かく体を温めたいですか？" },
+          zh: { q: "比起冷饮，想要一杯暖身舒服的热饮吗？" },
+          fr: { q: "Préférez-vous une boisson chaude et réconfortante ?" }
+        },
+        yes: { result: "warm_orange_carrot_ginger" },
+        no: { result: "orange_carrot_ginger" }
       },
       q_wake_need_coffee: {
         questions: {
@@ -286,22 +331,34 @@
           fr: { q: "Voulez-vous recharger vos batteries avec un bon café ?" }
         },
         yes: { result: "carrot_coffee" },
+        no: "q_wake_warm_carrot_apple"
+      },
+      q_wake_warm_carrot_apple: {
+        questions: {
+          ko: { q: "따뜻하게 데워 마시는 달콤한 주스가 좋아요?" },
+          en: { q: "Would you like to enjoy a warm, sweet comforting juice?" },
+          ja: { q: "温めて飲む甘くて優しいホットジュースはいかがですか？" },
+          zh: { q: "想要温热暖胃、清甜好喝的热果汁吗？" },
+          fr: { q: "Aimeriez-vous déguster un jus chaud et doucement sucré ?" }
+        },
+        yes: { result: "warm_carrot_apple" },
         no: { result: "carrot_apple" }
       },
 
+      // 2. 속이 더부룩해요 분기
       q_bloat_cabbage: {
         intro: {
           ko: "편안한 속을 위해 추천해드릴게요!",
           en: "Here are our gentle picks for digestive comfort!",
           ja: "お腹をスッキリ整えるおすすめの一杯をご提案！",
-          zh: "为你推荐温和舒适、轻盈舒胃的饮品！",
+          zh: "为你推荐温和舒适、轻盈舒胃의 饮品！",
           fr: "Nos meilleures suggestions pour apaiser votre estomac !"
         },
         questions: {
           ko: { q: "위장을 편안하게 달래주는 양배추 좋아해요?" },
           en: { q: "Do you like soothing cabbage that eases your stomach?" },
           ja: { q: "胃を優しくいたわるキャベツは好きですか？" },
-          zh: { q: "喜欢温和舒缓肠胃的卷心菜吗？" },
+          zh: { q: "喜欢温和舒缓肠胃의 卷心菜吗？" },
           fr: { q: "Aimez-vous le chou apaisant pour l'estomac ?" }
         },
         yes: { result: "cca_juice" },
@@ -311,7 +368,7 @@
         questions: {
           ko: { q: "알싸하게 속을 뻥 뚫어주는 생강 샷도 좋아해요?" },
           en: { q: "Do you also like an intense ginger shot to instantly settle your stomach?" },
-          ja: { q: "ピリッと爽快にお腹をスッキリさせる生姜ショットも好きですか？" },
+          ja: { q: "ピリッと爽快にお腹를 스ッキリさせる生姜ショットも好きですか？" },
           zh: { q: "喜欢能让肠胃瞬间清透畅快的强效生姜生力饮吗？" },
           fr: { q: "Aimez-vous un shot de gingembre épicé pour soulager l'estomac ?" }
         },
@@ -319,6 +376,7 @@
         no: { result: "abc_juice" }
       },
 
+      // 3. 건강해질래요 분기
       q_health_veggie: {
         intro: {
           ko: "건강한 하루를 위한 추천!",
@@ -331,7 +389,7 @@
           ko: { q: "채소 가득 주스 좋아해요?" },
           en: { q: "Do you enjoy a veggie-packed nutrient juice?" },
           ja: { q: "野菜たっぷりの本格ジュースは好きですか？" },
-          zh: { q: "喜欢蔬菜满满的果汁吗？" },
+          zh: { q: "喜欢蔬菜满满의 果汁吗？" },
           fr: { q: "Aimez-vous les jus riches en légumes ?" }
         },
         yes: "q_health_beet",
@@ -341,8 +399,8 @@
         questions: {
           ko: { q: "몸을 맑고 가볍게 비워주는 비트 좋아해요?" },
           en: { q: "Do you like revitalizing beetroot that cleanses your body?" },
-          ja: { q: "体をすっきりと軽く整えるビーツは好きですか？" },
-          zh: { q: "喜欢能让身心轻盈排浊的甜菜根吗？" },
+          ja: { q: "体をすっきりと軽く整えるビーツ는 좋아하세요?" },
+          zh: { q: "喜欢能让身心轻盈排浊의 甜菜根吗？" },
           fr: { q: "Aimez-vous la betterave pour purifier votre corps ?" }
         },
         yes: { result: "abc_juice" },
@@ -352,14 +410,15 @@
         questions: {
           ko: { q: "코코넛밀크 좋아해요?" },
           en: { q: "Do you like silky coconut milk?" },
-          ja: { q: "まろやかなココナッツミルクは好きですか？" },
-          zh: { q: "喜欢香醇丝滑的椰奶吗？" },
+          ja: { q: "まろやかなココナッツミルク는 좋아하세요?" },
+          zh: { q: "喜欢香醇丝滑의 椰奶吗？" },
           fr: { q: "Aimez-vous la douceur du lait de coco ?" }
         },
         yes: { result: "coco_carrot" },
-        no: { result: "carrot_apple" }
+        no: "q_wake_warm_carrot_apple"
       },
 
+      // 4. 재미가 필요해요 분기
       q_fun_creamy: {
         intro: {
           ko: "상상하지 못한 재미를 드려요!",
@@ -372,7 +431,7 @@
           ko: { q: "부드럽고 크리미한 맛이 좋아요?" },
           en: { q: "Do you prefer a smooth, creamy and rich taste?" },
           ja: { q: "濃厚でクリーミーな味わいはお好きですか？" },
-          zh: { q: "喜欢丝滑醇厚、奶香满满的口感吗？" },
+          zh: { q: "喜欢丝滑醇厚、奶香满满의 口感吗？" },
           fr: { q: "Préférez-vous une texture douce et crémeuse ?" }
         },
         yes: "q_fun_coconut_aroma",
@@ -393,8 +452,8 @@
         questions: {
           ko: { q: "열대과일 파인애플 좋아해요?" },
           en: { q: "Do you like tropical pineapple?" },
-          ja: { q: "南国フルーツのパイナップルは好きですか？" },
-          zh: { q: "喜欢酸甜多汁的热带菠萝吗？" },
+          ja: { q: "南国フルーツ의 パイナップル는 좋아하세요?" },
+          zh: { q: "喜欢酸甜多汁의 热带菠萝吗？" },
           fr: { q: "Aimez-vous l'ananas tropical ?" }
         },
         yes: { result: "carrot_colada" },
@@ -405,13 +464,14 @@
           ko: { q: "'커피 없으면 못 살아' 인가요?" },
           en: { q: "Are you a 'Can't live without coffee' person?" },
           ja: { q: "「コーヒーなしでは生きられない」タイプですか？" },
-          zh: { q: "你是「没有咖啡就活不下去」的星人吗？" },
+          zh: { q: "你是「没有咖啡就活不下去」의 星人吗？" },
           fr: { q: "Êtes-vous du genre « Jamais sans mon café » ?" }
         },
         yes: { result: "carrot_coffee" },
         no: { result: "carrot_lemon_soda" }
       },
 
+      // 5. 선물이 필요해요 분기
       q_gift_popular: {
         intro: {
           ko: "캐롯보틀로 센스있는 선물!",
@@ -423,7 +483,7 @@
         questions: {
           ko: { q: "누구나 좋아하는 맛을 원하시나요?" },
           en: { q: "Looking for a crowd-pleaser that anyone will love?" },
-          ja: { q: "誰にでも喜ばれる定番の味をお探しですか？" },
+          ja: { q: "誰にでも喜ばれる定番의 味をお探しですか？" },
           zh: { q: "想要大家都喜欢的百搭经典风味吗？" },
           fr: { q: "Cherchez-vous un goût universellement adoré ?" }
         },
@@ -435,7 +495,7 @@
           ko: { q: "몸을 맑고 가볍게 비우는 루틴을 선물할까요?" },
           en: { q: "Would you like to gift a revitalizing daily cleanse routine?" },
           ja: { q: "体をすっきりと軽く整えるルーティンを贈りますか？" },
-          zh: { q: "想要送一份清盈调理、焕发光彩的排浊好礼吗？" },
+          zh: { q: "想要送一份清盈调理、焕发光彩의 排浊好礼吗？" },
           fr: { q: "Préférez-vous offrir une cure détox légère et vivifiante ?" }
         },
         yes: { result: "abc_juice" },
@@ -457,15 +517,23 @@
         ko: { name: "오렌지당근생강", tag: "#상큼오렌지 #기분전환", desc: "상큼한 오렌지 뒤에 은은한 생강 맛이 싹 돌아서 마시자마자 기분이 산뜻해져요." },
         en: { name: "Orange Carrot Ginger", tag: "#Orange #RefreshingMood", desc: "Zesty orange with a subtle warm twist for a bright, uplifting feeling right away." },
         ja: { name: "オレンジキャロット生姜", tag: "#爽やかオレンジ #気分転換", desc: "爽やかなオレンジの後にほんのり生姜が広がり、飲んだ瞬間気分がすっきり晴れやかに。" },
-        zh: { name: "香橙胡萝卜生姜汁", tag: "#鲜橙果香 #焕新心情", desc: "甜橙伴随着若隐若现的温润姜香，入口瞬间身心舒畅。" },
+        zh: { name: "香橙胡萝卜生姜汁", tag: "#鲜橙果香 #焕新心情", desc: "甜橙伴随着若隐若现의 温润姜香，入口瞬间身心舒畅。" },
         fr: { name: "Orange Carotte Gingembre", tag: "#OrangeFraîche #NouvelleÉnergie", desc: "L'orange acidulée suivie d'une douce note de gingembre pour un coup d'éclat immédiat." }
+      },
+      warm_orange_carrot_ginger: {
+        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18262957?area=bnq",
+        ko: { name: "따뜻한 오렌지당근생강", tag: "#몸을녹여주는 #상큼스파이시 #면역케어", desc: "따스하게 피어나는 상큼한 오렌지와 알싸한 생강의 온기! 으슬으슬할 때 몸을 포근하게 데워줘요." },
+        en: { name: "Warm Orange Carrot Ginger", tag: "#WarmingCozy #ZestySpice #ImmunityCare", desc: "Gentle warmth of sweet orange paired with spicy ginger. Comforts and soothes your body thoroughly." },
+        ja: { name: "ホット オレンジキャロット生姜", tag: "#ほっこり温まる #スパイシー #体調ケア", desc: "温かく広がるオレンジの香りと生姜の心地よい辛み！寒い日や疲れた体を芯からポカポカ温めます。" },
+        zh: { name: "暖香橙胡萝卜生姜汁", tag: "#暖胃驱寒 #香橙姜香 #温润滋补", desc: "温热清香的鲜橙与温润生姜交织，入口暖意融融，瞬间驱散寒气、温暖身心。" },
+        fr: { name: "Orange Carotte Gingembre Chaud", tag: "#ChaudEtRéconfortant #ÉpiceDouce #SoinHiver", desc: "La douceur chaude de l'orange alliée au piquant du gingembre pour réconforter et réchauffer le corps." }
       },
       carrot_ginger: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18262909?area=bnq",
         ko: { name: "당근생강", tag: "#알싸한생강 #환상조합", desc: "달달한 당근에 은은하게 퍼지는 알싸한 생강! 깔끔한 뒷맛!" },
         en: { name: "Carrot Ginger", tag: "#SpicyGinger #PerfectDuo", desc: "Sweet carrot blended with the warm spice of ginger. Wonderfully clean finish!" },
-        ja: { name: "キャロットジンジャー", tag: "#ピリッと生姜 #黄金コンビ", desc: "甘いニンジンにじんわり広がる生姜のアクセント！後味もすっきり爽やか！" },
-        zh: { name: "胡萝卜生姜汁", tag: "#温润生姜 #绝妙搭配", desc: "清甜胡萝卜中融入温润辛香的生姜，回味格外清爽！" },
+        ja: { name: "キャロットジンジャー", tag: "#ピリッと生姜 #黄金コンビ", desc: "甘いニンジン에 じんわり広がる生姜의 アクセント！後味도 すっきり爽やか！" },
+        zh: { name: "胡萝卜生姜汁", tag: "#温润生姜 #绝妙搭配", desc: "清甜胡萝卜中融入温润辛香의 生姜，回味格外清爽！" },
         fr: { name: "Carotte Gingembre", tag: "#GingembreÉpicé #DuoParfait", desc: "Carotte douce relevée d'une touche de gingembre pour une fin de bouche très nette !" }
       },
       carrot_coffee: {
@@ -480,9 +548,17 @@
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18262733?area=bnq",
         ko: { name: "당근사과", tag: "#달콤상큼 #실패없는맛 #인기1위", desc: "사과의 달콤함과 당근이 만났어요. 누구나 다 좋아하는 꿀조합 베스트셀러 주스예요." },
         en: { name: "Carrot Apple", tag: "#SweetCrisp #NeverFails #No1Popular", desc: "Crisp sweet apples harmoniously blended with carrot. Our all-time #1 bestseller!" },
-        ja: { name: "キャロットアップル", tag: "#甘酸っぱい #大人気 #不動のNo1", desc: "甘酸っぱいリンゴとニンジンが出会った、誰もが大好きな人気No.1ベストセラー！" },
+        ja: { name: "キャロットアップル", tag: "#甘酸っぱい #大人気 #不動のNo1", desc: "甘酸っぱいリンゴ와 新鮮なニンジン이 出会った、誰もが大好きな人気No.1ベストセラー！" },
         zh: { name: "苹果胡萝卜汁", tag: "#酸甜可口 #经典百搭 #人气第一", desc: "清甜苹果遇上胡萝卜，人手一杯、绝不踩雷的高人气镇店之宝。" },
         fr: { name: "Carotte Pomme", tag: "#DouxEtFrais #Incontournable #TopVente", desc: "La pomme croquante mariée à la carotte douce. Le best-seller n°1 adoré de tous !" }
+      },
+      warm_carrot_apple: {
+        orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/18262733?area=bnq",
+        ko: { name: "따뜻한 당근사과", tag: "#따뜻한온기 #달콤상큼 #체온충전", desc: "따뜻하게 데워 마시는 부드럽고 달콤한 당근사과! 한 모금 마시면 긴장이 풀리고 몸이 편안해져요." },
+        en: { name: "Warm Carrot Apple", tag: "#WarmComfort #SweetGentle #CozyVibe", desc: "Smooth and gently warm blend of sweet apple and carrot. Soothing sip that relaxes your day." },
+        ja: { name: "ホット キャロットアップル", tag: "#やさしい温もり #甘酸っぱい #リラックス", desc: "温かくまろやかに広がるリンゴとニンジンの甘み。飲むだけでホッとする優しいホットジュースです。" },
+        zh: { name: "暖苹果胡萝卜汁", tag: "#温热舒心 #清甜柔和 #放松身心", desc: "温热细腻的苹果与胡萝卜自然香甜，暖意融融，一口抚平身心疲惫。" },
+        fr: { name: "Carotte Pomme Chaude", tag: "#DouceChaleur #Gourmand #Apaisant", desc: "Un mélange doux et chaud de carotte et pomme. Une gorgée réconfortante pour apaiser l'esprit." }
       },
       abc_juice: {
         orderUrl: "https://m.booking.naver.com/order/bizes/1140512/items/5866364/menus/22835851?area=bnq",
@@ -497,7 +573,7 @@
         ko: { name: "CCA주스", tag: "#속편한주스 #양배추당근사과 #가벼운루틴", desc: "당근(Carrot), 양배추(Cabbage), 사과(Apple)의 신선함으로 편안하고 가벼운 하루를 완성합니다." },
         en: { name: "CCA Juice", tag: "#StomachComfort #CabbageCarrotApple #LightRoutine", desc: "Blend of Carrot, Cabbage, and Apple designed for digestive comfort and a light day." },
         ja: { name: "CCAジュース", tag: "#お腹に優しい #キャベツニンジンリンゴ #軽やかルーティン", desc: "ニンジン・キャベツ・リンゴのやさしさで、心地よく軽やかな毎日を。" },
-        zh: { name: "CCA 舒胃果蔬汁", tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #轻盈日常", desc: "胡萝卜、卷心菜和苹果调配，温和呵护肠胃，带来无负担的轻盈感。" },
+        zh: { name: "CCA 舒胃果蔬汁", tag: "#养胃舒缓 #卷心菜胡萝卜苹果 #轻盈日常", desc: "胡萝卜、卷心菜和苹果调配，温和呵护肠胃，带来无负担의 轻盈感。" },
         fr: { name: "Jus CCA", tag: "#EstomacLéger #ChouCarottePomme #DigestionFacile", desc: "Carotte, chou et pomme pour apaiser l'estomac et faire du bien à votre corps." }
       },
       coco_carrot: {
@@ -849,25 +925,23 @@
         mainFooter.classList.add("hidden");
       }
 
-      // 1. 홈 화면
+      // 1. 홈 화면 (2x3 대칭 그리드)
       if (currentView === "home") {
         let html = `
           <div class="animate-fade-in flex flex-col items-center gap-3 py-1 w-full">
             <div class="grid grid-cols-2 gap-3 w-full px-1">
         `;
         
-        STATUS_CATEGORIES.forEach((cat, index) => {
+        STATUS_CATEGORIES.forEach((cat) => {
           const item = cat[currentLang] || cat["ko"];
           const isImageFile = cat.icon.includes(".");
-          const isLastItem = (index === STATUS_CATEGORIES.length - 1);
-          const gridSpan = isLastItem ? "col-span-2 max-w-[200px] mx-auto w-full" : "w-full";
 
           const iconMarkup = isImageFile
             ? `<img src="${cat.icon}" alt="icon" onerror="this.onerror=null; this.outerHTML='<span class=\\'text-3xl mb-1 leading-none drop-shadow\\'>${cat.fallbackEmoji || '🥕'}</span>';" class="w-14 h-14 object-contain mb-1 drop-shadow-[0_3px_6px_rgba(0,0,0,0.12)]" />`
             : `<span class="text-3xl mb-1 leading-none drop-shadow">${cat.icon}</span>`;
 
           html += `
-            <button onclick="selectStatus('${cat.id}')" style="${cat.style}" class="${gridSpan} p-3 rounded-2xl border-2 active:scale-[0.95] transition-transform duration-100 flex flex-col items-center justify-center text-center min-h-[114px]">
+            <button onclick="selectStatus('${cat.id}')" style="${cat.style}" class="w-full p-3 rounded-2xl border-2 active:scale-[0.95] transition-transform duration-100 flex flex-col items-center justify-center text-center min-h-[114px]">
               ${iconMarkup}
               <h2 class="text-sm font-black leading-snug break-keep whitespace-pre-line mt-0.5">${item.title}</h2>
             </button>
